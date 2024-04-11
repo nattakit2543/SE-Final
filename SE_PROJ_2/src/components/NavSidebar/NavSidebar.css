@@ -1,0 +1,190 @@
+:root {
+    --sidebar-width-expanded: 250px;
+    --sidebar-width-collapsed: 70px;
+    --navbar-height: 60px;
+    --notification-popup-width: 250px;
+    --notification-popup-offset: calc(100% - 250px - 20px); 
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--navbar-height);
+    background-color: #2F2F2F;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.navbar-title {
+    color: #FFFFFF;
+    font-size: 20px; 
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.notification-icon {
+    color: white;
+    position: absolute;
+    right: 20px; 
+    top: 15px;
+    cursor: pointer;
+}
+
+.notification-popup {
+    position: absolute;
+    width: var(--notification-popup-width);
+    height: auto;
+    max-height: 300px;
+    background-color: #D9D9D9;
+    border-radius: 20px;
+    top: var(--navbar-height);
+    right: 20px; 
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.notification-header {
+    color: #000000;
+    font-size: 18px; 
+    font-weight: bold;
+    margin: 10px 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.notification-header .clear-notifications {
+    cursor: pointer;
+}
+
+.notification-item {
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+}
+
+.notification-content {
+    color: #929292;
+    font-size: 16px; 
+    font-weight: bold;
+    text-align: center;
+    margin-top: auto;
+}
+
+.toggle-icon {
+    position: fixed;
+    top: 37px;
+    cursor: pointer;
+    color: #f4ea2d;
+    font-size: 30px;
+    z-index: 12;
+}
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: var(--sidebar-width-expanded);
+    height: 100%;
+    background-color: #05C582;
+    transition: width 0.3s;
+    z-index: 11;
+}
+
+.sidebar.collapsed {
+    width: var(--sidebar-width-collapsed);
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    padding-left: 26px;
+    height: 100px;
+}
+
+.user-image {
+    margin-left: -16px;
+    width: 50px;
+    height: 50px;
+}
+
+.username {
+    margin-left: 28px;
+    font-size: 20px; 
+    color: #FFFFFF;
+}
+
+.sidebar.collapsed .username,
+.sidebar.collapsed .menu-title {
+    display: none;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    height: 61px;
+    background-color: #05C582;
+    color: #525E6A;
+    text-decoration: none;
+}
+
+.menu-item:hover, .menu-item.active {
+    background-color: #525E6A;
+    color: white;
+}
+
+.menu-item:hover .menu-icon, .menu-item.active .menu-icon {
+    color: white;
+}
+
+.menu-icon {
+    margin-left: 13px;
+    width: 40px;
+    height: 40px;
+}
+
+.menu-title {
+    margin-left: 5px;
+    font-size: 16px; 
+}
+
+/* Media Queries for Responsive Design */
+@media screen and (max-width: 768px) {
+    :root {
+        --sidebar-width-expanded: 200px;
+        --sidebar-width-collapsed: 50px;
+    }
+
+    .navbar-title {
+        font-size: 18px; 
+    }
+
+    .notification-popup {
+        --notification-popup-width: 200px;
+        --notification-popup-offset: calc(100% - 220px); 
+    }
+
+    .sidebar,
+    .sidebar.collapsed {
+        width: 100%; 
+        bottom: 0;
+        height: auto;
+        top: unset;
+    }
+
+    .sidebar-header {
+        justify-content: center; 
+        padding: 0;
+    }
+
+    .menu-item {
+        justify-content: center; 
+    }
+}
