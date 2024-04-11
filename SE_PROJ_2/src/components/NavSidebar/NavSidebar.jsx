@@ -1,3 +1,4 @@
+// NavSidebar.jsx
 import React, { useState, useEffect } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import './NavSidebar.css'; 
@@ -26,7 +27,7 @@ const NavSidebar = ({ menuItems }) => {
   };
 
   const handleUserImageClick = () => {
-    navigate('/userInfo');
+    navigate('/teacher/userInfo');
   };
 
   return (
@@ -38,7 +39,7 @@ const NavSidebar = ({ menuItems }) => {
         {isSidebarExpanded ? <IoIosArrowDropleftCircle size={30} /> : <IoIosArrowDroprightCircle size={30} />}
       </div>
       <div className={`sidebar ${isSidebarExpanded ? '' : 'collapsed'}`}>
-        <NavLink to="/userInfo" className="sidebar-header" onClick={handleUserImageClick}>
+        <NavLink to="/teacher/userInfo" className="sidebar-header" onClick={handleUserImageClick}>
           <img src={userImage} alt="User" className="user-image" />
           <span className="username">Username</span>
         </NavLink>
