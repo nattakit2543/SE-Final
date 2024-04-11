@@ -11,7 +11,6 @@ const teacherMenuItems = [
   { title: "วิธีใช้งาน", icon: IoMdHelpCircle, path: "/teacher/howToUseT" },
   { title: "ตารางสอน", icon: IoMdListBox, path: "/teacher/schTable" },
   { title: "ยื่นคำร้อง", icon: IoMdDocument, path: "/teacher/reqSub" },
-  { title: "ข้อมูลส่วนตัว", icon: IoMdDocument, path: "/teacher/userInfo" },
   { title: "ลงชื่อออก", icon: IoMdExit, path: "/" }
 ];
 

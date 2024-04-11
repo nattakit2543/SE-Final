@@ -13,7 +13,6 @@ const adminMenuItems = [
   { title: "นำเข้า/ส่งออกข้อมูลแบบไฟล์", icon: IoMdListBox, path: "/admin/importAndExport" },
   { title: "จัดการรายวิชาที่เปิดสอน", icon: IoIosMailUnread, path: "/admin/editTheCourseTem" },
   { title: "จัดตารางสอน", icon: IoMdDocument, path: "/admin/subjectManager" },
-  { title: "ข้อมูลส่วนตัว", icon: IoMdDocument, path: "/admin/userInfo" },
   { title: "ลงชื่อออก", icon: IoMdExit, path: "/" }
 ];
 

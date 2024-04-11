@@ -1,22 +1,14 @@
-// NavSidebar.jsx
 import React, { useState, useEffect } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import './NavSidebar.css'; 
 import userImage from '../../assets/user.png';
-import {
-  IoMdHelpCircle,
-  IoMdListBox,
-  IoMdDocument,
-  IoMdExit,
-  IoIosArrowDroprightCircle,
-  IoIosArrowDropleftCircle,
-  IoIosMailUnread,
-} from "react-icons/io";
+import { IoMdHelpCircle, IoMdListBox, IoMdDocument, IoMdExit, IoIosArrowDroprightCircle, IoIosArrowDropleftCircle, IoIosMailUnread } from "react-icons/io";
 
 const SIDEBAR_WIDTH_EXPANDED = 250;
 const SIDEBAR_WIDTH_COLLAPSED = 80;
 
 const NavSidebar = ({ menuItems }) => {
+  const navigate = useNavigate();
   const location = useLocation();
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
   const [iconPosition, setIconPosition] = useState(SIDEBAR_WIDTH_EXPANDED);
@@ -33,6 +25,10 @@ const NavSidebar = ({ menuItems }) => {
     return activeItem ? activeItem.title : "";
   };
 
+  const handleUserImageClick = () => {
+    navigate('/userInfo');
+  };
+
   return (
     <div>
       <div className="navbar">
@@ -42,7 +38,7 @@ const NavSidebar = ({ menuItems }) => {
         {isSidebarExpanded ? <IoIosArrowDropleftCircle size={30} /> : <IoIosArrowDroprightCircle size={30} />}
       </div>
       <div className={`sidebar ${isSidebarExpanded ? '' : 'collapsed'}`}>
-        <NavLink to="/userInfo" className="sidebar-header">
+        <NavLink to="/userInfo" className="sidebar-header" onClick={handleUserImageClick}>
           <img src={userImage} alt="User" className="user-image" />
           <span className="username">Username</span>
         </NavLink>
