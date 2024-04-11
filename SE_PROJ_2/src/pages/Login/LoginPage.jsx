@@ -11,15 +11,11 @@ const LoginPage = () => {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    // จำลองการยืนยันตัวตนสำหรับ Admin และ Teacher
     if (username === "admin" && password === "123") {
-      // ถ้าเป็น Admin ให้นำทางไปยังหน้า AdminApp
-      navigate('/howToUseA');
+      navigate('/admin'); // นำทางไปยังหน้า Admin
     } else if (username === "teacher" && password === "123") {
-      // ถ้าเป็น Teacher ให้นำทางไปยังหน้า TeacherApp
-      navigate('/howToUseT');
+      navigate('/teacher'); // นำทางไปยังหน้า Teacher
     } else {
-      // ถ้าข้อมูลไม่ถูกต้อง แสดงข้อความแจ้งเตือน
       alert('Invalid username or password');
     }
   };
@@ -30,25 +26,11 @@ const LoginPage = () => {
         <img src={KUlogo} alt="Kasetsart University Logo" className="ku-logo" />
         <div className="username-section">
           <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            className="login-input"
-            placeholder="Enter your username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
+          <input type="text" id="username" className="login-input" placeholder="Enter your username" value={username} onChange={(e) => setUsername(e.target.value)} />
         </div>
         <div className="password-section">
           <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            className="login-input"
-            placeholder="Enter your password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <input type="password" id="password" className="login-input" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </div>
         <div className="buttons-container">
           <button type="submit" id="login-button">Login</button>
