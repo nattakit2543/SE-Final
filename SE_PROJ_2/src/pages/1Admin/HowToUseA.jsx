@@ -10,5 +10,4 @@ const HowToUseA = () => {
     );
 };
 
-
 export default HowToUseA;
