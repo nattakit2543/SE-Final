@@ -4,7 +4,7 @@ import HowToUseT from './HowToUseT';
 import SchTable from './SchTable';
 import ReqSub from './ReqSub';
 import UserInfo from '../UserInfo/UserInfo';
-import NavSidebarT from './layout/NavSidebarT';
+import NavSidebarT from './layoutT/NavSidebarT';
 import './TeacherApp.css'; 
 
 const TeacherApp = () => {
