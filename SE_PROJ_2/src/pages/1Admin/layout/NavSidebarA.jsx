@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
 import './NavSidebarA.css';
 import userImage from '../../../assets/user.png';
+import { NavLink, useLocation } from 'react-router-dom';
 import {
     IoMdHelpCircle,
     IoMdListBox,
     IoMdDocument,
     IoMdExit,
     IoIosArrowDroprightCircle,
-    IoIosArrowDropleftCircle,
-    IoIosMailUnread,
+    IoIosArrowDropleftCircle
 } from "react-icons/io";
-
-const SIDEBAR_WIDTH_EXPANDED = 250;
-const SIDEBAR_WIDTH_COLLAPSED = 80;
 
 const NavSidebarA = ({ onToggleSidebar }) => {
     const location = useLocation();
@@ -25,10 +21,8 @@ const NavSidebarA = ({ onToggleSidebar }) => {
         setIconPosition(newPosition);
     }, [isSidebarExpanded]);
 
-    const toggleSidebar = () => {
-        setIsSidebarExpanded(!isSidebarExpanded);
-        onToggleSidebar(!isSidebarExpanded);
-    };
+    const toggleSidebar = () => setIsSidebarExpanded(!isSidebarExpanded);
+
 
     const getActiveMenuName = () => {
         switch (location.pathname) {
@@ -73,7 +67,7 @@ const NavSidebarA = ({ onToggleSidebar }) => {
                     <span className="menu-title">นำเข้า/ส่งออกข้อมูลแบบไฟล์</span>
                 </NavLink>
                 <NavLink to="/admin/editTheCourseTem" className={({ isActive }) => isActive ? 'menu-item active' : 'menu-item'}>
-                    <IoIosMailUnread className="menu-icon" />
+                    <IoMdDocument className="menu-icon" />
                     <span className="menu-title">จัดการรายวิชาที่เปิดสอน</span>
                 </NavLink>
                 <NavLink to="/admin/subjectManager" className={({ isActive }) => isActive ? 'menu-item active' : 'menu-item'}>
