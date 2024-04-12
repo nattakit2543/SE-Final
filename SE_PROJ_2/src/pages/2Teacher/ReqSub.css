@@ -1,0 +1,39 @@
+.request-submission {
+  height: 100vh;
+  width: calc(100vw - 65px);
+  display: flex;
+  position: relative;
+  top: 0;
+  left: 0;
+  background-color: #D9D9D9;
+}
+
+.add-request-btn {
+  width: 135px;
+  height: 55px;
+  border-radius: 50px;
+  background-color: #05C582;
+  cursor: pointer;
+  
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 999;
+}
+
+.orders-container {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%);
+
+}
+
+.add-request-btn:hover {
+  background-color: #04b471;
+}
