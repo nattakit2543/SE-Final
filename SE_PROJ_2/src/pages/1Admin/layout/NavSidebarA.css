@@ -96,7 +96,6 @@
     font-size: 16px;
 }
 
-/* Media Queries for Responsive Design */
 @media screen and (max-width: 768px) {
     .admin-navbar-title {
         font-size: 18px;
