@@ -1,17 +1,9 @@
-:root {
-    --sidebar-width-expanded: 250px;
-    --sidebar-width-collapsed: 65px;
-    --navbar-height: 60px;
-    --notification-popup-width: 250px;
-    --notification-popup-offset: calc(100% - 250px - 20px); 
-}
-
 .admin-navbar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: var(--navbar-height);
+    height: 60px;
     background-color: #2F2F2F;
     display: flex;
     align-items: center;
@@ -40,7 +32,7 @@
     position: fixed;
     left: 0;
     top: 0;
-    width: var(--sidebar-width-expanded);
+    width: 250px;
     height: 100%;
     background-color: #05C582;
     transition: width 0.3s;
@@ -48,7 +40,7 @@
 }
 
 .admin-sidebar.collapsed {
-    width: var(--sidebar-width-collapsed);
+    width: 65px;
 }
 
 .admin-sidebar-header {
@@ -106,18 +98,8 @@
 
 /* Media Queries for Responsive Design */
 @media screen and (max-width: 768px) {
-    :root {
-        --sidebar-width-expanded: 200px;
-        --sidebar-width-collapsed: 50px;
-    }
-
     .admin-navbar-title {
         font-size: 18px;
-    }
-
-    .notification-popup {
-        --notification-popup-width: 200px;
-        --notification-popup-offset: calc(100% - 220px);
     }
 
     .admin-sidebar,
