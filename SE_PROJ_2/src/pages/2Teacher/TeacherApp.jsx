@@ -1,15 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import HowToUseT from './HowToUseT';
 import SchTable from './SchTable';
 import ReqSub from './ReqSub';
 import UserInfo from '../UserInfo/UserInfo';
 import NavSidebarT from './layout/NavSidebarT';
+import './TeacherApp.css'; 
 
 const TeacherApp = () => {
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
+
+  
+  const toggleSidebar = () => {
+    setIsSidebarExpanded(!isSidebarExpanded);
+  };
+
   return (
-    <div className="teacher-dashboard">
-      <NavSidebarT />
+    <div className={`teacher-dashboard ${isSidebarExpanded ? 'sidebar-expanded' : 'sidebar-collapsed'}`}>
+      <NavSidebarT toggleSidebar={toggleSidebar} isSidebarExpanded={isSidebarExpanded} />
       <div className="main-content">
         <Routes>
           <Route path="howToUseT" element={<HowToUseT />} />

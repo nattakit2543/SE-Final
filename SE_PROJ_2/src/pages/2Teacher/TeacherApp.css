@@ -1,0 +1,13 @@
+
+  .main-content {
+    transition: margin-left 0.3s;
+  }
+  
+  .sidebar-expanded .main-content {
+    margin-left: 250px;
+  }
+  
+  .sidebar-collapsed .main-content {
+    margin-left: 65px; 
+  }
+  

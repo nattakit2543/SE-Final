@@ -4,17 +4,14 @@ import userImage from '../../../assets/user.png';
 import { NavLink, useLocation } from 'react-router-dom';
 import { IoMdHelpCircle, IoMdListBox, IoMdDocument, IoMdExit, IoIosArrowDroprightCircle, IoIosArrowDropleftCircle } from "react-icons/io";
 
-const NavSidebarT = () => { 
+const NavSidebarT = ({ toggleSidebar, isSidebarExpanded }) => { 
     const location = useLocation();
-    const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
     const [iconPosition, setIconPosition] = useState(250); 
 
     useEffect(() => {
         const newPosition = isSidebarExpanded ? 235 : 65; 
         setIconPosition(newPosition);
     }, [isSidebarExpanded]); 
-
-    const toggleSidebar = () => setIsSidebarExpanded(!isSidebarExpanded);
 
     const getActiveMenuName = () => {
         switch (location.pathname) {
