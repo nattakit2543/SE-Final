@@ -11,7 +11,7 @@ import {
     IoIosArrowDropleftCircle
 } from "react-icons/io";
 
-const NavSidebarA = ({ onToggleSidebar }) => {
+const NavSidebarA = () => {
     const location = useLocation();
     const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
     const [iconPosition, setIconPosition] = useState(250);
