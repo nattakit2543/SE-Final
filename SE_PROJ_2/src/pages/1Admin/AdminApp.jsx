@@ -5,7 +5,7 @@ import ImportAndExport from './ImportAndExport';
 import EditTheCourseTem from './EditTheCourseTem';
 import SubjectManager from './SubjectManager';
 import UserInfo from '../UserInfo/UserInfo';
-import NavSidebarA from './layout/NavSidebarA';
+import NavSidebarA from './layoutA/NavSidebarA';
 import './AdminApp.css';
 
 const AdminApp = () => {
