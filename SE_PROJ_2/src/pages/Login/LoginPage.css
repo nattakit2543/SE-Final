@@ -1,0 +1,134 @@
+.containerLogin {
+  width: 100vw;
+  height: 100vh;
+  background-color: #05C582;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-box {
+  width: 500px;
+  height: 400px;
+  background-color: #2E3138;
+  border-radius: 30px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 70px;
+}
+
+.ku-logo {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 180px;
+  height: auto;
+}
+
+.username-section,
+.password-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.login-box label {
+  color: white;
+  font-size: 18px;
+  margin-bottom: 3px;
+  margin-right: 310px;
+}
+
+.login-input {
+  width: 400px;
+  height: 50px;
+  background-color: #525E6A;
+  border-radius: 10px;
+  border: none;
+  padding: 10px;
+  color: white;
+  font-size: 18px;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+#login-button {
+  width: 150px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: #05C480;
+  border: none;
+  color: black;
+  font-size: 20px;
+  font-weight: bolder;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+#login-button:hover {
+  background-color: #00FFA6;
+  transform: translateY(-2px);
+}
+
+#google-login-button {
+  width: 90px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: #F5F5F5;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+#google-login-button:hover {
+  background-color: #FF0000;
+  transform: translateY(-2px);
+}
+
+#google-login-button img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.error-message {
+  color: red;
+}
+
+@media (max-width: 600px) {
+  .login-box {
+    width: 95%;
+    height: auto;
+    padding-top: 50px;
+  }
+
+  .ku-logo {
+    width: 150px;
+  }
+
+  .login-box label {
+    font-size: 16px;
+  }
+
+  .login-input {
+    height: 40px;
+  }
+
+  #login-button,
+  #google-login-button {
+    height: 40px;
+    font-size: 18px;
+  }
+}
