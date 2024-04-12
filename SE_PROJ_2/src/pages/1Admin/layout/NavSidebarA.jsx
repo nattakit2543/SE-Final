@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './NavSidebarA.css?v=1.1';
+import './NavSidebarA.css'; // ตรวจสอบให้แน่ใจว่าไฟล์ CSS ถูกเปลี่ยนชื่อตาม
 import userImage from '../../../assets/user.png';
 import { NavLink, useLocation } from 'react-router-dom';
 import {
@@ -22,7 +22,6 @@ const NavSidebarA = () => {
     }, [isSidebarExpanded]);
 
     const toggleSidebar = () => setIsSidebarExpanded(!isSidebarExpanded);
-
 
     const getActiveMenuName = () => {
         switch (location.pathname) {
@@ -47,36 +46,36 @@ const NavSidebarA = () => {
 
     return (
         <div>
-            <div className="navbar">
-                <span className="navbar-title">{getActiveMenuName()}</span>
+            <div className="admin-navbar">
+                <span className="admin-navbar-title">{getActiveMenuName()}</span>
             </div>
-            <div className="toggle-icon" style={{ left: `${iconPosition}px` }} onClick={toggleSidebar}>
+            <div className="admin-toggle-icon" style={{ left: `${iconPosition}px` }} onClick={toggleSidebar}>
                 {isSidebarExpanded ? <IoIosArrowDropleftCircle size={30} /> : <IoIosArrowDroprightCircle size={30} />}
             </div>
-            <div className={`sidebar ${isSidebarExpanded ? '' : 'collapsed'}`}>
-                <NavLink to="/admin/userInfo" className="sidebar-header">
-                    <img src={userImage} alt="user" className="user-image" />
-                    <span className="username">username</span>
+            <div className={`admin-sidebar ${isSidebarExpanded ? '' : 'collapsed'}`}>
+                <NavLink to="/admin/userInfo" className="admin-sidebar-header">
+                    <img src={userImage} alt="user" className="admin-user-image" />
+                    <span className="admin-username">username</span>
                 </NavLink>
-                <NavLink to="/admin/howToUseA" className={({ isActive }) => isActive ? 'menu-item active' : 'menu-item'}>
-                    <IoMdHelpCircle className="menu-icon" />
-                    <span className="menu-title">วิธีใช้งาน</span>
+                <NavLink to="/admin/howToUseA" className={({ isActive }) => isActive ? 'admin-menu-item active' : 'admin-menu-item'}>
+                    <IoMdHelpCircle className="admin-menu-icon" />
+                    <span className="admin-menu-title">วิธีใช้งาน</span>
                 </NavLink>
-                <NavLink to="/admin/importAndExport" className={({ isActive }) => isActive ? 'menu-item active' : 'menu-item'}>
-                    <IoMdListBox className="menu-icon" />
-                    <span className="menu-title">นำเข้า/ส่งออกข้อมูลแบบไฟล์</span>
+                <NavLink to="/admin/importAndExport" className={({ isActive }) => isActive ? 'admin-menu-item active' : 'admin-menu-item'}>
+                    <IoMdListBox className="admin-menu-icon" />
+                    <span className="admin-menu-title">นำเข้า/ส่งออกข้อมูลแบบไฟล์</span>
                 </NavLink>
-                <NavLink to="/admin/editTheCourseTem" className={({ isActive }) => isActive ? 'menu-item active' : 'menu-item'}>
-                    <IoMdDocument className="menu-icon" />
-                    <span className="menu-title">จัดการรายวิชาที่เปิดสอน</span>
+                <NavLink to="/admin/editTheCourseTem" className={({ isActive }) => isActive ? 'admin-menu-item active' : 'admin-menu-item'}>
+                    <IoMdDocument className="admin-menu-icon" />
+                    <span className="admin-menu-title">จัดการรายวิชาที่เปิดสอน</span>
                 </NavLink>
-                <NavLink to="/admin/subjectManager" className={({ isActive }) => isActive ? 'menu-item active' : 'menu-item'}>
-                    <IoMdDocument className="menu-icon" />
-                    <span className="menu-title">จัดตารางสอน</span>
+                <NavLink to="/admin/subjectManager" className={({ isActive }) => isActive ? 'admin-menu-item active' : 'admin-menu-item'}>
+                    <IoMdDocument className="admin-menu-icon" />
+                    <span className="admin-menu-title">จัดตารางสอน</span>
                 </NavLink>
-                <NavLink to="/" className={({ isActive }) => isActive ? 'menu-item active' : 'menu-item'}>
-                    <IoMdExit className="menu-icon" />
-                    <span className="menu-title">ลงชื่อออก</span>
+                <NavLink to="/" className={({ isActive }) => isActive ? 'admin-menu-item active' : 'admin-menu-item'}>
+                    <IoMdExit className="admin-menu-icon" />
+                    <span className="admin-menu-title">ลงชื่อออก</span>
                 </NavLink>
             </div>
         </div>
