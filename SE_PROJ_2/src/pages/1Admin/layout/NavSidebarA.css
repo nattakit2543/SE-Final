@@ -1,6 +1,6 @@
 :root {
     --sidebar-width-expanded: 250px;
-    --sidebar-width-collapsed: 70px;
+    --sidebar-width-collapsed: 80px;
     --navbar-height: 60px;
     --notification-popup-width: 250px;
     --notification-popup-offset: calc(100% - 250px - 20px); 
@@ -110,7 +110,7 @@
 }
 
 .user-image {
-    margin-left: -16px;
+    margin-left: -12px;
     width: 50px;
     height: 50px;
 }
@@ -145,13 +145,14 @@
 }
 
 .menu-icon {
-    margin-left: 13px;
+    margin-left: 20px;
     width: 40px;
     height: 40px;
+    
 }
 
 .menu-title {
-    margin-left: 5px;
+    margin-left: 30px;
     font-size: 16px; 
 }
 
