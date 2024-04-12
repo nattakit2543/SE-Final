@@ -1,12 +1,84 @@
-.center {
-    display: flex;
-    justify-content: center; 
-    align-items: center; 
-    height: 100vh; 
-  }
-  
-  .center img {
-    max-width: 50%; 
-    height: auto; 
-  }
-  
+/* Profile.css */
+.userInfo-container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  background-color: #D9D9D9;
+}
+
+.circle {
+  width: 10.42vw; /* 200px/1920px */
+  height: 23.15vh; /* 250px/1080px */
+  background-color: #929292;
+  border-radius: 50%;
+  position: absolute;
+  left: 32.35vw; /* 621px/1920px */
+  top: 23.15vh; /* 250px/1080px */
+}
+
+.box {
+  width: 10.94vw; /* 210px/1920px */
+  height: 4.63vh; /* 50px/1080px */
+  background-color: #929292;
+  position: absolute;
+}
+
+.text {
+  font-size: 1.33vh; /* 16px/1080px */
+  color: black;
+  position: absolute;
+}
+
+/* Custom classes for specific boxes and texts */
+.box-name {
+  left: 44.22vw; /* 849px/1920px */
+  top: 21.2vh; /* 229px/1080px */
+}
+
+.box-surname {
+  left: 56.51vw; /* 1089px/1920px */
+  top: 21.2vh;
+}
+
+.box-faculty {
+  width: 23.44vw; /* 450px/1920px */
+  left: 44.22vw;
+  top: 28.43vh; /* 307px/1080px */
+}
+
+.box-phone {
+  width: 23.44vw;
+  left: 44.22vw;
+  top: 35.65vh; /* 385px/1080px */
+}
+
+.box-email {
+  width: 23.44vw;
+  left: 44.22vw;
+  top: 42.87vh; /* 463px/1080px */
+}
+
+.text-name {
+  left: 44.22vw;
+  top: 19.35vh; /* 209px/1080px */
+}
+
+.text-surname {
+  left: 56.51vw;
+  top: 19.35vh;
+}
+
+.text-faculty {
+  left: 44.22vw;
+  top: 26.57vh; /* 287px/1080px */
+}
+
+.text-phone {
+  left: 44.22vw;
+  top: 33.80vh; /* 365px/1080px */
+}
+
+.text-email {
+  left: 44.22vw;
+  top: 41.02vh; /* 443px/1080px */
+}
