@@ -11,17 +11,14 @@ import {
     IoIosArrowDropleftCircle
 } from "react-icons/io";
 
-const NavSidebarA = () => {
+const NavSidebarA = ({ toggleSidebar, isSidebarExpanded }) => {
     const location = useLocation();
-    const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
     const [iconPosition, setIconPosition] = useState(250);
 
     useEffect(() => {
-        const newPosition = isSidebarExpanded ? 235 : 65;
+        const newPosition = isSidebarExpanded ? 235 : 65; // Adjust icon position based on sidebar state
         setIconPosition(newPosition);
     }, [isSidebarExpanded]);
-
-    const toggleSidebar = () => setIsSidebarExpanded(!isSidebarExpanded);
 
     const getActiveMenuName = () => {
         switch (location.pathname) {

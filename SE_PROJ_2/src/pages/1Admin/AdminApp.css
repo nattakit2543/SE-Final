@@ -1,0 +1,12 @@
+.main-contentA {
+    transition: margin-left 0.3s;
+}
+
+.sidebar-expanded .main-contentA {
+    margin-left: 250px;
+
+}
+
+.sidebar-collapsed .main-contentA {
+    margin-left: 65px;
+}
