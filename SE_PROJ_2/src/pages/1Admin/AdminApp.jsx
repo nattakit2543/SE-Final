@@ -8,10 +8,11 @@ import UserInfo from '../UserInfo/UserInfo';
 import NavSidebarA from './layout/NavSidebarA';
 
 const AdminApp = () => {
+  
   return (
     <div className="admin-dashboard">
       <NavSidebarA />
-      <div className="main-content">
+      <div className="main-contentA">
         <Routes>
           <Route path="howToUseA" element={<HowToUseA />} />
           <Route path="importAndExport" element={<ImportAndExport />} />
