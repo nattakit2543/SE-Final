@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './NavSidebarA.css';
+import './NavSidebarA.css?v=1.1';
 import userImage from '../../../assets/user.png';
 import { NavLink, useLocation } from 'react-router-dom';
 import {
