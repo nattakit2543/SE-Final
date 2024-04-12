@@ -12,9 +12,9 @@ const LoginPage = () => {
     e.preventDefault();
 
     if (username === "admin" && password === "123") {
-      navigate('/admin'); // นำทางไปยังหน้า Admin
+      navigate('/admin');
     } else if (username === "teacher" && password === "123") {
-      navigate('/teacher'); // นำทางไปยังหน้า Teacher
+      navigate('/teacher');
     } else {
       alert('Invalid username or password');
     }
