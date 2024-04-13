@@ -55,6 +55,7 @@ myApp.get("/", (request,response) =>{
 })
 
 
+//ImportandExport วิชา section
 myApp.post('/upload', upload.single('file'), async (req, res, next) => {
   try {
       const workbook = xlsx.readFile(req.file.path);
@@ -76,14 +77,14 @@ myApp.post('/upload', upload.single('file'), async (req, res, next) => {
       }
 
       // Declare sqlQuery using let instead of const to allow modification
-      let sqlQuery = 'INSERT INTO subject (SubjectCode, SubjectName, SubjectNameEnglish, CourseYear, Credits, Type, Preq, StudentGrade, Major) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+      let sqlQuery = 'INSERT INTO subject (SubjectCode, SubjectName, SubjectNameEnglish, CourseYear, Credits, Type, Preq, StudentGrade, Major, Term) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
       const dataInsert = [];
 
       data.forEach((value, index) => {
           if (index !== 0) {
-              sqlQuery += ', (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+              sqlQuery += ', (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
           }
-          const paddedIdSubject = padWithLeadingZeros(value.SubjectCode, 9);
+          const paddedIdSubject = padWithLeadingZeros(value.SubjectCode, 10);
           dataInsert.push(
               paddedIdSubject,
               value.SubjectCode,
@@ -94,7 +95,8 @@ myApp.post('/upload', upload.single('file'), async (req, res, next) => {
               value.Type,
               value.Preq,
               value.StudentGrade,
-              value.Major
+              value.Major,
+              value.Term
               
           );
       });
@@ -104,7 +106,7 @@ myApp.post('/upload', upload.single('file'), async (req, res, next) => {
             reject(err);
         } else if (results.length === 0) {
             // If the subject does not exist, insert it into the subject table
-            conn.query('INSERT INTO subject (SubjectCode, SubjectName, SubjectNameEnglish, CourseYear, Credits, Type, Preq, StudentGrade, Major) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', 
+            conn.query('INSERT INTO subject (SubjectCode, SubjectName, SubjectNameEnglish, CourseYear, Credits, Type, Preq, StudentGrade, Major, Term) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
             [paddedIdSubject,
               value.SubjectCode,
               value.SubjectName,
@@ -114,7 +116,8 @@ myApp.post('/upload', upload.single('file'), async (req, res, next) => {
               value.Type,
               value.Preq,
               value.StudentGrade,
-              value.Major], 
+              value.Major,
+              value.Term], 
               (insertErr, insertResult) => {
                 if (insertErr) {
                     reject(insertErr);
@@ -172,6 +175,22 @@ myApp.get("/userdetail/logout/:id", (request, response) => {
   });
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Login และ ข้อมูลผู้ใช้ Section
 myApp.get("/userdetail", (request, response) => {
   var sql ="SELECT * FROM `userdetail`";
 
