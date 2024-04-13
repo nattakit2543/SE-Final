@@ -25,7 +25,7 @@ const OrderBarList = ({ order, onClose }) => {
                     {order.courseCode} - {order.courseNameEN} - {order.numberOfStudents}
                 </div>
                 <div className="status-box" style={{ backgroundColor: getStatusBoxColor(order.status) }}>
-                    <span className="status-text">สถานะคำร้อง {order.status}</span>
+                    <span className="status-text">{order.status}</span>
                 </div>
             </div>
         </div>
