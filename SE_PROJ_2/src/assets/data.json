@@ -1,0 +1,64 @@
+[
+    
+  {
+      "year": "2567",
+      "usrname" : "วรวิทย์ นันทะสุ"
+  },
+  {
+      "code": "03603212-65",
+      "subject": "Abstract Data Types and Problem Solving",
+      "time": "F-09:00-12:00",
+      "room": "17403",
+      "sec": "800",
+      "students": 120
+    },
+    {
+      "code": "03603323-60",
+      "subject": "Introduction to Embedded Systems",
+      "time": "Th-13:00-16:00",
+      "room": "17403",
+      "sec": "800",
+      "students": 50
+    },
+    {
+      "code": "03603324-60",
+      "subject": "Embedded Systems Laboratory",
+      "time": "M-09:00-12:00",
+      "room": "17402",
+      "sec": "832",
+      "students": 50
+    },
+    {
+      "code": "03603332-60",
+      "subject": "Operating Systems",
+      "time": "T-13:00-16:00",
+      "room": "17401",
+      "sec": "800",
+      "students": 100
+    },
+    {
+      "code": "03603352-60",
+      "subject": "Laws and Ethics in Information Technology",
+      "time": "W-09:00-12:00",
+      "room": "17404",
+      "sec": "800",
+      "students": 120
+    },
+    {
+      "code": "01387101-64",
+      "subject": "The Art of Living with Others",
+      "time": "Sat-09:00-12:00",
+      "room": "17404",
+      "sec": "800",
+      "students": 120
+    },
+    {
+      "code": "01999141-64",
+      "subject": "Man and Society",
+      "time": "Sun-09:00-12:00",
+      "room": "17404",
+      "sec": "802",
+      "students": 120
+    }
+  ]
+  
