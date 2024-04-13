@@ -3,60 +3,51 @@ import PropTypes from 'prop-types';
 import './ReqSub.css';
 import PopUpRequestSubmission from './componentsT/PopUpReqSub';
 import OrderBarList from './componentsT/OrderBarList';
+import ConfirmPopup from './componentsT/ConfirmPopup';  // Import นี้เพิ่ม
 import { v4 as uuidv4 } from 'uuid';
 
 const ReqSub = () => {
     const [showPopup, setShowPopup] = useState(false);
+    const [showConfirmPopup, setShowConfirmPopup] = useState(false); // สถานะใหม่สำหรับ ConfirmPopup
+    const [tempData, setTempData] = useState(null); // ข้อมูลชั่วคราวสำหรับยืนยัน
     const [orders, setOrders] = useState(() => {
         const savedOrders = localStorage.getItem('orders');
         return savedOrders ? JSON.parse(savedOrders) : [];
     });
 
-    useEffect(() => {
-        localStorage.setItem('orders', JSON.stringify(orders));
-    }, [orders]);
-
-    const handleAddRequestClick = () => setShowPopup(true);
-    const handleClosePopup = () => setShowPopup(false);
-
     const handleOrderSubmit = useCallback((formData) => {
+        setTempData(formData);
+        setShowConfirmPopup(true); // แสดง ConfirmPopup
+    }, []);
+
+    const confirmOrder = () => {
+        // ยืนยันและเพิ่มคำสั่งลงในสถานะ orders
+        setShowConfirmPopup(false);
+        setShowPopup(false);
         setOrders(prevOrders => {
             const newOrder = {
-                ...formData,
+                ...tempData,
                 id: uuidv4(),
-                numberOfStudents: Number(formData.numberOfStudents) // แปลงเป็น number
+                status: 'Pending'
             };
             const newOrders = [...prevOrders, newOrder];
             localStorage.setItem('orders', JSON.stringify(newOrders));
             return newOrders;
         });
-        setShowPopup(false);
-    }, []);
-
-    const removeOrder = useCallback((id) => {
-        setOrders(currentOrders => {
-            const updatedOrders = currentOrders.filter(order => order.id !== id);
-            localStorage.setItem('orders', JSON.stringify(updatedOrders));
-            return updatedOrders;
-        });
-    }, []);
+    };
 
     return (
         <div className="request-submission">
-            <button className="add-request-btn" onClick={handleAddRequestClick} aria-label="Add new request">เพิ่มคำร้อง</button>
-            {showPopup && <PopUpRequestSubmission onClose={handleClosePopup} onSubmit={handleOrderSubmit} />}
+            <button className="add-request-btn" onClick={() => setShowPopup(true)} aria-label="Add new request">เพิ่มคำร้อง</button>
+            {showPopup && <PopUpRequestSubmission isOpen={showPopup} onClose={() => setShowPopup(false)} onSubmit={handleOrderSubmit} />}
+            {showConfirmPopup && <ConfirmPopup onConfirm={confirmOrder} onCancel={() => setShowConfirmPopup(false)} />}
             <div className="orders-container" role="list">
                 {orders.map((order) => (
-                    <OrderBarList key={order.id} order={order} onClose={() => removeOrder(order.id)} />
+                    <OrderBarList key={order.id} order={order} onClose={() => setOrders(prev => prev.filter(o => o.id !== order.id))} />
                 ))}
             </div>
         </div>
     );
-}
-
-ReqSub.propTypes = {
-    orders: PropTypes.arrayOf(PropTypes.object),
-    showPopup: PropTypes.bool
 };
 
 export default ReqSub;
