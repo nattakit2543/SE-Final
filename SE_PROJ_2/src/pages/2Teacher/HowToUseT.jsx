@@ -8,8 +8,7 @@ function HowToUseT() {
         alignItems: 'center',
         height: 'calc(100vh - 20px)', 
         width: 'calc(100vw - 65px)',
-        marginTop: '50px', 
-
+        marginTop: '0px',
     };
 
     const pdfStyle = {
