@@ -25,22 +25,19 @@ const ReqSub = () => {
     }, []);
 
     const confirmOrder = useCallback(() => {
+        const newOrder = {
+            ...tempData,
+            id: uuidv4(),
+            status: 'Pending'
+        };
+        setOrders(prevOrders => [...prevOrders, newOrder]);
+        localStorage.setItem('orders', JSON.stringify(orders));  
         setShowConfirmPopup(false);
-        setOrders(prevOrders => {
-            const newOrder = {
-                ...tempData,
-                id: uuidv4(),
-                status: 'Pending'
-            };
-            const newOrders = [...prevOrders, newOrder];
-            localStorage.setItem('orders', JSON.stringify(newOrders));
-            return newOrders;
-        });
-    }, [tempData]);
+    }, [tempData, orders]);
 
     const cancelOrder = useCallback(() => {
         setShowConfirmPopup(false);
-        setShowPopup(true);  
+        setShowPopup(true);
     }, []);
 
     return (
