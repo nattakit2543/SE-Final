@@ -1,26 +1,18 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { IoMdWarning } from 'react-icons/io';
-/** 
-const rotate = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-`;**/
 
 const Overlay = styled.div`
   position: fixed;
   top: 0;
-  left: 0;
+  left: 65px;
   right: 0;
   bottom: 0;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: center;  
+  justify-content: center;  
   background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
 `;
 
 const Popup = styled.div`
@@ -39,9 +31,7 @@ const WarningIcon = styled(IoMdWarning)`
   font-size: 60px;
   color: #ffeb3b;
   margin-bottom: 20px;
-  
 `;
-/**animation: ${rotate} 3s linear infinite; // Apply the rotating animation here**/
 
 const Button = styled.button`
   width: 100%;
@@ -77,9 +67,9 @@ function ConfirmPopup({ onConfirm, onCancel }) {
     return (
         <Overlay>
             <Popup>
-                <WarningIcon /> {/* Warning icon at the top */}
-                <CancelButton onClick={onCancel}>แก้ไข</CancelButton> {/* Cancel button first */}
-                <ConfirmButton onClick={onConfirm}>ยืนยัน</ConfirmButton> {/* Confirm button below */}
+                <WarningIcon />
+                <CancelButton onClick={onCancel}>แก้ไข</CancelButton>
+                <ConfirmButton onClick={onConfirm}>ยืนยัน</ConfirmButton>
             </Popup>
         </Overlay>
     );
