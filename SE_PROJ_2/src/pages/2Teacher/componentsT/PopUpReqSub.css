@@ -58,6 +58,13 @@
     background-color: #FFFFFF;
     color: #000000;
   }
+
+  .input-field.larges {
+    width: 276px;
+    height: 41px;
+    background-color: #FFFFFF;
+    color: #000000;
+  }
   
   .input-field.small {
     width: 133px;
@@ -87,6 +94,36 @@
     border: 2px solid red;
     background-color: #EF6B6B; 
     animation: shake 0.3s linear;
+  }
+
+  .class-year-select {
+    width: 133px;
+    height: 41px;
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px solid #ccc; 
+    background-color: white;
+    color: #000000;
+  }
+
+.course-category-select {
+  width: 276px;
+  height: 41px;
+  padding: 5px;
+  border-radius: 10px;
+  border: 1px solid #ccc; 
+  background-color: white;
+  color: #000000;
+}
+  
+  .class-year-select.error {
+    border: 2px solid red;
+    background-color: #EF6B6B; 
+  }
+
+  .course-category-select.error {
+    border: 2px solid red;
+    background-color: #EF6B6B; 
   }
   
   @keyframes shake {
