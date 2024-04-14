@@ -37,11 +37,11 @@ const LoginPage = () => {
       <form className="login-box" onSubmit={handleSubmit}>
         <img src={KUlogo} alt="Kasetsart University Logo" className="ku-logo" />
         <div className="username-section">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email" className="email-label">Email</label>
           <input type="email" id="email" className="login-input" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} />
         </div>
         <div className="password-section">
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password" className="password-label">Password</label>
           <input type="password" id="password" className="login-input" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </div>
         {error && <div className="error-message">{error}</div>}
