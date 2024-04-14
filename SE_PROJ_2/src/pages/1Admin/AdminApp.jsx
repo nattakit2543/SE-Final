@@ -9,27 +9,31 @@ import NavSidebarA from './layoutA/NavSidebarA';
 import './AdminApp.css';
 
 const AdminApp = () => {
-  const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
+    const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
 
-  const toggleSidebar = () => {
-    setIsSidebarExpanded(!isSidebarExpanded);
-    console.log("Sidebar Toggled:", !isSidebarExpanded); 
-  };
+    const toggleSidebar = () => {
+        setIsSidebarExpanded(!isSidebarExpanded);
+    };
 
-  return (
-    <div className={`admin-dashboard ${isSidebarExpanded ? 'sidebar-expanded' : 'sidebar-collapsed'}`}>
-      <NavSidebarA toggleSidebar={toggleSidebar} isSidebarExpanded={isSidebarExpanded} />
-      <div className="main-contentA">
-        <Routes>
-          <Route path="howToUseA" element={<HowToUseA />} />
-          <Route path="importAndExport" element={<ImportAndExport />} />
-          <Route path="editTheCourseTem" element={<EditTheCourseTem />} />
-          <Route path="subjectManager" element={<SubjectManager />} />
-          <Route path="userInfo" element={<UserInfo />} />
-        </Routes>
-      </div>
-    </div>
-  );
+    const logout = () => {
+        sessionStorage.removeItem("userToken");
+        window.location.href = "/login";
+    };
+
+    return (
+        <div className={`admin-dashboard ${isSidebarExpanded ? 'sidebar-expanded' : 'sidebar-collapsed'}`}>
+            <NavSidebarA toggleSidebar={toggleSidebar} isSidebarExpanded={isSidebarExpanded} logout={logout} />
+            <div className="main-contentA">
+                <Routes>
+                    <Route path="howToUseA" element={<HowToUseA />} />
+                    <Route path="importAndExport" element={<ImportAndExport />} />
+                    <Route path="editTheCourseTem" element={<EditTheCourseTem />} />
+                    <Route path="subjectManager" element={<SubjectManager />} />
+                    <Route path="userInfo" element={<UserInfo />} />
+                </Routes>
+            </div>
+        </div>
+    );
 };
 
 export default AdminApp;
