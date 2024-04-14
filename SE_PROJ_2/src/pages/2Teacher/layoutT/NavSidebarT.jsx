@@ -4,7 +4,7 @@ import userImage from '../../../assets/user.png';
 import { NavLink, useLocation } from 'react-router-dom';
 import { IoMdHelpCircle, IoMdListBox, IoMdDocument, IoMdExit, IoIosArrowDroprightCircle, IoIosArrowDropleftCircle } from "react-icons/io";
 
-const NavSidebarT = ({ toggleSidebar, isSidebarExpanded }) => { 
+const NavSidebarT = ({ toggleSidebar, isSidebarExpanded, logout }) => { 
     const location = useLocation();
     const [iconPosition, setIconPosition] = useState(250); 
 
@@ -39,23 +39,23 @@ const NavSidebarT = ({ toggleSidebar, isSidebarExpanded }) => {
                 {isSidebarExpanded ? <IoIosArrowDropleftCircle size={30} /> : <IoIosArrowDroprightCircle size={30} />}
             </div>
             <div className={`sidebar ${isSidebarExpanded ? '' : 'collapsed'}`}>
-                <NavLink to="/teacher/userInfo" className="sidebar-header">
+                <NavLink to="userInfo" className="sidebar-header">
                     <img src={userImage} alt="user" className="user-image" />
                     <span className="username">username</span>
                 </NavLink>
-                <NavLink to="/teacher/howToUseT" className={({ isActive }) => isActive ? 'menu-item active' : 'menu-item'}>
+                <NavLink to="howToUseT" className={({ isActive }) => isActive ? 'menu-item active' : 'menu-item'}>
                     <IoMdHelpCircle className="menu-icon" />
                     <span className="menu-title">วิธีใช้งาน</span>
                 </NavLink>
-                <NavLink to="/teacher/schTable" className={({ isActive }) => isActive ? 'menu-item active' : 'menu-item'}>
+                <NavLink to="schTable" className={({ isActive }) => isActive ? 'menu-item active' : 'menu-item'}>
                     <IoMdListBox className="menu-icon" />
                     <span className="menu-title">ตารางสอน</span>
                 </NavLink>
-                <NavLink to="/teacher/reqSub" className={({ isActive }) => isActive ? 'menu-item active' : 'menu-item'}>
+                <NavLink to="reqSub" className={({ isActive }) => isActive ? 'menu-item active' : 'menu-item'}>
                     <IoMdDocument className="menu-icon" />
                     <span className="menu-title">ยื่นคำร้อง</span>
                 </NavLink>
-                <NavLink to="/" className={({ isActive }) => isActive ? 'menu-item active' : 'menu-item'}>
+                <NavLink to="/" onClick={logout} className={({ isActive }) => isActive ? 'menu-item active' : 'menu-item'}>
                     <IoMdExit className="menu-icon" />
                     <span className="menu-title">ลงชื่อออก</span>
                 </NavLink>

@@ -10,14 +10,18 @@ import './TeacherApp.css';
 const TeacherApp = () => {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
 
-  
   const toggleSidebar = () => {
     setIsSidebarExpanded(!isSidebarExpanded);
   };
 
+  const logout = () => {
+    sessionStorage.removeItem("userToken");
+    window.location.href = "/login";
+  };
+
   return (
     <div className={`teacher-dashboard ${isSidebarExpanded ? 'sidebar-expanded' : 'sidebar-collapsed'}`}>
-      <NavSidebarT toggleSidebar={toggleSidebar} isSidebarExpanded={isSidebarExpanded} />
+      <NavSidebarT toggleSidebar={toggleSidebar} isSidebarExpanded={isSidebarExpanded} logout={logout} />
       <div className="main-content">
         <Routes>
           <Route path="howToUseT" element={<HowToUseT />} />
