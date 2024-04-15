@@ -93,6 +93,20 @@ myApp.get("/login/:email/:password", (request, response) => {
 });
 
 
+myApp.get("/teacherinfo/:id", (request, response) => {
+  const  {id}  = request.params;
+  conn.query('SELECT role, TeacherEmail FROM teacherinfo WHERE idTeacher =?',[id], (err, results) => {
+    if (err) {
+      console.log(err);
+      response.status(500).json({ err: "Internal server error" });
+    }else {
+      response.send(results);
+    }
+  });
+});
+
+
+
 myApp.get("/userdetail", (request, response) => {
   var sql ="SELECT * FROM `userdetail`";
 
