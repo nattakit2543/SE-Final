@@ -7,6 +7,8 @@ import {
     IoMdListBox,
     IoMdDocument,
     IoMdExit,
+    IoMdGrid,
+    IoMdMailUnread, // Added icon
     IoIosArrowDroprightCircle,
     IoIosArrowDropleftCircle
 } from "react-icons/io";
@@ -22,6 +24,8 @@ const NavSidebarA = ({ toggleSidebar, isSidebarExpanded, logout }) => {
 
     const getActiveMenuName = () => {
         switch (location.pathname) {
+            case "/admin/checkRequests":
+                return "ตรวจสอบคำร้อง";
             case "/admin/userInfo":
                 return "ข้อมูลส่วนตัว";
             case "/admin/howToUseA":
@@ -65,8 +69,12 @@ const NavSidebarA = ({ toggleSidebar, isSidebarExpanded, logout }) => {
                     <span className="admin-menu-title">จัดการรายวิชาที่เปิดสอน</span>
                 </NavLink>
                 <NavLink to="subjectManager" className={({ isActive }) => isActive ? 'admin-menu-item active' : 'admin-menu-item'}>
-                    <IoMdDocument className="admin-menu-icon" />
+                    <IoMdGrid className="admin-menu-icon" />
                     <span className="admin-menu-title">จัดตารางสอน</span>
+                </NavLink>
+                <NavLink to="checkRequests" className={({ isActive }) => isActive ? 'admin-menu-item active' : 'admin-menu-item'}>
+                    <IoMdMailUnread className="admin-menu-icon" />
+                    <span className="admin-menu-title">ตรวจสอบคำร้อง</span>
                 </NavLink>
                 <NavLink to="/" onClick={logout} className={({ isActive }) => isActive ? 'admin-menu-item active' : 'admin-menu-item'}>
                     <IoMdExit className="admin-menu-icon" />
