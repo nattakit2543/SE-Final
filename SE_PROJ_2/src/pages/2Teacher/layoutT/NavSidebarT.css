@@ -71,7 +71,7 @@
     top: 0;
     width: 250px;
     height: 100%;
-    background-color: #05C582;
+    background-color: #049A5B;
     transition: width 0.3s;
     z-index: 11;
 }
@@ -108,18 +108,20 @@
     display: flex;
     align-items: center;
     height: 61px;
-    background-color: #05C582;
-    color: #525E6A;
+    background-color: #049A5B;
+    color: #e0e0e0;
     text-decoration: none;
+    font-weight: bold;
 }
 
 .menu-item:hover, .menu-item.active {
-    background-color: #525E6A;
-    color: white;
+    background-color: #19d46d;
+    color: #272727;
+
 }
 
 .menu-item:hover .menu-icon, .menu-item.active .menu-icon {
-    color: white;
+    color: #272727;
 }
 
 .menu-icon {
@@ -131,7 +133,7 @@
 
 .menu-title {
     margin-left: 30px;
-    font-size: 16px; 
+    font-size: 22px; 
 }
 
 @media screen and (max-width: 768px) {
