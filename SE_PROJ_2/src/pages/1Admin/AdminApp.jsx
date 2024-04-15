@@ -6,6 +6,7 @@ import EditTheCourseTem from './EditTheCourseTem';
 import SubjectManager from './SubjectManager';
 import UserInfo from '../UserInfo/UserInfo';
 import NavSidebarA from './layoutA/NavSidebarA';
+import CheckRequests from './CheckRequests'; // Import the new component
 import './AdminApp.css';
 
 const AdminApp = () => {
@@ -30,6 +31,7 @@ const AdminApp = () => {
                     <Route path="editTheCourseTem" element={<EditTheCourseTem />} />
                     <Route path="subjectManager" element={<SubjectManager />} />
                     <Route path="userInfo" element={<UserInfo />} />
+                    <Route path="checkRequests" element={<CheckRequests />} />
                 </Routes>
             </div>
         </div>
