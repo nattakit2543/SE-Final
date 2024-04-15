@@ -229,7 +229,7 @@ myApp.get("/forlogout/:Email/:Password", (request, response) => {
 //userinfo
 myApp.get("/userinfo", (request, response) => {
   var sql =
-  "Select TeacherName,TeacherSurname,TeacherPhone,TeacherEmail,TeacherPassword,Major,Role FROM teacherinfo";
+  "Select idTeacher,TeacherName,TeacherSurname,TeacherPhone,TeacherEmail,TeacherPassword,Major,Role FROM teacherinfo";
   conn.query(sql, (error, results) => {
     if (error) {
       console.log(error);
@@ -241,12 +241,27 @@ myApp.get("/userinfo", (request, response) => {
 });
 
 
-//Updateinfo
-myApp.get("/updatemasterteacher/:TeacherName/:TeacherSurname/:Phone/:Email/:Password/:Major/:Role/:ID", (request, response) => {
-  const { ID,TeacherName,TeacherSurname,Phone,Email,Password,Major,Role } = request.params;
+//Updatemaster
+myApp.get("/updatemasterteacher/:TeacherName/:TeacherSurname/:Phone/:Email/:Major/:ID", (request, response) => {
+  const { ID,TeacherName,TeacherSurname,Phone,Email,Major } = request.params;
   var sql =
-  "UPDATE masterteacher SET TeacherName = ?, TeacherSurname = ?, Phone = ?, Email = ?, Password = ?, Major = ?, Role = ? WHERE ID = ?";
-  conn.query(sql, [TeacherName,TeacherSurname,Phone,Email,Password,Major,Role,ID], (error, results) => {
+  "UPDATE masterteacher SET TeacherName = ?, TeacherSurname = ?, Phone = ?, Email = ?, Major = ? WHERE ID = ?";
+  conn.query(sql, [TeacherName,TeacherSurname,Phone,Email,Major,ID], (error, results) => {
+    if (error) {
+      console.log(error);
+      response.status(500).json({ error: "Internal server error" });
+    } else {
+      response.json(results);
+    }
+  });
+});
+
+//Updateinfo
+myApp.get("/updateteacherinfo/:TeacherName/:TeacherSurname/:TeacherPhone/:TeacherEmail/:Major/:idTeacher", (request, response) => {
+  const { idTeacher,TeacherName,TeacherSurname,TeacherPhone,TeacherEmail,Major } = request.params;
+  var sql =
+  "UPDATE teacherinfo SET TeacherName = ?, TeacherSurname = ?, TeacherPhone = ?, TeacherEmail = ?, Major = ? WHERE idTeacher = ?";
+  conn.query(sql, [TeacherName,TeacherSurname,TeacherPhone,TeacherEmail,Major,idTeacher], (error, results) => {
     if (error) {
       console.log(error);
       response.status(500).json({ error: "Internal server error" });

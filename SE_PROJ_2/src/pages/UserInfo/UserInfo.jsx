@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './UserInfo.css';
+import axios from 'axios';
 
 function UserInfo() {
     const [firstName, setFirstName] = useState('');
@@ -8,15 +9,11 @@ function UserInfo() {
     const [branchFaculty, setBranchFaculty] = useState(null);
     const [phoneNumber, setPhoneNumber] = useState(null);
     const [eMail, setEMail] = useState(null);
-    const [imageUrl, setImageUrl] = useState(null);
+
     const navigate = useNavigate(); 
 
     useEffect(() => {
-        setFirstName('Jirawat')
-        setLastName('Siri')
-        setBranchFaculty('CSE')
-        setPhoneNumber('0987654321')
-        setEMail('email@example.com')
+        getuserdata()
     }, []);
 
     const handleImageChange = (e) => {
@@ -42,16 +39,11 @@ function UserInfo() {
                 <div className="container">
                     <img className="PictureProfile"
                         style={{ borderRadius: '100%'}} 
-                        src={imageUrl} 
+                        src={"https://upload.wikimedia.org/wikipedia/en/d/db/GutsBerserk.PNG"} 
                         alt="Profile" 
-                        onClick={triggerFileInputClick}
+                        
                     />
-                    <input
-                        id="imageInput"
-                        type="file"
-                        hidden
-                        onChange={handleImageChange}
-                    />
+                    
                 </div>
                 <div className="Information">
                     <div className="TextSpace">
@@ -87,6 +79,19 @@ function UserInfo() {
             </div>
         </div>
     );
+
+    async function getuserdata (){
+        var url="http://localhost:3100/userinfo";
+        axios.get(url).then((Response)=>{
+            setFirstName(Response.data[0].TeacherName)
+            setLastName(Response.data[0].TeacherSurname)
+            setBranchFaculty(Response.data[0].Major)
+            setPhoneNumber(Response.data[0].TeacherPhone)
+            setEMail(Response.data[0].TeacherEmail)
+            
+        })
+    }
+
 }
 
 export default UserInfo;
