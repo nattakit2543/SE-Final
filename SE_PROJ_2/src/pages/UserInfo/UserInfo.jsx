@@ -1,28 +1,92 @@
-import React from 'react';
-import sosImage from '../../assets/SOS.png';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './UserInfo.css';
 
-const UserInfo = () => {
+function UserInfo() {
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState(null);
+    const [branchFaculty, setBranchFaculty] = useState(null);
+    const [phoneNumber, setPhoneNumber] = useState(null);
+    const [eMail, setEMail] = useState(null);
+    const [imageUrl, setImageUrl] = useState(null);
+    const navigate = useNavigate(); 
+
+    useEffect(() => {
+        setFirstName('Jirawat')
+        setLastName('Siri')
+        setBranchFaculty('CSE')
+        setPhoneNumber('0987654321')
+        setEMail('email@example.com')
+    }, []);
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file && file.type.substr(0, 5) === "image") {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImageUrl(reader.result);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            console.log("Not an image file");
+        }
+    };
+
+    const triggerFileInputClick = () => {
+        document.getElementById('imageInput').click();
+    };
+
     return (
-        <div className="userInfo-container">
-            <div className="circle"></div>
-
-            <div className="box box-name"></div>
-            <div className="text text-name">ชื่อ</div>
-
-            <div className="box box-surname"></div>
-            <div className="text text-surname">นามสกุล</div>
-
-            <div className="box box-faculty"></div>
-            <div className="text text-faculty">คณะและสาขา</div>
-
-            <div className="box box-phone"></div>
-            <div className="text text-phone">เบอร์โทรศัพท์</div>
-
-            <div className="box box-email"></div>
-            <div className="text text-email">อีเมล</div>
+        <div className="ProfilePage">
+            <div className="UserProfile">
+                <div className="container">
+                    <img className="PictureProfile"
+                        style={{ borderRadius: '100%'}} 
+                        src={imageUrl} 
+                        alt="Profile" 
+                        onClick={triggerFileInputClick}
+                    />
+                    <input
+                        id="imageInput"
+                        type="file"
+                        hidden
+                        onChange={handleImageChange}
+                    />
+                </div>
+                <div className="Information">
+                    <div className="TextSpace">
+                        <p className="TextTitle">ชื่อ</p>
+                        <div className="TextBox"><p className="NameText">{firstName}</p></div>
+                    </div>
+                    <div className="TextSpace">
+                        <p className="TextTitle">นามสกุล</p>
+                        <div className="TextBox"><p className="NameText">{lastName}</p></div>
+                    </div>
+                    <div className="TextSpace">
+                        <p className="TextTitle">คณะและสาขา</p>
+                        <div className="TextBox"><p className="NameText">{branchFaculty}</p></div>
+                    </div>
+                    <div className="TextSpace">
+                        <p className="TextTitle">หมายเลขโทรศัพท์</p>
+                        <div className="TextBox"><p className="NameText">{phoneNumber}</p></div>
+                    </div>
+                    <div className="TextSpace">
+                        <p className="TextTitle">E-Mail</p>
+                        <div className="TextBox"><p className="NameText">{eMail}</p></div>
+                    </div>
+                    <div className="EditingBox">
+                        <button
+                            className='EditButton'
+                            style={{width: '70%'}}
+                            onClick={() => navigate('editProfile')} 
+                        >
+                            Edit
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     );
-};
+}
 
 export default UserInfo;

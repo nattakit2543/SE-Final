@@ -1,84 +1,105 @@
-/* Profile.css */
-.userInfo-container {
-  width: 100vw;
-  height: 100vh;
-  position: relative;
-  background-color: #D9D9D9;
+.ProfilePage{
+  background-color: white;
 }
 
-.circle {
-  width: 10.42vw; /* 200px/1920px */
-  height: 23.15vh; /* 250px/1080px */
-  background-color: #929292;
-  border-radius: 50%;
-  position: absolute;
-  left: 32.35vw; /* 621px/1920px */
-  top: 23.15vh; /* 250px/1080px */
+.UserProfile {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-width: 1400px;
+  column-gap: 16px;
+  row-gap: 16px;
 }
 
-.box {
-  width: 10.94vw; /* 210px/1920px */
-  height: 4.63vh; /* 50px/1080px */
-  background-color: #929292;
-  position: absolute;
+.container {
+  margin-top: 30px;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  height: 650px;
 }
 
-.text {
-  font-size: 1.33vh; /* 16px/1080px */
-  color: black;
-  position: absolute;
+.PictureProfile {
+  width: 36%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 32%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  border: 4px solid rgb(226, 226, 226);
 }
 
-/* Custom classes for specific boxes and texts */
-.box-name {
-  left: 44.22vw; /* 849px/1920px */
-  top: 21.2vh; /* 229px/1080px */
+.EditButton {
+  width: 112px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  border: 1px solid gray;
 }
 
-.box-surname {
-  left: 56.51vw; /* 1089px/1920px */
-  top: 21.2vh;
+.Information {
+  margin-top: 30px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: rgb(255, 255, 255);
+  max-height: 550px;
 }
 
-.box-faculty {
-  width: 23.44vw; /* 450px/1920px */
-  left: 44.22vw;
-  top: 28.43vh; /* 307px/1080px */
+.TextSpace {
+  height: 1px;
 }
 
-.box-phone {
-  width: 23.44vw;
-  left: 44.22vw;
-  top: 35.65vh; /* 385px/1080px */
+.TextTitle {
+  display: flex;
+  margin: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  width: 200px;
 }
 
-.box-email {
-  width: 23.44vw;
-  left: 44.22vw;
-  top: 42.87vh; /* 463px/1080px */
+.TextBox {
+  margin: 20px;
+  background-color: rgb(224, 220, 220);
+  border-radius: 10px;
+  height: 50px;
+  width: 250px;
 }
 
-.text-name {
-  left: 44.22vw;
-  top: 19.35vh; /* 209px/1080px */
+.NameText{
+  padding: 10px;
 }
 
-.text-surname {
-  left: 56.51vw;
-  top: 19.35vh;
+.EditingBox{
+  margin-top: auto;
+  
+  display: flex;
+  flex-direction: row;
 }
 
-.text-faculty {
-  left: 44.22vw;
-  top: 26.57vh; /* 287px/1080px */
+.CancelButton {
+  width: 112px;
+  display: flex;
+  justify-content: center;
+  height: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  border: 1px solid gray;
 }
 
-.text-phone {
-  left: 44.22vw;
-  top: 33.80vh; /* 365px/1080px */
-}
-
-.text-email {
-  left: 44.22vw;
-  top: 41.02vh; /* 443px/1080px */
+.UpdateButton {
+  width: 112px;
+  display: flex;
+  justify-content: center;
+  height: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  background-color: rgb(29, 240, 29);
+  border: 1px solid gray;
 }

@@ -4,6 +4,7 @@ import HowToUseT from './HowToUseT';
 import SchTable from './SchTable';
 import ReqSub from './ReqSub';
 import UserInfo from '../UserInfo/UserInfo';
+import EditeProfile from '../UserInfo/EditeProfile';
 import NavSidebarT from './layoutT/NavSidebarT';
 import './TeacherApp.css'; 
 
@@ -28,6 +29,7 @@ const TeacherApp = () => {
           <Route path="schTable" element={<SchTable />} />
           <Route path="reqSub" element={<ReqSub />} />
           <Route path="userInfo" element={<UserInfo />} />
+          <Route path="userInfo/editProfile" element={<EditeProfile />} />
         </Routes>
       </div>
     </div>
