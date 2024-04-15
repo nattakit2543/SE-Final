@@ -22,7 +22,7 @@ const ReqSub = () => {
         setTempData(formData);
         setShowPopup(false);
         setShowConfirmPopup(true);
-    }, []);
+    }, []); // No dependencies are needed here as the setState functions do not change
 
     const confirmOrder = useCallback(() => {
         const newOrder = {
@@ -31,9 +31,8 @@ const ReqSub = () => {
             status: 'Pending'
         };
         setOrders(prevOrders => [...prevOrders, newOrder]);
-        localStorage.setItem('orders', JSON.stringify(orders));  
         setShowConfirmPopup(false);
-    }, [tempData, orders]);
+    }, [tempData]); // Removed orders from dependencies because it's not directly used
 
     const cancelOrder = useCallback(() => {
         setShowConfirmPopup(false);
