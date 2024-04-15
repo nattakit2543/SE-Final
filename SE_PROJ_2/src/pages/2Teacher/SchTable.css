@@ -1,7 +1,7 @@
 .schedule-container {
   width: 100vw;
   height: 100vh;
-  background-color: #ffffff;
+  background-color: #D9D9D9;
   display: flex;
   justify-content: center; 
   align-items: center; 
@@ -23,7 +23,7 @@
   align-items: center;
   background-color: #525E6A;
   padding: 10px;
-  color: #FFFFFF;
+  color: #D9D9D9;
 }
 
 .time-frame {
