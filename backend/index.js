@@ -145,3 +145,21 @@ myApp.get("/userdetail/logout/:id", (request, response) => {
 myApp.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
+
+
+//TeacherSubject
+myApp.get("/teachersubject/:TeacherName", (request, response) => {
+  const { TeacherName } = request.params;
+  var sql =
+  "Select Day,Time,SubjectCode	,SubjectName	,Credit	,Sec	,Room FROM teacher WHERE TeacherName = ? ";
+    
+
+  conn.query(sql, [TeacherName], (error, results) => {
+    if (error) {
+      console.log(error);
+      response.status(500).json({ error: "Internal server error" });
+    } else {
+      response.json(results);
+    }
+  });
+});
