@@ -177,3 +177,81 @@ myApp.get("/teachersubject/:TeacherName", (request, response) => {
     }
   });
 });
+
+
+//For Login
+myApp.get("/forlogin/:Email/:Password", (request, response) => {
+  const { Email,Password } = request.params;
+  var sql =
+  "Select * FROM masterteacher WHERE Email = ? AND Password = ?";
+  conn.query(sql, [Email,Password], (error, results) => {
+    if (error) {
+      console.log(error);
+      response.status(500).json({ error: "Internal server error" });
+    } else {
+      response.json(results);
+    }
+  });
+});
+
+//For Login
+myApp.get("/forloginuserinfo/:idTeacher/:TeacherName/:TeacherSurname/:TeacherPhone/:TeacherEmail/:TeacherPassword/:Major/:Role", (request, response) => {
+  const { idTeacher,TeacherName,TeacherSurname,TeacherPhone,TeacherEmail,TeacherPassword,Major,Role } = request.params;
+  var sql =
+  "INSERT INTO teacherinfo (idTeacher,TeacherName,TeacherSurname,TeacherPhone,TeacherEmail,TeacherPassword,Major,Role)"+
+  "VALUE(?,?,?,?,?,?,?,?)";
+  conn.query(sql, [idTeacher,TeacherName,TeacherSurname,TeacherPhone,TeacherEmail,TeacherPassword,Major,Role], (error, results) => {
+    if (error) {
+      console.log(error);
+      response.status(500).json({ error: "Internal server error" });
+    } else {
+      response.json(results);
+    }
+  });
+});
+
+//For Logout
+myApp.get("/forlogout/:Email/:Password", (request, response) => {
+  const { Email,Password } = request.params;
+  var sql =
+  "DELETE FROM teacherinfo WHERE TeacherEmail = ? AND TeacherPassword = ?;"
+  conn.query(sql, [Email,Password], (error, results) => {
+    if (error) {
+      console.log(error);
+      response.status(500).json({ error: "Internal server error" });
+    } else {
+      response.json(results);
+    }
+  });
+});
+
+
+//userinfo
+myApp.get("/userinfo", (request, response) => {
+  var sql =
+  "Select TeacherName,TeacherSurname,TeacherPhone,TeacherEmail,TeacherPassword,Major,Role FROM teacherinfo";
+  conn.query(sql, (error, results) => {
+    if (error) {
+      console.log(error);
+      response.status(500).json({ error: "Internal server error" });
+    } else {
+      response.json(results);
+    }
+  });
+});
+
+
+//Updateinfo
+myApp.get("/updatemasterteacher/:TeacherName/:TeacherSurname/:Phone/:Email/:Password/:Major/:Role/:ID", (request, response) => {
+  const { ID,TeacherName,TeacherSurname,Phone,Email,Password,Major,Role } = request.params;
+  var sql =
+  "UPDATE masterteacher SET TeacherName = ?, TeacherSurname = ?, Phone = ?, Email = ?, Password = ?, Major = ?, Role = ? WHERE ID = ?";
+  conn.query(sql, [TeacherName,TeacherSurname,Phone,Email,Password,Major,Role,ID], (error, results) => {
+    if (error) {
+      console.log(error);
+      response.status(500).json({ error: "Internal server error" });
+    } else {
+      response.json(results);
+    }
+  });
+});
