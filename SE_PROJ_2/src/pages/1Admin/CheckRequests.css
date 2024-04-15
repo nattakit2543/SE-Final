@@ -1,0 +1,43 @@
+.requests-container {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    
+}
+
+.request-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.request-info {
+    font-size: 16px;
+}
+
+.status-container {
+    display: flex;
+}
+
+.status-button {
+    padding: 5px 10px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    outline: none;
+}
+
+.status-button.considered {
+    background-color: #4CAF50;
+}
+
+.status-button.not-considered {
+    background-color: #EF6B6B;
+}
