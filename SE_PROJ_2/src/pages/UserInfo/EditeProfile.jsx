@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import './UserInfo.css';
+import axios from 'axios';
 
 function EditeProfile() {
     const [firstName, setFirstName] = useState('');
@@ -8,15 +9,11 @@ function EditeProfile() {
     const [branchFaculty, setBranchFaculty] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [eMail, setEMail] = useState('');
-    const [imageUrl, setImageUrl] = useState(null);
+    const [id,setID]=useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
-        setFirstName('Jirawat');
-        setLastName('Siri');
-        setBranchFaculty('CSE');
-        setPhoneNumber('0987654321');
-        setEMail('email@example.com');
+        getuserdata()
     }, []);
 
     const handleImageChange = (e) => {
@@ -41,7 +38,9 @@ function EditeProfile() {
     };
 
     const handleUpdate = () => {
-        navigate('../userInfo');  
+        updatemasterteacher (firstName,lastName,phoneNumber,eMail,branchFaculty,id)
+        updateteacherinfo (firstName,lastName,phoneNumber,eMail,branchFaculty,id)
+        navigate('../userInfo'); 
     };
 
     return (
@@ -50,7 +49,7 @@ function EditeProfile() {
                 <div className="container">
                     <img className="PictureProfile"
                         style={{ borderRadius: '100%'}}
-                        src={imageUrl || 'path_to_default_image.jpg'}
+                        src={'https://upload.wikimedia.org/wikipedia/en/d/db/GutsBerserk.PNG'}
                         alt="Profile"
                         onClick={triggerFileInputClick}
                     />
@@ -134,6 +133,31 @@ function EditeProfile() {
             </div>
         </div>
     );
+
+    async function getuserdata (){
+        var url="http://localhost:3100/userinfo";
+        axios.get(url).then((Response)=>{
+            console.log(Response.data[0].idTeacher)
+            setFirstName(Response.data[0].TeacherName)
+            setLastName(Response.data[0].TeacherSurname)
+            setBranchFaculty(Response.data[0].Major)
+            setPhoneNumber(Response.data[0].TeacherPhone)
+            setEMail(Response.data[0].TeacherEmail)
+            setID(Response.data[0].idTeacher)
+        })
+    }
+
+    async function updatemasterteacher (TeacherName,TeacherSurname,Phone,Email,Major){
+        const url = `http://localhost:3100/updatemasterteacher/${TeacherName}/${TeacherSurname}/${Phone}/${Email}/${Major}/${id}`;
+        axios.get(url).then((Response)=>{
+        })
+    }
+    async function updateteacherinfo (TeacherName,TeacherSurname,Phone,Email,Major){
+        const url = `http://localhost:3100/updateteacherinfo/${TeacherName}/${TeacherSurname}/${Phone}/${Email}/${Major}/${id}`;
+        axios.get(url).then((Response)=>{
+        })
+    }
+
 }
 
 export default EditeProfile;
