@@ -1,0 +1,76 @@
+.import-export-container {
+  position: absolute;
+  top: 50%;
+  left: calc(50% + 65px); /* หากคุณต้องการให้ตรงกลาง ใช้ left: 50%; */
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.import-export-card {
+  background-color: #333;
+  border-radius: 8px;
+  padding: 20px;
+  width: 350px;
+  height: 350px;
+  margin: 10px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.import-export-title{
+  font-size: 26px;
+  margin-bottom: 25px;
+  color:aliceblue;
+}
+
+.import-export-button {
+  user-select: none;
+}
+
+.import-export-image-placeholder {
+  background-color: #444;
+  margin: auto;
+  margin-bottom: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: dashed 2px #555;
+  overflow: hidden; 
+}
+
+.import-export-image-placeholder img {
+  width: 200px;
+  height: auto; 
+}
+
+.import-export-button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.3s ease;
+}
+
+.import-export-button:hover {
+  background-color: #e60000;
+}
+
+.input-file-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.file-input {
+  display: none; 
+}
