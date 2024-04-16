@@ -1,0 +1,349 @@
+.search-input {
+    width: 300px; 
+    height: 50px;
+    position: absolute; 
+    top: -70px; 
+    font-size: 23px;
+    text-align: center; 
+    background-color: #8E8E8E;
+    font-weight: bold; 
+    color: #000000; 
+    
+  }
+  
+  .button-input {
+    width: 80px; 
+    height: 50px;
+    position: absolute; 
+    top: -70px; 
+    left: 320px;
+    font-size: 23px;
+    text-align: center; 
+    background-color: #f05757;
+    font-weight: bold; 
+    color: #000000; 
+    
+  }
+  
+  
+  .front-color {
+    font-weight: bold; 
+    color: #333; 
+    text-align: center; 
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 250px; 
+    left: 50%; 
+    transform: translateX(-30%); 
+  }
+  
+  .custom-button {
+    width: 270px; 
+    height: 280px; 
+    margin: 15px;
+    cursor: pointer;
+    border-radius: 40px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    color: #ffffff;
+    font-size: 20px;
+    
+  }
+  /*------------------------------------------------------------ปุ่ม 1------*/ 
+  .color1-rectangle {
+    position: absolute;
+    top: 45px;
+    left : -250px;
+    border-radius: 20px;
+    width: 250px; 
+    height: 260px; 
+    background-color: #2E3138;
+  }
+  
+  .color2-rectangle {
+    position: absolute;
+    top: 45px;
+    left : 20px;
+    border-radius: 20px;
+    width: 250px; 
+    height: 260px; 
+    background-color: #000000;
+  }
+  
+  .color3-rectangle {
+    position: absolute;
+    top: 45px;
+    left : 300px;
+    border-radius: 20px;
+    width: 250px; 
+    height: 260px;
+    background-color: #EC1F1F;
+  }
+  
+  .cream-rectangle {
+    position: absolute;
+    top: 200px;
+    left: 55px;
+    border-radius: 20px;
+    width: 140px; 
+    height: 30px; 
+    background-color: #D9D9D9;
+  }
+  
+  
+  /*------------------------------------------------------------------*/
+  
+  .color1-rectangle1 {
+    display: inline-block; /* ให้ Link กระจายเต็มพื้นที่คอนเทนเนอร์ */
+    text-decoration: none; /* ลบเส้นใต้ของลิงก์ */
+    text-align: center; /* จัดข้อความให้อยู่ตรงกลาง */
+    color: white; /* สีข้อความ */
+    position: absolute;
+    top: 45px;
+    left : -250px;
+    border-radius: 20px;
+    width: 250px; 
+    height: 260px; 
+    background-color: #2E3138;
+  }
+  .color1-rectangle1:hover {
+    color: white; /* สีข้อความ */
+  }
+  
+  .gray-button1, .cream-rectangle1 {
+    display: block;
+  }
+  
+  
+  .cream-rectangle1 {
+    position: absolute;
+    top: 201px;
+    left: 56px;
+    border-radius: 20px;
+    font-size: 10px;
+    width: 140px; 
+    height: 30px; 
+    background-color: #D9D9D9;
+    
+  }
+  .gray-button1 {
+    background-color: #525E6A;
+    position: absolute;
+    top: 31px;
+    left: 25px;;
+    border-radius: 20px;
+    width: 200px; 
+    height: 205px; 
+  }
+  /*------------------------------------------------*/
+  
+  
+  
+  /*--------------------------------------------ปุ่ม 2----------------------*/
+  .color2-rectangle1 {
+    display: inline-block; /* ให้ Link กระจายเต็มพื้นที่คอนเทนเนอร์ */
+    text-decoration: none; /* ลบเส้นใต้ของลิงก์ */
+    text-align: center; /* จัดข้อความให้อยู่ตรงกลาง */
+    color: white; /* สีข้อความ */
+    position: absolute;
+    top: 45px;
+    left : 20px;
+    border-radius: 20px;
+    width: 250px; 
+    height: 260px; 
+    background-color: #000000;
+  }
+  .color2-rectangle1:hover {
+    color: white; /* สีข้อความ */
+  }
+  
+  .black-button1, .cream-rectangle1 {
+    display: block;
+  }
+  
+  
+  .cream-rectangle2 {
+    position: absolute;
+    top: 201px;
+    left: 56px;
+    border-radius: 20px;
+    font-size: 10px;
+    width: 140px; 
+    height: 30px; 
+    background-color: #D9D9D9;
+    
+  }
+  .black-button1 {
+    background-color: #8E927A;
+    position: absolute;
+    top: 31px;
+    left: 25px;;
+    border-radius: 20px;
+    width: 200px; 
+    height: 205px; 
+  }
+  /*------------------------------------------------*/
+  
+  
+  /*--------------------------------------------ปุ่ม 3----------------------*/
+  .color3-rectangle1 {
+    display: inline-block; /* ให้ Link กระจายเต็มพื้นที่คอนเทนเนอร์ */
+    text-decoration: none; /* ลบเส้นใต้ของลิงก์ */
+    text-align: center; /* จัดข้อความให้อยู่ตรงกลาง */
+    color: white; /* สีข้อความ */
+    position: absolute;
+    position: absolute;
+    top: 45px;
+    left : 300px;
+    border-radius: 20px;
+    width: 250px; 
+    height: 260px;
+    background-color: #EC1F1F;
+  }
+  .color3-rectangle1:hover {
+    color: white; /* สีข้อความ */
+  }
+  
+  .orange-button1, .cream-rectangle1 {
+    display: block;
+  }
+  
+  
+  .cream-rectangle3 {
+    position: absolute;
+    top: 201px;
+    left: 56px;
+    border-radius: 20px;
+    font-size: 10px;
+    width: 140px; 
+    height: 30px; 
+    background-color: #D9D9D9;
+    
+  }
+  .orange-button1 {
+    background-color: #EC881E;
+    position: absolute;
+    top: 31px;
+    left: 25px;;
+    border-radius: 20px;
+    width: 200px; 
+    height: 205px; 
+  }
+  /*------------------------------------------------*/
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  .gray-button {
+    background-color: #525E6A;
+    position: absolute;
+    top: 30px;
+    border-radius: 20px;
+    width: 200px; 
+    height: 205px; 
+  }
+  
+  
+  .black-button {
+    background-color: #8E927A;
+    position: absolute;
+    top: 30px;
+    border-radius: 20px;
+    width: 200px; 
+    height: 205px;
+  }
+  
+  .orange-button {
+    background-color: #EC881E;
+    position: absolute;
+    top: 30px;
+    border-radius: 20px;
+    width: 200px; 
+    height: 205px;
+  }
+  
+  .vector { 
+    width: 130px; 
+    height: 150px; 
+    position: absolute;
+    top: 10px;
+    left: 30px; 
+    color: black;
+   
+  }
+  .rectangle-text {
+    display: block; 
+    white-space: pre-wrap; 
+    color: #a2a1a1; 
+    font-size: 10px; 
+    text-align: center;
+  }
+  
+  
+  .cream-rectangle span {
+    display: block; 
+    color: #BBBBBB;
+    font-size: 10px;
+    position: absolute;
+    top: 115px;
+    text-align: center;
+    padding: 15px;
+    
+  }
+  
+  button span {
+    display: block; 
+    margin-top: -130px; 
+    text-align: center; 
+    font-size: 20px; 
+  
+  }
+  /*------------------------------------------------*/
+  
+  
+  
+  
+  .cream-rectangle1 span {
+    display: block; 
+    color: #BBBBBB;
+    font-size: 10px;
+    position: absolute;
+    top: -16px;
+    text-align: center;
+    padding: 15px;
+    
+  }
+  
+  
+  
+  /*-----------------*/
+  
+  .search-results {
+    position: absolute;
+    color: #ffffff;
+    font-size: 15px;
+    top: 350px;
+    padding: 10px;
+  }
+  .no-results {
+    position: absolute;
+    color: #000000;
+    font-size: 15px;
+    top: 350px; 
+    padding: 10px;
+  
+    
+  }
+  
+  
