@@ -126,8 +126,7 @@ myApp.get("/userdetail/:id/:username/:role", (request, response) => {
   const { id,username,role } = request.params;
   var sql =
   "INSERT INTO `userdetail` (`idUser`, `UserName`, `Role`) VALUES (?, ?, ?);";
-    
-
+  
   conn.query(sql, [id,username,role], (error, results) => {
     if (error) {
       console.log(error);
