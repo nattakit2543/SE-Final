@@ -1,0 +1,81 @@
+.subManager-container {
+    width: calc(100vw - 65px);
+    height: 100vh;
+    position: relative; 
+}
+
+.subject-manager {
+    font-family: 'Arial', sans-serif;
+    position: absolute;
+    top: 10%;
+    left: 65px;
+}
+
+.subject-manager h2 {
+    color: #333;
+    margin: 20px 0;  
+}
+
+.input-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.input-form input[type="text"] {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #beb9b9;
+    border-radius: 4px;
+    background-color: #ffffff;
+    color: #343432;
+}
+
+.input-form button {
+    padding: 10px 15px;
+    background-color: #2afc57;
+    border-radius: 4px;
+    color: rgb(16, 16, 16);
+    cursor: pointer;
+}
+
+.data-display {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.scroll-container {
+    display: flex;
+    gap: 0px;
+}
+
+.data-column {
+    min-width: 120px;
+    background-color: #4a4747;
+    border: 1px solid #e0e0e0;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+    color: black;
+}
+
+.data-column:nth-child(odd) {
+    background-color: #f5ebb2;
+}
+
+.data-column:nth-child(even) {
+    background-color: #f1ebc7;
+}
+
+.column-header {
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-align: center;
+    margin-bottom: 20px;
+    text-decoration: underline;
+
+}
+
+.column-data {
+    margin-bottom: 4px;
+}

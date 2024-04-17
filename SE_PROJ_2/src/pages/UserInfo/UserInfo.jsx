@@ -10,7 +10,7 @@ function UserInfo() {
     const [phoneNumber, setPhoneNumber] = useState(null);
     const [eMail, setEMail] = useState(null);
 
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
 
     useEffect(() => {
         getuserdata()
@@ -38,12 +38,12 @@ function UserInfo() {
             <div className="UserProfile">
                 <div className="container">
                     <img className="PictureProfile"
-                        style={{ borderRadius: '100%'}} 
-                        src={"https://upload.wikimedia.org/wikipedia/en/d/db/GutsBerserk.PNG"} 
-                        alt="Profile" 
-                        
+                        style={{ borderRadius: '100%' }}
+                        src={"https://upload.wikimedia.org/wikipedia/en/d/db/GutsBerserk.PNG"}
+                        alt="Profile"
+
                     />
-                    
+
                 </div>
                 <div className="Information">
                     <div className="TextSpace">
@@ -69,8 +69,8 @@ function UserInfo() {
                     <div className="EditingBox">
                         <button
                             className='EditButton'
-                            style={{width: '70%'}}
-                            onClick={() => navigate('editProfile')} 
+                            style={{ width: '70%' }}
+                            onClick={() => navigate('editProfile')}
                         >
                             Edit
                         </button>
@@ -80,15 +80,15 @@ function UserInfo() {
         </div>
     );
 
-    async function getuserdata (){
-        var url="http://localhost:3100/userinfo";
-        axios.get(url).then((Response)=>{
+    async function getuserdata() {
+        var url = "http://localhost:3100/userinfo";
+        axios.get(url).then((Response) => {
             setFirstName(Response.data[0].TeacherName)
             setLastName(Response.data[0].TeacherSurname)
             setBranchFaculty(Response.data[0].Major)
             setPhoneNumber(Response.data[0].TeacherPhone)
             setEMail(Response.data[0].TeacherEmail)
-            
+
         })
     }
 
