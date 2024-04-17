@@ -43,6 +43,7 @@
 .day-M { background-color: #F9F3D3; }
 .day-T { background-color: #FFD5E3; }
 .day-W { background-color: #E1FEE5; }
+.day-F { background-color: #4aa9ed; }
 
 .course-code, .course-name, .credits, .groups, .classroom {
   flex: 1;
