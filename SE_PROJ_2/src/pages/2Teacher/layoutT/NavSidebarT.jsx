@@ -3,14 +3,18 @@ import './NavSidebarT.css';
 import userImage from '../../../assets/user.png';
 import { NavLink, useLocation } from 'react-router-dom';
 import { IoMdHelpCircle, IoMdListBox, IoMdDocument, IoMdExit, IoIosArrowDroprightCircle, IoIosArrowDropleftCircle } from "react-icons/io";
+import axios from 'axios';
+
 
 const NavSidebarT = ({ toggleSidebar, isSidebarExpanded, logout }) => { 
     const location = useLocation();
     const [iconPosition, setIconPosition] = useState(250); 
-
+    const [idTeacher, setidTeacher] = useState(); 
+    
     useEffect(() => {
         const newPosition = isSidebarExpanded ? 235 : 65; 
         setIconPosition(newPosition);
+        userinfo();
     }, [isSidebarExpanded]); 
 
     const getActiveMenuName = () => {
@@ -55,13 +59,29 @@ const NavSidebarT = ({ toggleSidebar, isSidebarExpanded, logout }) => {
                     <IoMdDocument className="menu-icon" />
                     <span className="menu-title">ยื่นคำร้อง</span>
                 </NavLink>
-                <NavLink to="/" onClick={logout} className={({ isActive }) => isActive ? 'menu-item active' : 'menu-item'}>
+                <NavLink to="/" onClick={() => logout(idTeacher)} className={({ isActive }) => isActive ? 'menu-item active' : 'menu-item'}>
                     <IoMdExit className="menu-icon" />
                     <span className="menu-title">ลงชื่อออก</span>
                 </NavLink>
             </div>
         </div>
     );
+
+    async function logout (idTeacher){
+        const url = `http://localhost:3100/forlogout/${idTeacher}`;
+        console.log(url)
+        axios.get(url).then((Response)=>{
+
+        })
+    }
+    async function userinfo (){
+        const url = `http://localhost:3100/userinfo`;
+        axios.get(url).then((Response)=>{
+            setidTeacher(Response.data[0].idTeacher)
+            
+        })
+    }
+    
 };
 
 export default NavSidebarT;

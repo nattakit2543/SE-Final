@@ -12,14 +12,17 @@ import {
     IoIosArrowDroprightCircle,
     IoIosArrowDropleftCircle
 } from "react-icons/io";
+import axios from 'axios';
 
 const NavSidebarA = ({ toggleSidebar, isSidebarExpanded, logout }) => {
     const location = useLocation();
     const [iconPosition, setIconPosition] = useState(250);
+    const [idTeacher, setidTeacher] = useState(); 
 
     useEffect(() => {
         const newPosition = isSidebarExpanded ? 235 : 65;
         setIconPosition(newPosition);
+        userinfo();
     }, [isSidebarExpanded]);
 
     const getActiveMenuName = () => {
@@ -76,13 +79,29 @@ const NavSidebarA = ({ toggleSidebar, isSidebarExpanded, logout }) => {
                     <IoMdMailUnread className="admin-menu-icon" />
                     <span className="admin-menu-title">ตรวจสอบคำร้อง</span>
                 </NavLink>
-                <NavLink to="/" onClick={logout} className={({ isActive }) => isActive ? 'admin-menu-item active' : 'admin-menu-item'}>
+                <NavLink to="/" onClick={() => logout(idTeacher)} className={({ isActive }) => isActive ? 'admin-menu-item active' : 'admin-menu-item'}>
                     <IoMdExit className="admin-menu-icon" />
                     <span className="admin-menu-title">ลงชื่อออก</span>
                 </NavLink>
             </div>
         </div>
     );
+
+
+    async function logout (idTeacher){
+        const url = `http://localhost:3100/forlogout/${idTeacher}`;
+        console.log(url)
+        axios.get(url).then((Response)=>{
+
+        })
+    }
+    async function userinfo (){
+        const url = `http://localhost:3100/userinfo`;
+        axios.get(url).then((Response)=>{
+            setidTeacher(Response.data[0].idTeacher)
+            
+        })
+    }
 };
 
 export default NavSidebarA;

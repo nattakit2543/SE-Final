@@ -210,12 +210,13 @@ myApp.get("/forloginuserinfo/:idTeacher/:TeacherName/:TeacherSurname/:TeacherPho
   });
 });
 
+
 //For Logout
-myApp.get("/forlogout/:Email/:Password", (request, response) => {
-  const { Email,Password } = request.params;
+myApp.get("/forlogout/:idTeacher", (request, response) => {
+  const { idTeacher } = request.params;
   var sql =
-  "DELETE FROM teacherinfo WHERE TeacherEmail = ? AND TeacherPassword = ?;"
-  conn.query(sql, [Email,Password], (error, results) => {
+  "DELETE FROM teacherinfo WHERE idTeacher = ?;"
+  conn.query(sql, [idTeacher], (error, results) => {
     if (error) {
       console.log(error);
       response.status(500).json({ error: "Internal server error" });

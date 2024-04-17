@@ -25,6 +25,17 @@ const SchTable = () => {
   return (
     <div className="schedule-container">
       <div className="subject-list">
+      <div  className="subject-item">
+            <div className={`time-frame day-Frame`}>
+              <div className="day">DateTime</div>
+              
+            </div>
+            <div className="course-code">Code</div>
+            <div className="course-name">Name</div>
+            <div className="credits">Credits</div>
+            <div className="groups">Sec</div>
+            <div className="classroom">Room</div>
+          </div>
         {subjects.map((subject) => (
           <div key={subject.courseCode} className="subject-item">
             <div className={`time-frame ${getDayClass(subject.Day)}`}>

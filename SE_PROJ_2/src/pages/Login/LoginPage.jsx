@@ -8,27 +8,47 @@ const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const [role,setRole]= useState();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
+    await login(email, password);
+  };
 
+  const login = async (email, password) => {
     try {
-      const response = await axios.get(`http://localhost:3100/login/${encodeURIComponent(email)}/${encodeURIComponent(password)}`);
-      const data = response.data[0];
-      if (data && data.Role) {
-        setLoading(false);
-        navigate(data.Role === 'admin' ? '/admin' : '/teacher');
-      } else {
-        setLoading(false);
-        setError('Invalid email or password');
-      }
+      const response = await axios.get(`http://localhost:3100/forlogin/${encodeURIComponent(email)}/${encodeURIComponent(password)}`);
+      const userData = response.data[0];
+      setTeacherInfo(userData);
+      insertTeacherInfo(userData);
+      setRole(response.data[0].Role);
+      navigate(response.data[0].Role === 'Admin' ? '/admin' : '/teacher');
+      
     } catch (error) {
+      setError('Invalid email or password. Please try again.');
+    } finally {
       setLoading(false);
-      setError('An unexpected error occurred. Please try again.');
-      console.error('Login error:', error);
+    }
+  };
+
+  const setTeacherInfo = (userData) => {
+    setEmail(userData.Email);
+    setPassword(userData.Password);
+    // Assuming these are all properties of userData
+    
+  };
+
+  const insertTeacherInfo = async (userData) => {
+    const { ID, TeacherName, TeacherSurname, Phone, Email, Password, Major, Role } = userData;
+    const url = `http://localhost:3100/forloginuserinfo/${ID}/${TeacherName}/${TeacherSurname}/${Phone}/${Email}/${Password}/${Major}/${Role}`;
+    console.log(url);
+    try {
+      await axios.get(url);
+    } catch (error) {
+      console.error('Error inserting teacher info:', error);
     }
   };
 
