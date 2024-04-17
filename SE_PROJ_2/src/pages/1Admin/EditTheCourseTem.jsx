@@ -51,7 +51,7 @@ const [Year, setYear] = useState('');
             <Link 
             to={{
               pathname: '/Manage', // แทนที่ด้วย path ที่ถูกต้องของคุณ
-              state: { Year, semester: 'Semester 1' }
+              state: { Year }
             }}
             className="color1-rectangle1">
               <div className="gray-button1">
@@ -79,8 +79,8 @@ const [Year, setYear] = useState('');
           ) : (
             <Link 
             to={{
-              pathname: '/Manage', // แทนที่ด้วย path ที่ถูกต้องของคุณ
-              state: { Year, semester: 'Semester 2' }
+              pathname: '/Manage2', // แทนที่ด้วย path ที่ถูกต้องของคุณ
+              state: { Year }
             }}
             className="color2-rectangle1">
               <div className="black-button1">
@@ -108,8 +108,8 @@ const [Year, setYear] = useState('');
           ) : (
             <Link 
             to={{
-              pathname: '/Manage', // แทนที่ด้วย path ที่ถูกต้องของคุณ
-              state: { Year, semester: 'Semester 3' }
+              pathname: '/Manage3', // แทนที่ด้วย path ที่ถูกต้องของคุณ
+              state: { Year }
             }}
              
             className="color3-rectangle1">
