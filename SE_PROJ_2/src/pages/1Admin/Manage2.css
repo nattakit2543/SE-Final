@@ -1,0 +1,401 @@
+
+.edit-table {
+    margin-left: 30px;
+    table-layout: fixed;
+    color: #000000;
+    border-collapse: collapse;
+    margin-top: 50px;
+    
+    
+    
+  }
+  
+  .edit-table th{
+    font-size: 15px;
+    font-weight: bold;
+    
+  }
+  
+  .edit-table th {
+    padding: 10px 10px ; /* ขยายขนาดของช่องในเซลล์ทั้งแนวนอนและแนวตั้ง */
+    text-align: center;
+    border: 1px solid #ff0000; 
+    font-size: 15px;
+    font-weight:bolder;
+    border: 1px ; /* เพิ่มสีขอบสำหรับเซลล์ */
+    vertical-align: middle;
+  }
+  
+  .edit-table td {
+    padding: 8px 15px ; /* ขยายขนาดของช่องในเซลล์ทั้งแนวนอนและแนวตั้ง */
+    text-align: center;
+    font-size: 17px;
+    font-weight: bold;
+    border: 1px solid #ddd; /* เพิ่มสีขอบสำหรับเซลล์ */
+    vertical-align: middle;
+  }
+  
+  
+  
+  .add-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    text-align: center;
+    display: block;
+    font-size: 20px;
+    margin: 30px 30px;
+    border-radius: 100px;
+  }
+  .finish-button {
+    position: fixed;
+    bottom: 30px;
+    right: 100px;
+    font-size: 20px; /* เปลี่ยนขนาดข้อความ */
+    padding: 15px 35px;
+    background-color: #767676;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  
+  .finish-button:hover {
+    background-color: #45a049;
+  }
+  
+  .edit-button {
+    background: none;
+    border: none;
+    justify-content: flex-start; /* จัดให้ปุ่มอยู่ทางซ้าย */
+    align-items: center;
+    color: #000000;
+    cursor: pointer;
+  }
+  
+  .edit-button img {
+    width: 20px; 
+    height: 20px;
+  }
+  
+  
+  .edit-table input {
+    color: #000000;
+    width: 100%;
+    padding: 1px;
+    height: 25px;
+    font-weight:bolder;
+    text-align: center;
+    background: #D9D9D9;
+    border: none;
+  }
+  
+  .popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+  
+  .confirm-button,
+  .cancel-button {
+    background-color: #4caf50; /* สีเขียว */
+    color: #000000; /* สีข้อความ */
+    font-size: 25px; /* เปลี่ยนขนาดข้อความ */
+    padding: 20px 40px;
+    margin-left: 220px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transform: translate(-400px, 300px);
+  }
+  .confirm-button:hover,
+  .cancel-button:hover {
+    background-color: #45a049; 
+  }
+  
+  .cancel-button {
+    background-color: #f44336; 
+  }
+  
+  .cancel-button:hover {
+    background-color: #d32f2f;
+  }
+  
+  /* ปรับสีของช่องติ๊กแบบไม่มีเครื่องหมายถูก */
+  input[type="checkbox"] {
+    appearance: none; 
+    -webkit-appearance: none; 
+    -moz-appearance: none; 
+    width: 16px;
+    height: 16px;
+    border: 1px solid #9c9c9c; 
+    border-radius: 50%; 
+    outline: none; 
+    transition: background-color 0.3s; 
+  }
+  
+  input[type="checkbox"]:hover {
+    background-color: #f0f0f0; 
+  }
+  
+  input[type="checkbox"]:checked {
+    background-color: #4CAF50; 
+    border: 2px solid #4CAF50; 
+  }
+  
+  
+  
+  /* ใช้ class นี้สำหรับการตกแต่ง icon ทั่วไป */
+  .icon {
+    font-size: 20px; /* หรือขนาดที่ต้องการ */
+    margin-left: 10px; /* หรือระยะที่ต้องการ */
+  }
+  
+  /* สำหรับ icon ที่แสดงว่าข้อมูลครบ */
+  .check-icon {
+    color: green; /* สีเขียวหรือสีที่คุณต้องการ */
+  }
+  
+  /* สำหรับ icon ที่แสดงการเตือน */
+  .warning-icon {
+    color: orange; /* สีส้มหรือสีที่คุณต้องการ */
+  }
+  
+  
+  
+  .semester-info {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .semester-info h2, .semester-info h3 {
+    margin: 10px 0;
+    color: #000000;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  
+  .edit-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* ตั้งค่าความสูงเต็มช่องเพื่อให้เนื้อหาอยู่ตรงกลางแนวตั้ง */
+  }
+  
+  .center-content {
+    display: flex;
+    justify-content: center; /* จัดกลางเนื้อหาแนวนอน */
+    align-items: center; /* จัดกลางเนื้อหาแนวตั้ง */
+    height: 100%; /* ตั้งค่าความสูงเต็มช่อง เพื่อให้ align-items มีผล */
+  }
+  
+  
+  .input-with-label {
+    display: inline-flex;
+    align-items: center;
+    background-color: #f2f2f2; /* สีพื้นหลังของช่องกรอก */
+    border-radius: 20px; /* ความโค้งขอบของช่องกรอก */
+    padding: 5px 10px; /* ระยะห่างภายในช่องกรอก */
+    font-size: 16px; /* ขนาดตัวอักษรภายในช่องกรอก */
+    color: #000000; /* สีข้อความภายในช่องกรอก */
+  }
+  
+  .input-with-label span {
+    margin-right: 10px; /* ระยะห่างข้อความกับช่องกรอก */
+  }
+  
+  .input-with-label input {
+    background: transparent; /* พื้นหลังใส */
+    border: none; /* ไม่มีขอบ */
+    outline: none; /* ไม่มีเส้นขอบเมื่อคลิก */
+    color: #000000;
+    width: 50px;
+    font-weight: bold;
+  }
+  
+  .custom-select select {
+   color: #000000;
+   background-color: #f2f2f2;
+   border: none;
+  }
+  
+  
+  
+  .custom-select {
+    position: relative;
+    display: inline-block;
+    border-radius: 20px;
+    padding: 5px 15px;
+    background-color: #f2f2f2;
+    cursor: pointer;
+  }
+  
+  
+  .custom-select select option {
+    padding: 5px;
+    background-color: #fff; /* Background color for options */
+    color: #000000; /* Text color for options */
+  }
+  
+  
+  
+  /* สไตล์ของปุ่มลบ */
+  .delete-button {
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    cursor: pointer; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* เปลี่ยนสีไอคอนเมื่อ hover */
+  .delete-button:hover .delete-icon {
+    color: #ff4444; /* สีแดงเพื่อแสดงการลบ */
+  }
+  
+  /* ปรับเปลี่ยนเล็กน้อยเมื่อกด */
+  .delete-button:active .delete-icon {
+    color: #cc0000; /* สีแดงที่เข้มขึ้น */
+  }
+  
+  /* สไตล์ของไอคอนลบ */
+  .delete-icon {
+    width: 20px; /* ขนาดของไอคอน */
+    height: 20px;
+    color: #606060; /* สีเริ่มต้นของไอคอน */
+  }
+  
+  
+  
+  .popup-container2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .popup-content2 {
+    background: #282828;
+    color: #000000;
+    width: 700px;
+    height: 400px;
+    transform: translate(350px, -30px);
+    
+  
+    
+  }
+  
+  .content2 {
+    margin-top: 60px;
+    width: 100%; /* กำหนดความกว้างของตาราง */
+    border-collapse: collapse; /* ทำให้ขอบของเซลล์ชิดกัน */
+    border: 1px #000000;
+  }
+  
+  .warning-message2 {
+    color: #ffd000;
+    padding: 5px;
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 20px;
+    border-radius: 6px;
+  }
+  
+  .warning-message3 {
+    color: #c8c8c8;
+    padding: 4px;
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 20px;
+    border-radius: 5px;
+  }
+  
+  .confirm-button2,
+  .cancel-button2 {
+    background-color: #a2a2a2; /* สีเขียว */
+    color: #000000; /* สีข้อความ */
+    font-size: 25px; /* เปลี่ยนขนาดข้อความ */
+    padding: 10px 40px;
+    margin-left: 100px;
+    border-radius: 20px;
+    cursor: pointer;
+    transform: translate(-290px, 90px);
+  }
+  .confirm-button2:hover,
+  .cancel-button2:hover {
+    background-color: #575857; 
+  }
+  
+  .cancel-button2 {
+    background-color: #a2a2a2; 
+  }
+  
+  .cancel-button2:hover {
+    background-color: #575857;
+  }
+  
+  .warning-message strong {
+    display: block; /* ให้ข้อความหนาเป็นบล็อค */
+    margin-bottom: 50px;
+  }
+  
+  .warning-icon2 {
+    font-size: 90px;
+    color: #ffda05;
+    justify-content: center;
+    margin-left: 300px;
+    margin-top: 40px;
+    
+   
+    
+  }
+  
+  
+  .processing-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1100; /* Make sure it's higher than any other element */
+  }
+  
+  .processing-content {
+    text-align: center;
+    color: #fff;
+  }
+  
+  .spinner {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top: 4px solid #fff;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  

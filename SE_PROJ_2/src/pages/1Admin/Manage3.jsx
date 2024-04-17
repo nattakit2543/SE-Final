@@ -9,7 +9,7 @@ import { MdDelete } from 'react-icons/md';
 
 
 
-function Manage2() {
+function Manage3() {
     const [subjectData, setSubjectData] = useState([]);
     
   
@@ -297,4 +297,4 @@ function Manage2() {
   );
 };
 
-export default Manage2;
+export default Manage3;
