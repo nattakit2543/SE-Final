@@ -1,0 +1,62 @@
+.container-E {
+  width: calc(100vw - 65px);
+  height: 100vh;
+  position: relative;
+}
+
+.editTheCourseTem-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.theCourseTem {
+  border-radius: 8px;
+  padding: 20px;
+  width: 350px;
+  height: 350px;
+  margin: 10px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.theCourseTem1 {
+  background-color: #ffb98b;
+}
+
+.theCourseTem2 {
+  background-color: #f69697;
+}
+
+.theCourseTem3 {
+  background-color: #ee6b6e;
+}
+
+.theCourseTem-title{
+  font-size: 26px;
+  margin-bottom: 25px;
+  color:rgb(0, 0, 0);
+  font-weight: bolder;
+}
+
+.theCourseTem-img {
+  width: 250px;
+  height: 250px;
+}
+
+.search-input {
+  position: absolute;
+  width: 150px;
+  height: 50px;
+  top: -15%;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgb(130, 129, 129);
+  color: black;
+  margin: auto;
+  text-align: center;
+}
