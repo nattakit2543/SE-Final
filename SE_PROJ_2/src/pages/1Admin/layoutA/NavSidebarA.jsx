@@ -8,7 +8,7 @@ import {
     IoMdDocument,
     IoMdExit,
     IoMdGrid,
-    IoMdMailUnread, // Added icon
+    IoMdMailUnread,
     IoIosArrowDroprightCircle,
     IoIosArrowDropleftCircle
 } from "react-icons/io";
@@ -16,6 +16,8 @@ import axios from 'axios';
 
 const NavSidebarA = ({ toggleSidebar, isSidebarExpanded, logout }) => {
     const location = useLocation();
+    const semester = location.state?.semester;
+
     const [iconPosition, setIconPosition] = useState(250);
     const [idTeacher, setidTeacher] = useState(); 
 
@@ -49,7 +51,7 @@ const NavSidebarA = ({ toggleSidebar, isSidebarExpanded, logout }) => {
     return (
         <div>
             <div className="admin-navbar">
-                <span className="admin-navbar-title">{getActiveMenuName()}</span>
+                <span className="admin-navbar-title">{semester || getActiveMenuName()}</span>
             </div>
             <div className="admin-toggle-icon" style={{ left: `${iconPosition}px` }} onClick={toggleSidebar}>
                 {isSidebarExpanded ? <IoIosArrowDropleftCircle size={30} /> : <IoIosArrowDroprightCircle size={30} />}

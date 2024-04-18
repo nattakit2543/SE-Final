@@ -27,6 +27,19 @@
 
 }
 
+.theCourseTem-semester1 {
+  background-color: #ffb98b; /* สีสำหรับภาคการศึกษาที่ 1 */
+}
+
+.theCourseTem-semester2 {
+  background-color: #88cc88; /* สีสำหรับภาคการศึกษาที่ 2 */
+}
+
+.theCourseTem-summer {
+  background-color: #8da9ff; /* สีสำหรับภาคฤดูร้อน */
+}
+
+
 
 .theCourseTem-title{
   font-size: 26px;
@@ -42,8 +55,10 @@
 
 .search-input {
   position: absolute;
-  width: 150px;
+  width: 200px;
   height: 50px;
+  font-size: 20px;
+  font-weight: bolder;
   top: -15%;
   background-color: rgb(255, 255, 255);
   border: 1px solid rgb(130, 129, 129);

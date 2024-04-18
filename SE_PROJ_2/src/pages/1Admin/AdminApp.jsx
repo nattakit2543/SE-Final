@@ -8,11 +8,7 @@ import UserInfo from '../UserInfo/UserInfo';
 import NavSidebarA from './layoutA/NavSidebarA';
 import EditeProfile from '../UserInfo/EditeProfile';
 import CheckRequests from './CheckRequests'; 
-import Mana1 from './EditTheCourseTem/Manage';
-import Mana2 from './EditTheCourseTem/Manage2';
-import Mana3 from './EditTheCourseTem/Manage3';
-
-
+import Manage from './EditTheCourseTem/Manage';
 import './AdminApp.css';
 
 const AdminApp = () => {
@@ -39,12 +35,7 @@ const AdminApp = () => {
                     <Route path="userInfo" element={<UserInfo />} />
                     <Route path="checkRequests" element={<CheckRequests />} />
                     <Route path="userInfo/editProfile" element={<EditeProfile />} />
-
-                    <Route path="editTheCourseTem/Manage" element={<Mana1 />} />
-                    <Route path="editTheCourseTem/Manage2" element={<Mana2 />} />
-                    <Route path="editTheCourseTem/Manage3" element={<Mana3 />} />
-
-
+                    <Route path="editTheCourseTem/Manage" element={<Manage />} />
                 </Routes>
             </div>
         </div>

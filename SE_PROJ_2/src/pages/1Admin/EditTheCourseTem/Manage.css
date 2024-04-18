@@ -1,79 +1,141 @@
 .manage-container {
-  position: relative;
-  height: 100vh;
   width: calc(100vw - 65px);
-  background-color: #ffd000;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; 
+  background-color: #f5f5f5; 
+  overflow: auto; 
 }
 
-.header {
-  background-color: #cc0000;
-  position: absolute;
-  top: 20%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.grid-container {
+  max-height: calc(100vh - 200px); 
+  overflow-y: auto;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 10%;
 }
 
-.edit-table {
-  position: absolute;
-  left: 50%;
-  top: 35%;
-  transform: translateX(-50%);
-  table-layout: fixed;
-  border-collapse: collapse;
-  margin-top: 50px;
+.column-headers {
+  display: flex;
+  background-color: #eeeeee; 
+  border-top-left-radius: 8px; 
+  border-top-right-radius: 8px;
 }
 
-.edit-table th, .edit-table td {
-  padding: 8px 15px;
-  text-align: center;
-  border: 1px solid #ddd;
+.row {
+  display: flex;
 }
 
-.add-button, .next-button {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+.header-cell,
+.cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 150px;
+  height: 50px;
+  margin: 2px;
+  background-color: #ddd;
+  color: #333;
+  transition: background-color 0.3s; 
+}
+
+
+.cell:hover {
+  background-color: #e0e0e0;
+}
+
+
+.column-A { background-color: #DFF0D8; }
+.column-B { background-color: #D0E9C6; }
+.column-C { background-color: #B2DFDB; }
+.column-D { background-color: #99D3DF; }
+.column-E { background-color: #D9EDF7; }
+.column-F { background-color: #C4E3F3; }
+.column-G { background-color: #D1D1E0; } 
+.column-H { background-color: #E8DAEF; }
+
+
+.add-row-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
   background-color: #4CAF50;
   color: white;
-  padding: 10px 20px;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  margin-top: 10px; 
 }
 
-.add-button {
-  top: 10%;
+
+.add-row-button:hover {
+  background-color: #367c39;
+}
+
+.instruction {
+  text-align: center;
+  color: #555; 
+  margin: 20px 0; 
+  font-size: 0.9rem; 
+}
+
+.input-checkbox {
+  margin: auto;
+}
+
+.input-field-a {
+  width: 90%; 
+  padding: 5px;
+  margin: auto;
+  box-sizing: border-box;
+  border: 1px solid #000000;
+  background-color: #ccc;
+  border-radius: 5px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: border-color 0.3s; 
+}
+
+
+.input-field:focus {
+  border-color: #4CAF50;
+}
+
+.edit-icon {
+  color: #000000;  
+  font-size: 24px; 
+}
+
+.static-text {
+  padding: 5px;
+  color: #333;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .next-button {
-  bottom: 30px;
-  right: 100px;
-  background-color: #767676;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #3c403c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
 }
 
 .next-button:hover {
-  background-color: #45a049;
-}
-
-.edit-table input, .edit-table select {
-  width: 100%;
-  padding: 1px;
-  border: none;
-  text-align: center;
-  background: #D9D9D9;
-}
-
-input[type="checkbox"] {
-  appearance: none;
-  width: 16px;
-  height: 16px;
-  border: 1px solid #9c9c9c;
-  border-radius: 50%;
-  background: #fff;
-  cursor: pointer;
-}
-
-input[type="checkbox"]:checked {
-  background-color: #4CAF50;
-  border-color: #4CAF50;
+  background-color: #367c39;
 }

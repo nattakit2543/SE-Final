@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import "./EditTheCourseTem.css";
 import imgTheCourseTem from "../../../assets/editTheC.png";
 
 function EditTheCourseTem() {
   const [Year, setYear] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const navigate = useNavigate();
 
   const handleAddYear = (event) => {
     const inputYear = event.target.value;
@@ -17,11 +18,10 @@ function EditTheCourseTem() {
     }
   };
 
-  const terms = [
-    { term: "ภาคการศึกษาที่ 1", path: "manage" },
-    { term: "ภาคการศึกษาที่ 2", path: "manage" },
-    { term: "ภาคฤดูร้อน", path: "manage" },
-  ];
+  const handleNavigate = (path, semester) => {
+    navigate(path, { state: { semester } });
+  };
+  
 
   return (
     <div className="container-E">
@@ -29,25 +29,24 @@ function EditTheCourseTem() {
         <input
           className="search-input"
           type="text"
-          placeholder="พิมพ์ปีการศึกษาตรงนี้"
+          placeholder="ปีการศึกษา"
           onBlur={handleAddYear}
         />
-        {terms.map(({ term, path }) => (
-          <Link to={isButtonDisabled ? "#" : `${path}?year=${Year}&term=${encodeURIComponent(term)}`}>
-            <button className="theCourseTem" disabled={isButtonDisabled}>
-              <div className="theCourseTem-title">{term}</div>
-              <img
-                src={imgTheCourseTem}
-                className="theCourseTem-img"
-                alt="Course Template"
-              />
-            </button>
-          </Link>
-        ))}
+        <button className="theCourseTem theCourseTem-semester1" onClick={() => handleNavigate('manage','จัดการรายวิชาที่เปิดสอน - ภาคการศึกษาที่ 1')} disabled={isButtonDisabled}>
+          <div className="theCourseTem-title">ภาคการศึกษาที่ 1</div>
+          <img src={imgTheCourseTem} className="theCourseTem-img" alt="Course Template" />
+        </button>
+        <button className="theCourseTem theCourseTem-semester2" onClick={() => handleNavigate('manage','จัดการรายวิชาที่เปิดสอน - ภาคการศึกษาที่ 2')} disabled={isButtonDisabled}>
+          <div className="theCourseTem-title">ภาคการศึกษาที่ 2</div>
+          <img src={imgTheCourseTem} className="theCourseTem-img" alt="Course Template" />
+        </button>
+        <button className="theCourseTem theCourseTem-summer" onClick={() => handleNavigate('manage','จัดการรายวิชาที่เปิดสอน - ภาคฤดูร้อน')} disabled={isButtonDisabled}>
+          <div className="theCourseTem-title">ภาคฤดูร้อน</div>
+          <img src={imgTheCourseTem} className="theCourseTem-img" alt="Course Template" />
+        </button>
       </div>
     </div>
   );
 }
-
 
 export default EditTheCourseTem;
