@@ -1,7 +1,13 @@
+.container-ImEx {
+  width: calc(100vw - 65px);
+  height: 100vh;
+  position: relative;
+}
+
 .import-export-container {
   position: absolute;
   top: 50%;
-  left: calc(50% + 65px); /* หากคุณต้องการให้ตรงกลาง ใช้ left: 50%; */
+  left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
   justify-content: center;
@@ -20,10 +26,10 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.import-export-title{
+.import-export-title {
   font-size: 26px;
   margin-bottom: 25px;
-  color:aliceblue;
+  color: aliceblue;
 }
 
 .import-export-button {
@@ -38,12 +44,12 @@
   align-items: center;
   justify-content: center;
   border: dashed 2px #555;
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 .import-export-image-placeholder img {
   width: 200px;
-  height: auto; 
+  height: auto;
 }
 
 .import-export-button {
@@ -72,5 +78,5 @@
 }
 
 .file-input {
-  display: none; 
+  display: none;
 }
