@@ -17,6 +17,12 @@ function EditTheCourseTem() {
     }
   };
 
+  const terms = [
+    { term: "ภาคการศึกษาที่ 1", path: "manage" },
+    { term: "ภาคการศึกษาที่ 2", path: "manage" },
+    { term: "ภาคฤดูร้อน", path: "manage" },
+  ];
+
   return (
     <div className="container-E">
       <div className="editTheCourseTem-container">
@@ -26,39 +32,22 @@ function EditTheCourseTem() {
           placeholder="พิมพ์ปีการศึกษาตรงนี้"
           onBlur={handleAddYear}
         />
-        <Link to={isButtonDisabled ? "#" : `manage?year=${Year}`}>
-          <button className="theCourseTem theCourseTem1" disabled={isButtonDisabled}>
-            <div className="theCourseTem-title">ภาคการศึกษาที่ 1</div>
-            <img
-              src={imgTheCourseTem}
-              className="theCourseTem-img"
-              alt="Course Template"
-            />
-          </button>
-        </Link>
-        <Link to={isButtonDisabled ? "#" : `manage2?year=${Year}`}>
-          <button className="theCourseTem theCourseTem2" disabled={isButtonDisabled}>
-            <div className="theCourseTem-title">ภาคการศึกษาที่ 2</div>
-            <img
-              src={imgTheCourseTem}
-              className="theCourseTem-img"
-              alt="Course Template"
-            />
-          </button>
-        </Link>
-        <Link to={isButtonDisabled ? "#" : `manage3?year=${Year}`}>
-          <button className="theCourseTem theCourseTem3" disabled={isButtonDisabled}>
-            <div className="theCourseTem-title">ภาคฤดูร้อน</div>
-            <img
-              src={imgTheCourseTem}
-              className="theCourseTem-img"
-              alt="Course Template"
-            />
-          </button>
-        </Link>
+        {terms.map(({ term, path }) => (
+          <Link to={isButtonDisabled ? "#" : `${path}?year=${Year}&term=${encodeURIComponent(term)}`}>
+            <button className="theCourseTem" disabled={isButtonDisabled}>
+              <div className="theCourseTem-title">{term}</div>
+              <img
+                src={imgTheCourseTem}
+                className="theCourseTem-img"
+                alt="Course Template"
+              />
+            </button>
+          </Link>
+        ))}
       </div>
     </div>
   );
 }
+
 
 export default EditTheCourseTem;
