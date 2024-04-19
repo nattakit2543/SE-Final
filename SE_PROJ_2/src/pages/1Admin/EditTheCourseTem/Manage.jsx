@@ -13,7 +13,7 @@ const Manage = () => {
         studentCount: '',  // "จำนวนนิสิต"
         studentsPerGroup: '',  // "จำนวนนิสิต/หมู่"
         groupCount: '',  // "จำนวนหมู่เรียน"
-        columnG: '',  // "แก้ไขป่ะ?"
+        columnG:'',
         columnH: false  // "?"
       };
       setRows([...rows, newRow]);
@@ -25,14 +25,18 @@ const Manage = () => {
       );
       setRows(updatedRows);
     };
+
+    const isFormValid = () => {
+      return rows.every(row => row.studentCount && row.studentsPerGroup && row.groupCount);
+    };
   
     return (
       <div className="manage-container">
         <div className="grid-container">
           <div className="column-headers">
             {[
-              "เป็นวิชานอกคณะ?", "รหัสวิชา", "ชื่อวิชา", 
-              "จำนวนนิสิต", "จำนวนนิสิต/หมู่", "จำนวนหมู่เรียน", "A", "B"
+              "วิชานอกคณะ", "รหัสวิชา", "ชื่อวิชา", 
+              "จำนวนนิสิต", "จำนวนนิสิต/หมู่", "จำนวนหมู่เรียน", "ข้อมูลเพิ่มเติม", "วัน/เวลาเดียวกัน"
             ].map((header, index) => (
               <div key={index} className={`header-cell column-${String.fromCharCode('A'.charCodeAt(0) + index)}`}>
                 {header}
@@ -70,9 +74,9 @@ const Manage = () => {
         <button className="add-row-button" onClick={addRow}>เพิ่มวิชา</button>
         <p className="instruction">
           ถ้าคุณกดที่ปุ่ม `เพิ่มวิชา`<br />
-          จะเพิ่มแถว
+          จะเพิ่มแถววิชา
         </p>
-        <button className="next-button" onClick={() => alert('ตรวจสอบข้อมูลแล้วกดถัดไป')}>ถัดไป</button>
+        <button className="next-button" onClick={() => isFormValid() ? alert('ตรวจสอบข้อมูลแล้วกดถัดไป') : alert('กรุณากรอกข้อมูลในทุกแถว')}>เสร็จสิ้น</button>
       </div>
     );
   };
