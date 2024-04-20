@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import HowToUseT from "./HowToUseT";
+import HowToUseT from "../HowToUse/HowToUseT";
 import SchTable from "./ScheduleTable/SchTable";
 import ReqSub from "./RequestSubmission/ReqSub";
 import UserInfo from "../UserInfo/UserInfo";

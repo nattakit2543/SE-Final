@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./ImportAndExport.css";
-import imgCsv from "../../assets/img_csv.png";
-import imgXlsx from "../../assets/img_xlsx.png";
-import imgDoc from "../../assets/img_doc.png";
+import imgCsv from "../../../assets/img_csv.png";
+import imgXlsx from "../../../assets/img_xlsx.png";
+import imgDoc from "../../../assets/img_doc.png";
 import axios from "axios";
 
 function ImportAndExport() {
