@@ -68,65 +68,77 @@ myApp.post('/upload', upload.single('file'), async (req, res, next) => {
           return idStr;
       }
 
-      // Declare sqlQuery using let instead of const to allow modification
-      let sqlQuery = 'INSERT INTO mastersubject (CourseYear,Major,StudentGrade,Semester,SubjectCode,SubjectName,SubjectNameEnglish,Credits,Preq,Type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+      // Array to store SQL queries and data for insertion
+      const queries = [];
       const dataInsert = [];
 
-      data.forEach((value, index) => {
-          if (index !== 0) {
-              sqlQuery += ', (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-          }
-          const paddedIdSubject = padWithLeadingZeros(value.CourseYear, 10);
-          dataInsert.push(
-              paddedIdSubject,
-              value.CourseYear,
-              value.Major,
-              value.StudentGrade,
-              value.Semester,
-              value.SubjectCode,
-              value.SubjectName,
-              value.SubjectNameEnglish,
-              value.Credits,
-              value.Preq,
-              value.Type
-          );
+      for (let i = 0; i < data.length; i++) {
+          const value = data[i];
+          const paddedIdSubject = padWithLeadingZeros(value.SubjectCode, 10);
+          const paddedIdCourseYear = padWithLeadingZeros(value.CourseYear, 10);
+
+          const query = 'SELECT * FROM mastersubject WHERE SubjectCode = ? AND CourseYear = ?';
+          const queryValues = [paddedIdSubject, paddedIdCourseYear];
+
+          queries.push(new Promise((resolve, reject) => {
+              conn.query(query, queryValues, (err, results) => {
+                  if (err) {
+                      reject(err);
+                  } else {
+                      if (results.length === 0) {
+                          // If the subject does not exist for the given course year, insert it into the subject table
+                          const insertQuery = 'INSERT INTO mastersubject (CourseYear,Major,StudentGrade,Semester,SubjectCode,SubjectName,SubjectNameEnglish,Credits,Preq,Type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+                          const insertValues = [
+                              paddedIdCourseYear,
+                              value.Major,
+                              value.StudentGrade,
+                              value.Semester,
+                              paddedIdSubject,
+                              value.SubjectName,
+                              value.SubjectNameEnglish,
+                              value.Credits,
+                              value.Preq,
+                              value.Type
+                          ];
+                          dataInsert.push(insertValues);
+                      }
+                      resolve();
+                  }
+              });
+          }));
+      }
+
+      await Promise.all(queries);
+
+      if (dataInsert.length === 0) {
+          // No new data to insert, return error
+          return res.status(400).send('All data is duplicate');
+      }
+
+      // Insert new subjects into the database
+      const insertPromises = dataInsert.map(values => {
+          return new Promise((resolve, reject) => {
+              conn.query('INSERT INTO mastersubject (CourseYear,Major,StudentGrade,Semester,SubjectCode,SubjectName,SubjectNameEnglish,Credits,Preq,Type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', values, (err, insertResult) => {
+                  if (err) {
+                      reject(err);
+                  } else {
+                      resolve();
+                  }
+              });
+          });
       });
 
-      conn.query('SELECT * FROM mastersubject WHERE SubjectCode = ?', [paddedIdSubject], (err, results) => {
-        if (err) {
-            reject(err);
-        } else if (results.length === 0) {
-            // If the subject does not exist, insert it into the subject table
-            conn.query('INSERT INTO mastersubject (CourseYear,Major,StudentGrade,Semester,SubjectCode,SubjectName,SubjectNameEnglish,Credits,Preq,Type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
-            [paddedIdSubject,
-              value.CourseYear,
-              value.Major,
-              value.StudentGrade,
-              value.Semester,
-              value.SubjectCode,
-              value.SubjectName,
-              value.SubjectNameEnglish,
-              value.Credits,
-              value.Preq,
-              value.Type], 
-              (insertErr, insertResult) => {
-                if (insertErr) {
-                    reject(insertErr);
-                } else {
-                    resolve();
-                }
-            });
-        } else {
-            resolve();
-        }
-    });
-    
+      await Promise.all(insertPromises);
+
+      res.status(200).send('Data inserted successfully');
   } catch (error) {
       console.error('Error processing file:', error);
       res.status(500).send('Error processing file');
   }
-
 });
+
+
+
 myApp.get('/export', (req, res) => {
   conn.query('SELECT * FROM subjectmanager', (error, results) => {
     if (error) throw error;
