@@ -1,0 +1,123 @@
+.EditSub {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+  
+  .subject-container {
+    background-color: #f7f7f7;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .subject-container h1 {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+  
+  .subject-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .subject-table th,
+  .subject-table td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .subject-table th {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .edit-button, .delete-button, .save-button {
+    cursor: pointer;
+    padding: 8px 16px;
+    margin-right: 8px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .edit-button {
+    background-color: #f0ad4e;
+    color: white;
+  }
+  
+  .delete-button {
+    background-color: #d9534f;
+    color: white;
+  }
+  
+  .save-button {
+    background-color: #5cb85c;
+    color: white;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .subject-container {
+      padding: 10px;
+    }
+  
+    .subject-container h1 {
+      font-size: 20px;
+    }
+  
+    .subject-table {
+      font-size: 14px;
+    }
+  
+    .edit-button, .delete-button, .save-button {
+      padding: 4px 8px;
+      font-size: 14px;
+    }
+  }
+  
+  .subject-table {
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+  }
+  
+  .subject-table th, .subject-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+  
+  .subject-table th {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .subject-table td {
+    text-align: center;
+  }
+  
+  .action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 8px; /* ให้ช่องว่างระหว่างปุ่ม */
+  }
+  
+  .action-button {
+    background-color: #f0f0f0; /* หรือสีที่คุณต้องการ */
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+  
+
+  
+  /* Responsive layout */
+  @media (max-width: 768px) {
+    .subject-table th, .subject-table td {
+      padding: 4px;
+    }
+  
+    .action-button {
+      padding: 4px 8px;
+    }
+  }

@@ -9,6 +9,8 @@ import NavSidebarA from './layoutA/NavSidebarA';
 import EditeProfile from '../UserInfo/EditeProfile';
 import CheckRequests from './CheckRequests'; 
 import Manage from './EditTheCourseTem/Manage';
+import EditTheCourse from './Course/EditTheCourse';
+
 import './AdminApp.css';
 
 const AdminApp = () => {
@@ -36,6 +38,7 @@ const AdminApp = () => {
                     <Route path="checkRequests" element={<CheckRequests />} />
                     <Route path="userInfo/editProfile" element={<EditeProfile />} />
                     <Route path="editTheCourseTem/Manage" element={<Manage />} />
+                    <Route path="editTheCourse" element={<EditTheCourse />} />
                 </Routes>
             </div>
         </div>
