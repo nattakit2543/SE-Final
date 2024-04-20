@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
 import { IoMdCreate } from "react-icons/io";
 import './Manage.css';
+import CourseTempPopup from './componentsE/CourseTempPopup';  // Adjust the path as necessary
 
 const Manage = () => {
     const [rows, setRows] = useState([]);
+    const [showPopup, setShowPopup] = useState(false);  // State to control popup visibility
   
     const addRow = () => {
       const newRow = {
-        isExternalSubject: false,  // "เป็นวิชานอกคณะ?"
-        courseCode: 'Default Text',  // "รหัสวิชา"
-        courseName: 'Default Text',  // "ชื่อวิชา"
-        studentCount: '',  // "จำนวนนิสิต"
-        studentsPerGroup: '',  // "จำนวนนิสิต/หมู่"
-        groupCount: '',  // "จำนวนหมู่เรียน"
-        columnG:'',
-        columnH: false  // "?"
+        isExternalSubject: false,
+        courseCode: 'Default Text',
+        courseName: 'Default Text',
+        studentCount: '',
+        studentsPerGroup: '',
+        groupCount: '',
+        columnG: '',
+        columnH: false
       };
       setRows([...rows, newRow]);
     };
@@ -24,6 +26,10 @@ const Manage = () => {
         idx === index ? {...row, [column]: value} : row
       );
       setRows(updatedRows);
+    };
+
+    const togglePopup = () => {
+        setShowPopup(!showPopup);
     };
 
     const isFormValid = () => {
@@ -55,7 +61,7 @@ const Manage = () => {
                       onChange={(e) => updateField(index, key, e.target.checked)}
                     />
                   ) : key === 'columnG' ? (
-                    <IoMdCreate className="edit-icon" />
+                    <IoMdCreate className="edit-icon" onClick={togglePopup} />
                   ) : (key === 'courseCode' || key === 'courseName') ? (
                     <div className="static-text">{row[key]}</div> 
                   ) : (
@@ -72,13 +78,10 @@ const Manage = () => {
           ))}
         </div>
         <button className="add-row-button" onClick={addRow}>เพิ่มวิชา</button>
-        <p className="instruction">
-          ถ้าคุณกดที่ปุ่ม `เพิ่มวิชา`<br />
-          จะเพิ่มแถววิชา
-        </p>
         <button className="next-button" onClick={() => isFormValid() ? alert('ตรวจสอบข้อมูลแล้วกดถัดไป') : alert('กรุณากรอกข้อมูลในทุกแถว')}>เสร็จสิ้น</button>
+        {showPopup && <CourseTempPopup closePopup={togglePopup} />}
       </div>
     );
-  };
-  
-  export default Manage;
+};
+
+export default Manage;

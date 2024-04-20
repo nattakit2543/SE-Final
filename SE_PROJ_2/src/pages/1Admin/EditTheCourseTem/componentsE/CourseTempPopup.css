@@ -1,0 +1,154 @@
+.EDC-popup-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;  
+}
+
+
+.EDC-popup {
+  width: auto;
+  margin: auto;
+  background-color: #d9d9d9;
+  padding: 0 0 10px;
+  border-radius: 60px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.EDC-popupHeader {
+  position: relative;
+  height: 80px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 0px 0px;
+  border-radius: 60px 60px 0 0;
+  background-color: #a9a9a9;
+}
+
+.EDC-button1 {
+  position: absolute;
+  left: 50px;
+  width: 150px;
+  height: 60px;
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  background-color: #c0c0c0;
+}
+
+.EDC-button2 {
+  position: absolute;
+  left: 210px;
+  width: 150px;
+  height: 60px;
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  background-color: #c0c0c0;
+}
+
+.EDC-headerText {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  right: 20px;
+  height: 100%;
+  width: 100%;
+  padding: 0 10px;
+  gap: 10px;
+  font-size: 20px;
+  color: black;
+}
+
+.EDC-inputContainer {
+  margin-top: 20px;
+}
+
+.EDC-inputField {
+  margin: 5px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+  color: rgb(59, 58, 58);
+  width: auto;
+  min-width: 120px;
+}
+
+.EDC-inputRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  padding-right: 10px;
+  flex-wrap: wrap;
+}
+
+.EDC-icon {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.EDC-deleteRow {
+  color: #c03f3f;
+  font-size: 40px;
+  margin-top: 3.5px;
+  margin-left: auto;
+}
+
+.EDC-addRow {
+  color: #05c582;
+  font-size: 40px;
+  margin-right: 9px;
+}
+
+.EDC-rowButtons {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 0;
+}
+
+.EDC-actionButtons {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.EDC-buttonA {
+  width: 100px;
+  height: 40px;
+  background-color: #05c582;
+  border-radius: 50px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+  margin: 0 10px;
+}
+
+.EDC-buttonB {
+  width: 100px;
+  height: 40px;
+  background-color: #c03f3f;
+  border-radius: 50px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+  margin: 0 10px;
+}
