@@ -5,7 +5,7 @@ const mysql = require('mysql');
 const multer = require('multer');
 const xlsx = require('xlsx');
 const bodyParser = require('body-parser');
-
+const fs = require('fs');
 // Initialization of express app
 const myApp = express();
 const port = 3100;
@@ -50,34 +50,101 @@ myApp.get("/", (request, response) => {
 // Section: Import and Export Subjects
 myApp.post('/upload', upload.single('file'), async (req, res, next) => {
   try {
-    const workbook = xlsx.readFile(req.file.path);
-    const sheetName = workbook.SheetNames[0];
-    const sheet = workbook.Sheets[sheetName];
-    const data = xlsx.utils.sheet_to_json(sheet);
+      const workbook = xlsx.readFile(req.file.path);
+      const sheetName = workbook.SheetNames[0];
+      const sheet = workbook.Sheets[sheetName];
+      const data = xlsx.utils.sheet_to_json(sheet);
 
-    if (data.length === 0) {
-      return res.status(400).send('No data found in the uploaded file');
-    }
+      if (data.length === 0) {
+          return res.status(400).send('No data found in the uploaded file');
+      }
 
-    let sqlQuery = 'INSERT INTO subject (SubjectCode, SubjectName, SubjectNameEnglish, CourseYear, Credits, Type, Preq, StudentGrade, Major, Term) VALUES ';
-    const dataInsert = [];
-    data.forEach((value, index) => {
-      sqlQuery += (index === 0 ? '(?' : ',(?)') + ', ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-      dataInsert.push(
-        value.SubjectCode, value.SubjectName, value.SubjectNameEnglish, value.CourseYear, value.Credits,
-        value.Type, value.Preq, value.StudentGrade, value.Major, value.Term
-      );
+      // Function to pad ID with leading zeros
+      function padWithLeadingZeros(id, length) {
+          let idStr = id.toString();
+          while (idStr.length < length) {
+              idStr = '0' + idStr;
+          }
+          return idStr;
+      }
+
+      // Declare sqlQuery using let instead of const to allow modification
+      let sqlQuery = 'INSERT INTO mastersubject (CourseYear,Major,StudentGrade,Semester,SubjectCode,SubjectName,SubjectNameEnglish,Credits,Preq,Type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+      const dataInsert = [];
+
+      data.forEach((value, index) => {
+          if (index !== 0) {
+              sqlQuery += ', (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+          }
+          const paddedIdSubject = padWithLeadingZeros(value.CourseYear, 10);
+          dataInsert.push(
+              paddedIdSubject,
+              value.CourseYear,
+              value.Major,
+              value.StudentGrade,
+              value.Semester,
+              value.SubjectCode,
+              value.SubjectName,
+              value.SubjectNameEnglish,
+              value.Credits,
+              value.Preq,
+              value.Type
+          );
+      });
+
+      conn.query('SELECT * FROM mastersubject WHERE SubjectCode = ?', [paddedIdSubject], (err, results) => {
+        if (err) {
+            reject(err);
+        } else if (results.length === 0) {
+            // If the subject does not exist, insert it into the subject table
+            conn.query('INSERT INTO mastersubject (CourseYear,Major,StudentGrade,Semester,SubjectCode,SubjectName,SubjectNameEnglish,Credits,Preq,Type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
+            [paddedIdSubject,
+              value.CourseYear,
+              value.Major,
+              value.StudentGrade,
+              value.Semester,
+              value.SubjectCode,
+              value.SubjectName,
+              value.SubjectNameEnglish,
+              value.Credits,
+              value.Preq,
+              value.Type], 
+              (insertErr, insertResult) => {
+                if (insertErr) {
+                    reject(insertErr);
+                } else {
+                    resolve();
+                }
+            });
+        } else {
+            resolve();
+        }
     });
-    conn.query(sqlQuery, dataInsert, (error, results) => {
-      if (error) return res.status(500).send('Error inserting data: ' + error);
-      res.status(200).send('Data inserted successfully');
-    });
+    
   } catch (error) {
-    console.error('Error processing file:', error);
-    res.status(500).send('Error processing file');
+      console.error('Error processing file:', error);
+      res.status(500).send('Error processing file');
   }
-});
 
+});
+myApp.get('/export', (req, res) => {
+  conn.query('SELECT * FROM subjectmanager', (error, results) => {
+    if (error) throw error;
+
+    // Convert data to xlsx format
+    const worksheet = xlsx.utils.json_to_sheet(results);
+    const workbook = xlsx.utils.book_new();
+    xlsx.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+
+    const filePath = './exports/data.xlsx';
+
+    // Write xlsx file to disk
+    xlsx.writeFile(workbook, filePath);
+
+    // Send the file path back to the client
+    res.json({ filePath });
+  });
+}); 
 
 // Section: User details and login
 myApp.get("/login/:email/:password", (request, response) => {
