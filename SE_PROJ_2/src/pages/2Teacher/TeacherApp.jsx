@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
-import HowToUseT from './HowToUseT';
-import SchTable from './SchTable';
-import ReqSub from './ReqSub';
-import UserInfo from '../UserInfo/UserInfo';
-import EditeProfile from '../UserInfo/EditeProfile';
-import NavSidebarT from './layoutT/NavSidebarT';
-import './TeacherApp.css'; 
+import React, { useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import HowToUseT from "./HowToUseT";
+import SchTable from "./ScheduleTable/SchTable";
+import ReqSub from "./RequestSubmission/ReqSub";
+import UserInfo from "../UserInfo/UserInfo";
+import EditeProfile from "../UserInfo/EditeProfile";
+import NavSidebarT from "./layoutT/NavSidebarT";
+import "./TeacherApp.css";
 
 const TeacherApp = () => {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
@@ -21,8 +21,16 @@ const TeacherApp = () => {
   };
 
   return (
-    <div className={`teacher-dashboard ${isSidebarExpanded ? 'sidebar-expanded' : 'sidebar-collapsed'}`}>
-      <NavSidebarT toggleSidebar={toggleSidebar} isSidebarExpanded={isSidebarExpanded} logout={logout} />
+    <div
+      className={`teacher-dashboard ${
+        isSidebarExpanded ? "sidebar-expanded" : "sidebar-collapsed"
+      }`}
+    >
+      <NavSidebarT
+        toggleSidebar={toggleSidebar}
+        isSidebarExpanded={isSidebarExpanded}
+        logout={logout}
+      />
       <div className="main-content">
         <Routes>
           <Route path="howToUseT" element={<HowToUseT />} />
