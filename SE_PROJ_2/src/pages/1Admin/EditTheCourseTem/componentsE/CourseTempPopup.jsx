@@ -4,6 +4,7 @@ import { IoMdRemoveCircle, IoMdAddCircle } from "react-icons/io";
 
 const CourseTempPopup = ({ closePopup }) => {
   const [rows, setRows] = useState([{}]);
+  const [group, setGroup] = useState('');
 
   const addRow = () => {
     setRows([...rows, {}]);
@@ -29,10 +30,10 @@ const CourseTempPopup = ({ closePopup }) => {
         <div className="EDC-inputContainer">
           {rows.map((_, index) => (
             <div key={index} className="EDC-inputRow">
-              <input
-                type="text"
-                className="EDC-inputField"
-                placeholder="หมู่เรียน"
+              <input 
+                type="text" 
+                className="EDC-inputField" 
+                placeholder="หมู่เรียน" 
               />
               <select className="EDC-inputField">
                 <option value="">ปีหลักสูตร</option>
@@ -66,10 +67,10 @@ const CourseTempPopup = ({ closePopup }) => {
               />
             </div>
           ))}
-          <div className="EDC-rowButtons">
+        </div>
+        <div className="EDC-rowButtons">
             <IoMdAddCircle className="EDC-icon EDC-addRow" onClick={addRow} />
           </div>
-        </div>
         <div className="EDC-actionButtons">
           <button className="EDC-buttonA" onClick={closePopup}>ตกลง</button>
           <button className="EDC-buttonB" onClick={closePopup}>ยกเลิก</button>

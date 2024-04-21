@@ -12,8 +12,8 @@ const Manage = () => {
         isExternalSubject: false,
         courseCode: 'Default Text',
         courseName: 'Default Text',
-        studentCount: '',
-        studentsPerGroup: '',
+        studentCount: 'Default Text',
+        studentsPerGroup: 'Default Text',
         groupCount: '',
         columnG: '',
         columnH: false
@@ -33,7 +33,7 @@ const Manage = () => {
     };
 
     const isFormValid = () => {
-      return rows.every(row => row.studentCount && row.studentsPerGroup && row.groupCount);
+      return rows.every(row => row.groupCount);
     };
   
     return (
@@ -42,7 +42,7 @@ const Manage = () => {
           <div className="column-headers">
             {[
               "วิชานอกคณะ", "รหัสวิชา", "ชื่อวิชา", 
-              "จำนวนนิสิต", "จำนวนนิสิต/หมู่", "จำนวนหมู่เรียน", "ข้อมูลเพิ่มเติม", "วัน/เวลาเดียวกัน"
+              "หมวด", "หน่วยกิต", "จำนวนนิสิตทั้งหมด", "ข้อมูลเพิ่มเติม", "วัน/เวลาเดียวกัน"
             ].map((header, index) => (
               <div key={index} className={`header-cell column-${String.fromCharCode('A'.charCodeAt(0) + index)}`}>
                 {header}
@@ -62,7 +62,7 @@ const Manage = () => {
                     />
                   ) : key === 'columnG' ? (
                     <IoMdCreate className="edit-icon" onClick={togglePopup} />
-                  ) : (key === 'courseCode' || key === 'courseName') ? (
+                  ) : (key === 'courseCode' || key === 'courseName' || key === 'studentCount' || key === 'studentsPerGroup') ? (
                     <div className="static-text">{row[key]}</div> 
                   ) : (
                     <input

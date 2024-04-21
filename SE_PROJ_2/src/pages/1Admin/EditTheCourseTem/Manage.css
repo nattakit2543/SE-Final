@@ -16,7 +16,7 @@
   background-color: #ffffff;
   padding: 10px;
   border-radius: 8px;
-  margin-top: 10%;
+  margin-top: 6%;
 }
 
 .column-headers {
@@ -61,7 +61,9 @@
 
 
 .add-row-button {
-  padding: 10px 20px;
+  position: fixed;
+  top: 660px;
+  left: 750px;
   font-size: 16px;
   cursor: pointer;
   background-color: #4CAF50;

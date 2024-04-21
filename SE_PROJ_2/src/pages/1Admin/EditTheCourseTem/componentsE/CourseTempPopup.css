@@ -9,11 +9,13 @@
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1000;  
+  overflow: auto;
 }
 
 
 .EDC-popup {
-  width: auto;
+  width: 1000px; /* กำหนดความกว้าง */
+  height: 500px;
   margin: auto;
   background-color: #d9d9d9;
   padding: 0 0 10px;
@@ -77,6 +79,9 @@
 
 .EDC-inputContainer {
   margin-top: 20px;
+  max-height: calc(100vh - 400px); 
+  overflow-y: auto;
+  margin-top: 20px;
 }
 
 .EDC-inputField {
@@ -114,7 +119,10 @@
 .EDC-addRow {
   color: #05c582;
   font-size: 40px;
-  margin-right: 9px;
+  position: fixed;
+  top: 570px;
+  left: 1180px;
+
 }
 
 .EDC-rowButtons {
@@ -125,8 +133,10 @@
 
 .EDC-actionButtons {
   display: flex;
+  position: fixed;
   justify-content: center;
-  margin-top: 20px;
+  top: 570px;
+  left: 600px;
 }
 
 .EDC-buttonA {
