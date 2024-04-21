@@ -10,17 +10,18 @@
 }
 
 .grid-container {
-  max-height: calc(100vh - 200px); 
+  max-height: calc(100vh - 280px); 
   overflow-y: auto;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
   padding: 10px;
   border-radius: 8px;
-  margin-top: 6%;
+  margin-top: 1%;
 }
 
 .column-headers {
   display: flex;
+  margin-top: 90px;
   background-color: #eeeeee; 
   border-top-left-radius: 8px; 
   border-top-right-radius: 8px;

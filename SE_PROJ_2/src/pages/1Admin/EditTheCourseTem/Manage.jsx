@@ -38,8 +38,7 @@ const Manage = () => {
   
     return (
       <div className="manage-container">
-        <div className="grid-container">
-          <div className="column-headers">
+        <div className="column-headers">
             {[
               "วิชานอกคณะ", "รหัสวิชา", "ชื่อวิชา", 
               "หมวด", "หน่วยกิต", "จำนวนนิสิตทั้งหมด", "ข้อมูลเพิ่มเติม", "วัน/เวลาเดียวกัน"
@@ -49,6 +48,7 @@ const Manage = () => {
               </div>
             ))}
           </div>
+        <div className="grid-container">
           {rows.map((row, index) => (
             <div key={index} className="row">
               {Object.keys(row).map((key, idx) => (
