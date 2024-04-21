@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./EditSub.css";
 import { IoMdCreate } from "react-icons/io";
+import { IoIosTrash } from "react-icons/io"; // Import trash icon
 
 const EditSub = () => {
   const navigate = useNavigate();
@@ -83,6 +84,7 @@ const EditSub = () => {
       ],
     },
   };
+
   const [courseDetails, setCourseDetails] = useState(initialCourseDetails);
   const [editMode, setEditMode] = useState({});
 
@@ -98,6 +100,16 @@ const EditSub = () => {
       }
       return course;
     });
+    setCourseDetails({
+      ...courseDetails,
+      2017: { ...courseDetails["2017"], [term]: updatedCourses },
+    });
+  };
+
+  const handleDeleteCourse = (term, index) => {
+    const updatedCourses = courseDetails["2017"][term].filter(
+      (course, idx) => idx !== index
+    );
     setCourseDetails({
       ...courseDetails,
       2017: { ...courseDetails["2017"], [term]: updatedCourses },
@@ -122,82 +134,100 @@ const EditSub = () => {
                 </tr>
               </thead>
               <tbody>
-  {courses.map((course, index) => (
-    <tr key={`${term}-${index}`}>
-      <td>
-        {editMode[`${term}-${index}`] ? (
-          <input
-            type="text"
-            name="course_code"
-            value={course.course_code}
-            onChange={(e) => handleEditChange(e, term, index)}
-          />
-        ) : (
-          course.course_code
-        )}
-      </td>
-      <td>
-        {editMode[`${term}-${index}`] ? (
-          <input
-            type="text"
-            name="course_name_en"
-            value={course.course_name_en}
-            onChange={(e) => handleEditChange(e, term, index)}
-          />
-        ) : (
-          course.course_name_en
-        )}
-      </td>
-      <td>
-        {editMode[`${term}-${index}`] ? (
-          <input
-            type="text"
-            name="course_name_th"
-            value={course.course_name_th}
-            onChange={(e) => handleEditChange(e, term, index)}
-          />
-        ) : (
-          course.course_name_th
-        )}
-      </td>
-      <td>
-        {editMode[`${term}-${index}`] ? (
-          <input
-            type="number"
-            name="credits"
-            value={course.credits.toString()}
-            onChange={(e) => handleEditChange(e, term, index)}
-          />
-        ) : (
-          course.credits
-        )}
-      </td>
-      <td>
-        {editMode[`${term}-${index}`] ? (
-          <input
-          type="text"
-          name="basic_subject"
-          checked={course.basic_subject}
-          onChange={(e) => handleEditChange({
-            target: {
-              name: e.target.name,
-              value: e.target.checked, // Convert checkbox state to boolean value
-            }
-          }, term, index)}
-        />
-        ) : (
-          course.basic_subject ? "Yes" : "No"
-        )}
-      </td>
-      <td>
-        <button onClick={() => toggleEdit(term, index)}>
-          <IoMdCreate />
-        </button>
-      </td>
-    </tr>
-  ))}
-</tbody>
+                {courses.map((course, index) => (
+                  <tr key={`${term}-${index}`}>
+                    {/* คอลัมน์ต่างๆ */}
+                    <td>
+                      {editMode[`${term}-${index}`] ? (
+                        <input
+                          type="text"
+                          name="course_code"
+                          value={course.course_code}
+                          onChange={(e) => handleEditChange(e, term, index)}
+                        />
+                      ) : (
+                        course.course_code
+                      )}
+                    </td>
+                    <td>
+                      {editMode[`${term}-${index}`] ? (
+                        <input
+                          type="text"
+                          name="course_name_en"
+                          value={course.course_name_en}
+                          onChange={(e) => handleEditChange(e, term, index)}
+                        />
+                      ) : (
+                        course.course_name_en
+                      )}
+                    </td>
+                    <td>
+                      {editMode[`${term}-${index}`] ? (
+                        <input
+                          type="text"
+                          name="course_name_th"
+                          value={course.course_name_th}
+                          onChange={(e) => handleEditChange(e, term, index)}
+                        />
+                      ) : (
+                        course.course_name_th
+                      )}
+                    </td>
+                    <td>
+                      {editMode[`${term}-${index}`] ? (
+                        <input
+                          type="number"
+                          name="credits"
+                          value={course.credits.toString()}
+                          onChange={(e) => handleEditChange(e, term, index)}
+                        />
+                      ) : (
+                        course.credits
+                      )}
+                    </td>
+                    <td>
+                      {editMode[`${term}-${index}`] ? (
+                        <input
+                          type="text"
+                          name="basic_subject"
+                          checked={course.basic_subject}
+                          onChange={(e) =>
+                            handleEditChange(
+                              {
+                                target: {
+                                  name: e.target.name,
+                                  value: e.target.checked, 
+                                },
+                              },
+                              term,
+                              index
+                            )
+                          }
+                        />
+                      ) : course.basic_subject ? (
+                        "Yes"
+                      ) : (
+                        "No"
+                      )}
+                    </td>
 
+                    <td className="edit-delete-buttons">
+                      <button
+                        className="edit-button"
+                        onClick={() => toggleEdit(term, index)}
+                      >
+                        <IoMdCreate />
+                      </button>
+                      <button
+                        className="delete-button"
+                        onClick={() => handleDeleteCourse(term, index)}
+                      >
+                        <IoIosTrash />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
             </table>
           </div>
         )
