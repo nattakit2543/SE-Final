@@ -10,6 +10,7 @@ import EditeProfile from '../UserInfo/EditeProfile';
 import CheckRequests from './CheckRequests/CheckRequests'; 
 import Manage from './EditTheCourseTem/Manage';
 import EditTheCourse from './Course/EditTheCourse';
+import Editsub from './Course/EditSub';
 
 import './AdminApp.css';
 
@@ -39,6 +40,9 @@ const AdminApp = () => {
                     <Route path="userInfo/editProfile" element={<EditeProfile />} />
                     <Route path="editTheCourseTem/Manage" element={<Manage />} />
                     <Route path="editTheCourse" element={<EditTheCourse />} />
+                    <Route path="editTheCourse/edit-sub" element={<Editsub />} />
+                    {/*<Route path="edit-sub/:courseId" element={<Editsub />} />*/}
+
                 </Routes>
             </div>
         </div>

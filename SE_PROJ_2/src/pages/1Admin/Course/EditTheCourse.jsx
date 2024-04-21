@@ -1,49 +1,61 @@
-
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { FaEdit, FaTrash } from 'react-icons/fa';
+import React, { useState } from "react";
+import { IoMdCreate, IoIosEye, IoMdTrash, IoIosJournal } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
+import "./EditTheCourse.css";
 
 const EditTheCourse = () => {
-  const [courses, setCourses] = useState([]); // จัดเก็บรายการหลักสูตร
   const navigate = useNavigate();
+  const [courses, setCourses] = useState([
+    { id: 1, name: "Academic year 2017 curriculum" },
+    { id: 2, name: "Academic year 2018 curriculum" },
+    { id: 3, name: "Academic year 2019 curriculum" },
+    { id: 4, name: "Academic year 2020 curriculum" },
+    { id: 5, name: "Academic year 2021 curriculum" },
+    { id: 6, name: "Academic year 2022 curriculum" },
+    { id: 7, name: "Academic year 2023 curriculum" },
+    { id: 8, name: "Academic year 2024 curriculum" },
+    { id: 9, name: "Academic year 2025 curriculum" },
+    { id: 10, name: "Academic year 2026 curriculum" },
+  ]);
 
-  useEffect(() => {
-    // เรียก API เมื่อ component ถูก mount
-    fetch('http://localhost:3100/courseyear')
-      .then(response => response.json())
-      .then(data => setCourses(data))
-      .catch(error => console.error('Error fetching course years:', error));
-  }, []); // วงเล็บสี่เหลี่ยมแสดงว่า useEffect นี้จะทำงานครั้งเดียวเมื่อ component mount
- 
-  const deleteCourseYear = async (year) => {
-    if(window.confirm(`คุณแน่ใจว่าต้องการลบหลักสูตรปีการศึกษา ${year}?`)) {
-      try {
-        const response = await fetch(`http://localhost:3100/course/${year}`, { method: 'DELETE' });
-        if (!response.ok) throw new Error('Problem deleting course year');
-        // อัปเดต state เพื่อลบหลักสูตรออกจาก UI
-        setCourses(courses.filter(course => course.year !== year));
-        window.location.reload();
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    }
+  const handleDeleteCourse = (courseId) => {
+    // Filter out the course to delete
+    const updatedCourses = courses.filter(course => course.id !== courseId);
+    setCourses(updatedCourses);
   };
 
   return (
-    <>
-      <h1>หลักสูตรทั้งหมด</h1>
-      <div>
-        {courses.map((course) => (
-          <div key={course.idCourseYear}>
-            <button onClick={() => navigate(`/EditSub/${course.idCourseYear}`)}>
-              {`หลักสูตรปีการศึกษา ${course.idCourseYear}`}
-            </button>
-            {/* <FaEdit onClick={() => navigate(`/edit/${course.idCourseYear}`)} /> */}
-            <FaTrash onClick={() => deleteCourseYear(course.idCourseYear)} />
-          </div>
-        ))}
-      </div>
-    </>
+    <div className="edit-course-container">
+      <table className="edit-course-table">
+        <thead>
+          <tr>
+            <th>
+              <IoIosJournal className="edit-course-icon" /> Curriculum Name
+            </th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {courses.map((course) => (
+            <tr key={course.id}>
+              <td>{course.name}</td>
+              <td>
+                <IoIosEye
+                  onClick={() => navigate(`edit-sub`, { state: { curriculumName: course.name } })}
+                  className="edit-course-icon eye-icon"
+                  title="View"
+                />
+                <IoMdTrash
+                  onClick={() => handleDeleteCourse(course.id)}
+                  className="edit-course-icon delete-icon"
+                  title="Delete"
+                />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 

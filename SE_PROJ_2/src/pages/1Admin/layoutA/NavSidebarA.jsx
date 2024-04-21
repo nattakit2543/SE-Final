@@ -18,6 +18,7 @@ import axios from "axios";
 const NavSidebarA = ({ toggleSidebar, isSidebarExpanded, logout }) => {
   const location = useLocation();
   const semester = location.state?.semester;
+  const curriculumName = location.state?.curriculumName;
 
   const [iconPosition, setIconPosition] = useState(250);
   const [idTeacher, setidTeacher] = useState();
@@ -55,7 +56,7 @@ const NavSidebarA = ({ toggleSidebar, isSidebarExpanded, logout }) => {
     <div>
       <div className="admin-navbar">
         <span className="admin-navbar-title">
-          {semester || getActiveMenuName()}
+          {curriculumName || semester || getActiveMenuName()}
         </span>
       </div>
       <div
