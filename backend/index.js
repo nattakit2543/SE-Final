@@ -350,3 +350,48 @@ myApp.get("/updateteacherinfo/:TeacherName/:TeacherSurname/:TeacherPhone/:Teache
   });
 });
 
+//Request
+myApp.get("/request",(request,response) =>{
+  var sql =
+  "SELECT * FROM temp";
+  conn.query(sql, (error, results) => {
+    if (error) {
+      console.log(error);
+      response.status(500).json({ error: "Internal server error" });
+    } else {
+      response.json(results);
+    }
+  });
+}); 
+
+//Insertrequest
+myApp.get("/insertrequest/:IsExternal/:SubjectCode/:SubjectName/:SubjectNameEnglish/:CourseYear/:Type/:Credits/:Sec/:StuNum/:LabSec/:LabStuNum/:LabRoom/:TeacherName/:TeacherSurname/:Major/:StudentGrade/:Day/:TimeStart/:TimeEnd/:Preq", (request, response) => {
+  const { IsExternal, SubjectCode, SubjectName, SubjectNameEnglish, CourseYear, Type, Credits, Sec, StuNum, LabSec, LabStuNum, LabRoom, TeacherName, TeacherSurname, Major, StudentGrade, Day, TimeStart, TimeEnd, Preq } = request.params;
+  var sql =
+  "INSERT INTO temp (IsExternal, SubjectCode, SubjectName, SubjectNameEnglish, CourseYear, Type, Credits, Sec, StuNum, LabSec, LabStuNum, LabRoom, TeacherName, TeacherSurname, Major, StudentGrade, Day, TimeStart, TimeEnd, Preq)"+
+  "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+  conn.query(sql, [ IsExternal, SubjectCode, SubjectName, SubjectNameEnglish, CourseYear, Type, Credits, Sec, StuNum, LabSec, LabStuNum, LabRoom, TeacherName, TeacherSurname, Major, StudentGrade, Day, TimeStart, TimeEnd, Preq], (error, results) => {
+    if (error) {
+      console.log(error);
+      response.status(500).json({ error: "Internal server error" });
+    } else {
+      response.json(results);
+    }
+  });
+});
+
+
+//Deleterequest
+myApp.get("/deleterequest/:idTemp", (request, response) => {
+  const { idTemp } = request.params;
+  var sql =
+  "DELETE FROM temp WHERE idTemp = ?;"
+  conn.query(sql, [idTemp], (error, results) => {
+    if (error) {
+      console.log(error);
+      response.status(500).json({ error: "Internal server error" });
+    } else {
+      response.json(results);
+    }
+  });
+});
