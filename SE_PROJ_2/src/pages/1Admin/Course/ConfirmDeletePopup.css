@@ -11,23 +11,46 @@
 }
 
 .popup-content {
-  background: white;
+  background: #2E3138;
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-  color: black;
+  color: #FFA500;
+  width: 300px;
+}
+
+.popup-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.warning-icon {
+  color: #FFA500;
+  font-size: 90px;
+  margin-bottom: 0px;
 }
 
 .popup-buttons {
   display: flex;
-  justify-content: center; 
-  width: 100%; 
+  justify-content: center;
+  gap: 10px;
 }
 
-.cancel-button {
-  margin-left: 10px;
+.cancel-button,
+.confirm-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
 }
 
 .confirm-button {
   background-color: crimson;
+  color: white;
+}
+
+.cancel-button {
+  background-color: #CCCCCC;
+  color: black;
 }
