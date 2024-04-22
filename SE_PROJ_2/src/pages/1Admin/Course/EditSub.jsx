@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { IoMdCreate, IoIosTrash } from "react-icons/io";
+import ConfirmDeletePopup from "./ConfirmDeletePopup"; 
 import "./EditSub.css";
-import { IoMdCreate } from "react-icons/io";
-import { IoIosTrash } from "react-icons/io";
 
 const EditSub = () => {
   const navigate = useNavigate();
@@ -31,6 +31,9 @@ const EditSub = () => {
 
   const [courseDetails, setCourseDetails] = useState(initialCourseDetails);
   const [editMode, setEditMode] = useState({});
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [currentTerm, setCurrentTerm] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(null);
 
   const toggleEdit = (term, index) => {
     setEditMode({ [`${term}-${index}`]: !editMode[`${term}-${index}`] });
@@ -53,16 +56,6 @@ const EditSub = () => {
     });
   };
 
-  const handleDeleteCourse = (term, index) => {
-    const updatedCourses = courseDetails["2017"][term].filter(
-      (course, idx) => idx !== index
-    );
-    setCourseDetails({
-      ...courseDetails,
-      2017: { ...courseDetails["2017"], [term]: updatedCourses },
-    });
-  };
-
   const handleAddCourse = (term) => {
     const newCourse = {
       course_code: "",
@@ -76,6 +69,25 @@ const EditSub = () => {
       ...courseDetails,
       2017: { ...courseDetails["2017"], [term]: updatedCourses },
     });
+  };
+
+  const openPopup = (term, index) => {
+    setCurrentTerm(term);
+    setCurrentIndex(index);
+    setIsPopupOpen(true);
+  };
+
+  const closePopup = () => {
+    setIsPopupOpen(false);
+  };
+
+  const handleDeleteCourse = () => {
+    const updatedCourses = courseDetails["2017"][currentTerm].filter((_, idx) => idx !== currentIndex);
+    setCourseDetails({
+      ...courseDetails,
+      2017: { ...courseDetails["2017"], [currentTerm]: updatedCourses },
+    });
+    closePopup();
   };
 
   return (
@@ -115,7 +127,7 @@ const EditSub = () => {
                   </td>
                   <td className="edit-delete-buttons">
                     <button className="edit-button" onClick={() => toggleEdit(term, index)}><IoMdCreate /></button>
-                    <button className="delete-button" onClick={() => handleDeleteCourse(term, index)}><IoIosTrash /></button>
+                    <button className="delete-button" onClick={() => openPopup(term, index)}><IoIosTrash /></button>
                   </td>
                 </tr>
               ))}
@@ -128,10 +140,14 @@ const EditSub = () => {
           </table>
         </div>
       ))}
+      <ConfirmDeletePopup
+        isOpen={isPopupOpen}
+        onClose={closePopup}
+        onConfirm={handleDeleteCourse}
+      />
       <button className="back-button" onClick={() => navigate(-1)}>Go Back</button>
     </div>
   );
-  
 };
 
 export default EditSub;
