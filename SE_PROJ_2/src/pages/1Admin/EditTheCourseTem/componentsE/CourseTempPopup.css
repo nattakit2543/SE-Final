@@ -37,12 +37,13 @@
 
 .EDC-button1 {
   position: absolute;
-  left: 50px;
+  top: 125px;
+  left: 320px;
   width: 150px;
   height: 60px;
   font-size: 20px;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 50px;
   border: none;
   color: white;
   cursor: pointer;
@@ -51,37 +52,37 @@
 
 .EDC-button2 {
   position: absolute;
-  left: 210px;
+  top: 125px;
+  left: 500px;
   width: 150px;
   height: 60px;
   font-size: 20px;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 50px;
   border: none;
   color: white;
   cursor: pointer;
   background-color: #c0c0c0;
 }
 
+
+
 .EDC-headerText {
-  position: absolute;
+  position: fixed;
   display: flex;
   align-items: center;
-  justify-content: end;
-  right: 20px;
-  height: 100%;
-  width: 100%;
-  padding: 0 10px;
+  justify-content: center;
+  top: 140px;
+  right: 320px;
   gap: 10px;
   font-size: 20px;
   color: black;
 }
 
 .EDC-inputContainer {
-  margin-top: 20px;
   max-height: calc(100vh - 400px); 
   overflow-y: auto;
-  margin-top: 20px;
+  margin-top: 80px;
 }
 
 .EDC-inputField {
@@ -116,7 +117,15 @@
   margin-left: auto;
 }
 
-.EDC-addRow {
+.EDC-addRow1 {
+  color: #05c582;
+  font-size: 40px;
+  position: fixed;
+  top: 570px;
+  left: 1180px;
+
+}
+.EDC-addRow2 {
   color: #05c582;
   font-size: 40px;
   position: fixed;
@@ -162,3 +171,4 @@
   padding: 10px 20px;
   margin: 0 10px;
 }
+

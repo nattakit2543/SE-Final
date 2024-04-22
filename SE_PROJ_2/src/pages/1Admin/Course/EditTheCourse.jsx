@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { IoMdCreate, IoIosEye, IoMdTrash, IoIosJournal } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import "./EditTheCourse.css";
+import ConfirmDeletePopup from "./ConfirmDeletePopup"; 
 
 const EditTheCourse = () => {
   const navigate = useNavigate();
@@ -17,11 +18,18 @@ const EditTheCourse = () => {
     { id: 9, name: "Academic year 2025 curriculum" },
     { id: 10, name: "Academic year 2026 curriculum" },
   ]);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [currentCourseId, setCurrentCourseId] = useState(null);
 
-  const handleDeleteCourse = (courseId) => {
-    // Filter out the course to delete
-    const updatedCourses = courses.filter(course => course.id !== courseId);
+  const handleDeleteCourse = () => {
+    const updatedCourses = courses.filter(course => course.id !== currentCourseId);
     setCourses(updatedCourses);
+    setIsPopupOpen(false); 
+  };
+
+  const openDeleteConfirm = (courseId) => {
+    setCurrentCourseId(courseId);
+    setIsPopupOpen(true);
   };
 
   return (
@@ -29,9 +37,7 @@ const EditTheCourse = () => {
       <table className="edit-course-table">
         <thead>
           <tr>
-            <th>
-              <IoIosJournal className="edit-course-icon" /> Curriculum Name
-            </th>
+            <th><IoIosJournal className="edit-course-icon" /> Curriculum Name</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -46,7 +52,7 @@ const EditTheCourse = () => {
                   title="View"
                 />
                 <IoMdTrash
-                  onClick={() => handleDeleteCourse(course.id)}
+                  onClick={() => openDeleteConfirm(course.id)}
                   className="edit-course-icon delete-icon"
                   title="Delete"
                 />
@@ -55,6 +61,13 @@ const EditTheCourse = () => {
           ))}
         </tbody>
       </table>
+      {isPopupOpen && (
+        <ConfirmDeletePopup
+          isOpen={isPopupOpen}
+          onClose={() => setIsPopupOpen(false)}
+          onConfirm={handleDeleteCourse}
+        />
+      )}
     </div>
   );
 };
