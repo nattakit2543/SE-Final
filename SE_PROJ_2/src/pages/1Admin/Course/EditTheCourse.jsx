@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { IoMdCreate, IoIosEye, IoMdTrash, IoIosJournal } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import "./EditTheCourse.css";
-import ConfirmDeletePopup from "./ConfirmDeletePopup"; 
+import ConfirmDeletePopup from "./ConfirmDeletePopup";
+import StatusPopup from "./StatusPopup"; 
 
 const EditTheCourse = () => {
   const navigate = useNavigate();
@@ -19,12 +20,18 @@ const EditTheCourse = () => {
     { id: 10, name: "Academic year 2026 curriculum" },
   ]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [status, setStatus] = useState(null);
   const [currentCourseId, setCurrentCourseId] = useState(null);
 
   const handleDeleteCourse = () => {
-    const updatedCourses = courses.filter(course => course.id !== currentCourseId);
-    setCourses(updatedCourses);
     setIsPopupOpen(false); 
+    setStatus('processing'); 
+    setTimeout(() => {
+      const updatedCourses = courses.filter(course => course.id !== currentCourseId);
+      setCourses(updatedCourses);
+      setStatus('success'); 
+      setTimeout(() => setStatus(null), 3000);
+    }, 2000);
   };
 
   const openDeleteConfirm = (courseId) => {
@@ -66,6 +73,12 @@ const EditTheCourse = () => {
           isOpen={isPopupOpen}
           onClose={() => setIsPopupOpen(false)}
           onConfirm={handleDeleteCourse}
+        />
+      )}
+      {status && (
+        <StatusPopup
+          status={status}
+          onClose={() => setStatus(null)}
         />
       )}
     </div>
