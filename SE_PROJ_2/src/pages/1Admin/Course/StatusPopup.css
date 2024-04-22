@@ -1,34 +1,54 @@
 .status-popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .status-popup-content {
-    background: white;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-    text-align: center;
-    color: black;
-  }
-  
-  .status-popup-buttons {
-    margin-top: 20px;
-  }
-  
-  .close-button {
-    padding: 5px 20px;
-    color: white;
-    background-color: #007BFF;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.status-popup-content {
+  background: #2E3138;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  text-align: center;
+  color: #FFA500;
+  width: 300px;
+}
+
+.status-icon {
+  font-size: 48px;
+  display: block;
+  margin: 0 auto 10px;
+}
+
+.status-icon.processing {
+  color: #FFA500;
+}
+
+.status-icon.success {
+  color: green;
+  font-size: 90px;
+}
+
+.status-icon.error {
+  color: red;
+  font-size: 90px;
+}
+
+.status-popup-buttons {
+  margin-top: 20px;
+}
+
+.close-button {
+  padding: 5px 20px;
+  color: white;
+  background-color: #007BFF;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
