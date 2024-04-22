@@ -27,8 +27,8 @@ function ImportAndExport() {
   };
 
   const handleDownloadTeachingSchedule = async () => {
-    const fileUrl = "/TeacherSubjectSec1"; // Placeholder, replace with actual URL
-    handleDownload(fileUrl, "TeachingSchedule.csv");
+    const fileUrl = "http://localhost:3100/export"; // Placeholder, replace with actual URL
+    handleDownload(fileUrl, "TeachingSchedule.xlsx");
   };
 
   const handleSubmit = async (e) => {

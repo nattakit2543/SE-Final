@@ -148,15 +148,15 @@ myApp.get('/export', (req, res) => {
     const workbook = xlsx.utils.book_new();
     xlsx.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
 
-    const filePath = './exports/data.xlsx';
+    // Write xlsx file to buffer
+    const buffer = xlsx.write(workbook, { type: 'buffer', bookType: 'xlsx' });
 
-    // Write xlsx file to disk
-    xlsx.writeFile(workbook, filePath);
-
-    // Send the file path back to the client
-    res.json({ filePath });
+    // Send the file data back to the client
+    res.setHeader('Content-Disposition', 'attachment; filename=data.xlsx');
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.send(buffer);
   });
-}); 
+});
 
 // Section: User details and login
 myApp.get("/login/:email/:password", (request, response) => {
@@ -349,3 +349,4 @@ myApp.get("/updateteacherinfo/:TeacherName/:TeacherSurname/:TeacherPhone/:Teache
     }
   });
 });
+
