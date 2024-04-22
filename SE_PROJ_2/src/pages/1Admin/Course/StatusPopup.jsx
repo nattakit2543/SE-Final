@@ -3,7 +3,7 @@ import { IoIosCheckmarkCircle, IoIosCloseCircle } from "react-icons/io";
 import { LuLoader } from "react-icons/lu";
 import './StatusPopup.css';
 
-const StatusPopup = ({ status, onClose }) => {
+const StatusPopup = ({ status }) => {
   if (!status) return null;
 
   let message = '';
@@ -31,11 +31,6 @@ const StatusPopup = ({ status, onClose }) => {
       <div className="status-popup-content">
         {icon}
         <h3>{message}</h3>
-        {status !== 'processing' && (
-          <div className="status-popup-buttons">
-            <button onClick={onClose} className="close-button">Close</button>
-          </div>
-        )}
       </div>
     </div>
   );

@@ -16,39 +16,27 @@
   border-radius: 5px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   text-align: center;
-  color: #FFA500;
+  color: white;
   width: 300px;
 }
 
 .status-icon {
   font-size: 48px;
   display: block;
-  margin: 0 auto 10px;
+  margin: 20px auto;
 }
 
 .status-icon.processing {
   color: #FFA500;
+  font-size: 90px;
 }
 
 .status-icon.success {
-  color: green;
+  color: #4BB543;
   font-size: 90px;
 }
 
 .status-icon.error {
-  color: red;
+  color: #FF4F4F;
   font-size: 90px;
-}
-
-.status-popup-buttons {
-  margin-top: 20px;
-}
-
-.close-button {
-  padding: 5px 20px;
-  color: white;
-  background-color: #007BFF;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
 }
