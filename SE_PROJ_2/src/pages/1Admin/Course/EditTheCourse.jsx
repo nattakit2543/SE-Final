@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { IoMdCreate, IoIosEye, IoMdTrash, IoIosJournal } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import "./EditTheCourse.css";
-import ConfirmDeletePopup from "./ConfirmDeletePopup";
-import StatusPopup from "./StatusPopup"; 
+import ConfirmDeletePopup from "../ComponentsAdmin/ConfirmDeletePopup";
+import StatusPopup from "../ComponentsAdmin/StatusPopup"; 
 
 const EditTheCourse = () => {
   const navigate = useNavigate();

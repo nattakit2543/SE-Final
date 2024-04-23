@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoMdCreate, IoIosTrash, IoIosAddCircle } from "react-icons/io";
 import { IoArrowBackCircle } from "react-icons/io5";
-import ConfirmDeletePopup from "./ConfirmDeletePopup";
-import StatusPopup from "./StatusPopup";
+import ConfirmDeletePopup from "../ComponentsAdmin/ConfirmDeletePopup";
+import StatusPopup from "../ComponentsAdmin/StatusPopup";
 import "./EditSub.css";
 
 const EditSub = () => {
