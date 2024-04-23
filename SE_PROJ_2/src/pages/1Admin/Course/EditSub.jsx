@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { IoMdCreate, IoIosTrash } from "react-icons/io";
+import { IoMdCreate, IoIosTrash, IoIosAddCircle } from "react-icons/io";
+import { IoArrowBackCircle } from "react-icons/io5";
 import ConfirmDeletePopup from "./ConfirmDeletePopup"; 
 import "./EditSub.css";
 
@@ -122,7 +123,7 @@ const EditSub = () => {
                         onChange={(e) => handleEditChange(e, term, index)}
                       />
                     ) : (
-                      course.basic_subject === "" ? "" : (course.basic_subject === "true" ? "Yes" : "No")
+                      course.basic_subject === "true" ? "Yes" : "No"
                     )}
                   </td>
                   <td className="edit-delete-buttons">
@@ -133,7 +134,7 @@ const EditSub = () => {
               ))}
               <tr>
                 <td colSpan="6" style={{ textAlign: "center" }}>
-                  <button className="add-course-button" onClick={() => handleAddCourse(term)}>เพิ่มแถว</button>
+                  <button className="add-course-button" onClick={() => handleAddCourse(term)}><IoIosAddCircle/></button>
                 </td>
               </tr>
             </tbody>
@@ -145,7 +146,7 @@ const EditSub = () => {
         onClose={closePopup}
         onConfirm={handleDeleteCourse}
       />
-      <button className="back-button" onClick={() => navigate(-1)}>Go Back</button>
+      <button className="back-button" onClick={() => navigate(-1)}><IoArrowBackCircle /> </button>
     </div>
   );
 };
