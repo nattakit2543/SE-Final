@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoMdCreate, IoIosTrash, IoIosAddCircle } from "react-icons/io";
 import { IoArrowBackCircle } from "react-icons/io5";
-import ConfirmDeletePopup from "./ConfirmDeletePopup"; 
+import ConfirmDeletePopup from "./ConfirmDeletePopup";
+import StatusPopup from "./StatusPopup";
 import "./EditSub.css";
 
 const EditSub = () => {
@@ -33,6 +34,7 @@ const EditSub = () => {
   const [courseDetails, setCourseDetails] = useState(initialCourseDetails);
   const [editMode, setEditMode] = useState({});
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [status, setStatus] = useState(null);
   const [currentTerm, setCurrentTerm] = useState('');
   const [currentIndex, setCurrentIndex] = useState(null);
 
@@ -81,12 +83,17 @@ const EditSub = () => {
   };
 
   const handleDeleteCourse = () => {
-    const updatedCourses = courseDetails["2017"][currentTerm].filter((_, idx) => idx !== currentIndex);
-    setCourseDetails({
-      ...courseDetails,
-      2017: { ...courseDetails["2017"], [currentTerm]: updatedCourses },
-    });
+    setStatus('processing');
     closePopup();
+    setTimeout(() => {
+      const updatedCourses = courseDetails["2017"][currentTerm].filter((_, idx) => idx !== currentIndex);
+      setCourseDetails({
+        ...courseDetails,
+        2017: { ...courseDetails["2017"], [currentTerm]: updatedCourses },
+      });
+      setStatus('success');
+      setTimeout(() => setStatus(null), 3000);
+    }, 2000);
   };
 
   return (
@@ -121,7 +128,7 @@ const EditSub = () => {
               ))}
               <tr>
                 <td colSpan="6" style={{ textAlign: "center" }}>
-                  <button className="add-course-button" onClick={() => handleAddCourse(term)}><IoIosAddCircle/></button>
+                  <button className="add-course-button" onClick={() => handleAddCourse(term)}><IoIosAddCircle /></button>
                 </td>
               </tr>
             </tbody>
@@ -133,6 +140,11 @@ const EditSub = () => {
         onClose={closePopup}
         onConfirm={handleDeleteCourse}
       />
+      {status && (
+        <StatusPopup
+          status={status}
+        />
+      )}
       <button className="back-button" onClick={() => navigate(-1)}><IoArrowBackCircle /></button>
     </div>
   );
