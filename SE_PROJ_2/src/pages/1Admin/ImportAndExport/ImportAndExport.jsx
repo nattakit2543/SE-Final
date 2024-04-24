@@ -31,9 +31,15 @@ function ImportAndExport() {
             });
         } catch (error) {
             console.error("Error downloading the file:", error);
+            let errorMessage = "Error downloading the file. Please check your connection and try again.";
+            if (error.response && error.response.status === 404) {
+                errorMessage = "Error downloading the file: File not found.";
+            } else if (error.code === "ECONNABORTED") {
+                errorMessage = "Download timeout. Please try again later.";
+            }
             setUploadStatus({
                 type: "error",
-                message: "Error downloading the file."
+                message: errorMessage,
             });
         } finally {
             setIsLoading(false);
@@ -95,9 +101,15 @@ function ImportAndExport() {
             });
         } catch (error) {
             console.error("Error uploading file:", error);
+            let errorMessage = "Error uploading file. Please check your connection and try again.";
+            if (error.response && error.response.status === 500) {
+                errorMessage = "Server error occurred. Please try again later.";
+            } else if (error.code === "ECONNABORTED") {
+                errorMessage = "Upload timeout. Please try again later.";
+            }
             setUploadStatus({
                 type: "error",
-                message: "Error uploading file. Please try again.",
+                message: errorMessage,
             });
         } finally {
             setIsLoading(false);
