@@ -12,45 +12,6 @@ const ImportAndExport = React.memo(() => {
     const [uploadStatus, setUploadStatus] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleDownload = useCallback(async (fileLink, filename) => {
-        setIsLoading(true);
-        try {
-            const response = await axios.get(fileLink, {
-                responseType: "blob",
-            });
-            const url = window.URL.createObjectURL(new Blob([response.data]));
-            const link = document.createElement("a");
-            link.href = url;
-            link.setAttribute("download", filename);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            setUploadStatus({
-                type: "success",
-                message: "File downloaded successfully!"
-            });
-        } catch (error) {
-            console.error("Error downloading the file:", error);
-            let errorMessage = "Error downloading the file. Please check your connection and try again.";
-            if (error.response && error.response.status === 404) {
-                errorMessage = "Error downloading the file: File not found.";
-            } else if (error.code === "ECONNABORTED") {
-                errorMessage = "Download timeout. Please try again later.";
-            }
-            setUploadStatus({
-                type: "error",
-                message: errorMessage,
-            });
-        } finally {
-            setIsLoading(false);
-        }
-    }, []);
-
-    const handleDownloadTeachingSchedule = useCallback(() => {
-        const fileUrl = "http://localhost:3100/export"; 
-        handleDownload(fileUrl, "TeachingSchedule.xlsx");
-    }, [handleDownload]);
-
     const validateFile = useCallback((file) => {
         const validTypes = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
         if (!validTypes.includes(file.type)) {
@@ -62,6 +23,54 @@ const ImportAndExport = React.memo(() => {
         return null;
     }, []);
 
+    const apiCallHandler = useCallback(async (url, method, data = null, config = {}) => {
+        setIsLoading(true);
+        try {
+            const response = await axios({
+                url,
+                method,
+                data,
+                ...config,
+            });
+            return response.data;  // Return response for further processing
+        } catch (error) {
+            console.error(`Error ${method === 'get' ? 'downloading' : 'uploading'} file:`, error);
+            let errorMessage = `Error ${method === 'get' ? 'downloading' : 'uploading'} file. Please check your connection and try again.`;
+            if (error.response && error.response.status === 404) {
+                errorMessage = "File not found.";
+            } else if (error.response && error.response.status === 500) {
+                errorMessage = "Server error occurred. Please try again later.";
+            } else if (error.code === "ECONNABORTED") {
+                errorMessage = "Timeout. Please try again later.";
+            }
+            setUploadStatus({
+                type: "error",
+                message: errorMessage,
+            });
+        } finally {
+            setIsLoading(false);
+        }
+    }, []);
+
+    const handleDownload = useCallback(async (fileLink, filename) => {
+        const result = await apiCallHandler(fileLink, 'get', null, {
+            responseType: "blob"
+        });
+        if (result) {
+            const url = window.URL.createObjectURL(new Blob([result]));
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", filename);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            setUploadStatus({
+                type: "success",
+                message: "File downloaded successfully!"
+            });
+        }
+    }, [apiCallHandler]);
+
     const handleSubmit = useCallback(async (e) => {
         e.preventDefault();
         if (!file) {
@@ -71,7 +80,7 @@ const ImportAndExport = React.memo(() => {
             });
             return;
         }
-        
+
         const errorMessage = validateFile(file);
         if (errorMessage) {
             setUploadStatus({
@@ -80,41 +89,21 @@ const ImportAndExport = React.memo(() => {
             });
             return;
         }
-        
-        setIsLoading(true);
+
         const formData = new FormData();
         formData.append("file", file);
-
-        try {
-            const response = await axios.post(
-                "http://localhost:3100/upload",
-                formData,
-                {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                    },
-                }
-            );
+        const result = await apiCallHandler("http://localhost:3100/upload", 'post', formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            }
+        });
+        if (result) {
             setUploadStatus({
                 type: "success",
                 message: "File uploaded successfully!",
             });
-        } catch (error) {
-            console.error("Error uploading file:", error);
-            let errorMessage = "Error uploading file. Please check your connection and try again.";
-            if (error.response && error.response.status === 500) {
-                errorMessage = "Server error occurred. Please try again later.";
-            } else if (error.code === "ECONNABORTED") {
-                errorMessage = "Upload timeout. Please try again later.";
-            }
-            setUploadStatus({
-                type: "error",
-                message: errorMessage,
-            });
-        } finally {
-            setIsLoading(false);
         }
-    }, [file, validateFile]);
+    }, [file, validateFile, apiCallHandler]);
 
     return (
         <div className="container-ImEx">
@@ -127,12 +116,10 @@ const ImportAndExport = React.memo(() => {
                     </div>
                     <button
                         className="import-export-button"
-                        onClick={() =>
-                            handleDownload(
-                                "https://docs.google.com/spreadsheets/d/1Vr3u5114jycAwCUDEvrkbtns8fZHOs4R/export?format=xlsx",
-                                "แบบฟอร์มหลักสูตร.xlsx"
-                            )
-                        }
+                        onClick={() => handleDownload(
+                            "https://docs.google.com/spreadsheets/d/1Vr3u5114jycAwCUDEvrkbtns8fZHOs4R/export?format=xlsx",
+                            "แบบฟอร์มหลักสูตร.xlsx"
+                        )}
                     >
                         ดาวโหลดแบบฟอร์ม
                     </button>
@@ -162,10 +149,7 @@ const ImportAndExport = React.memo(() => {
                     <div className="import-export-image-placeholder">
                         <img src={imgCsv} alt="CSV" />
                     </div>
-                    <button
-                        className="import-export-button"
-                        onClick={handleDownloadTeachingSchedule}
-                    >
+                    <button className="import-export-button" onClick={() => handleDownload("http://localhost:3100/export", "TeachingSchedule.csv")}>
                         ดาวโหลดแบบฟอร์มของตารางสอน
                     </button>
                 </div>
