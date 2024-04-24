@@ -45,6 +45,17 @@ function ImportAndExport() {
         handleDownload(fileUrl, "TeachingSchedule.xlsx");
     };
 
+    const validateFile = (file) => {
+        const validTypes = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
+        if (!validTypes.includes(file.type)) {
+            return "Invalid file type. Only .xlsx files are allowed.";
+        }
+        if (file.size > 10 * 1024 * 1024) { // 10 MB size limit
+            return "File is too large. Maximum size allowed is 10MB.";
+        }
+        return null;
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!file) {
@@ -53,13 +64,17 @@ function ImportAndExport() {
                 message: "Please select a file to upload.",
             });
             return;
-        } else if (!file.name.endsWith(".xlsx")) {
+        }
+        
+        const errorMessage = validateFile(file);
+        if (errorMessage) {
             setUploadStatus({
                 type: "error",
-                message: "Only .xlsx files are allowed!",
+                message: errorMessage,
             });
             return;
         }
+        
         setIsLoading(true);
         const formData = new FormData();
         formData.append("file", file);
@@ -79,6 +94,7 @@ function ImportAndExport() {
                 message: "File uploaded successfully!",
             });
         } catch (error) {
+            console.error("Error uploading file:", error);
             setUploadStatus({
                 type: "error",
                 message: "Error uploading file. Please try again.",
@@ -116,7 +132,7 @@ function ImportAndExport() {
                     </div>
                     <form className="file-input-container" onSubmit={handleSubmit}>
                         <label htmlFor="file-input" className="input-file-button">
-                            Choose File
+                            เลือกไฟล์
                         </label>
                         <input
                             id="file-input"
@@ -125,7 +141,7 @@ function ImportAndExport() {
                             onChange={(e) => setFile(e.target.files[0])}
                         />
                         <button type="submit" className="import-export-button">
-                            Upload
+                            อัพโหลด
                         </button>
                     </form>
                 </div>
