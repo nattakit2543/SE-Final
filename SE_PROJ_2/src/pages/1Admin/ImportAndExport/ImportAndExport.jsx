@@ -4,14 +4,16 @@ import imgCsv from "../../../assets/img_csv.png";
 import imgXlsx from "../../../assets/img_xlsx.png";
 import imgDoc from "../../../assets/img_doc.png";
 import axios from "axios";
+import { ClipLoader } from "react-spinners";
 import UploadStatusPopup from '../ComponentsAdmin/UploadStatusPopup';
-
 
 function ImportAndExport() {
     const [file, setFile] = useState(null);
     const [uploadStatus, setUploadStatus] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleDownload = async (fileLink, filename) => {
+        setIsLoading(true);
         try {
             const response = await axios.get(fileLink, {
                 responseType: "blob",
@@ -23,12 +25,18 @@ function ImportAndExport() {
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
+            setUploadStatus({
+                type: "success",
+                message: "File downloaded successfully!"
+            });
         } catch (error) {
             console.error("Error downloading the file:", error);
             setUploadStatus({
                 type: "error",
                 message: "Error downloading the file."
             });
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -52,7 +60,7 @@ function ImportAndExport() {
             });
             return;
         }
-
+        setIsLoading(true);
         const formData = new FormData();
         formData.append("file", file);
 
@@ -75,11 +83,14 @@ function ImportAndExport() {
                 type: "error",
                 message: "Error uploading file. Please try again.",
             });
+        } finally {
+            setIsLoading(false);
         }
     };
 
     return (
         <div className="container-ImEx">
+            {isLoading && <div className="spinner-overlay"><ClipLoader color="#36D7B7" size={150} /></div>}
             <div className="import-export-container">
                 <div className="import-export-card">
                     <div className="import-export-title">แบบฟอร์ม Excel</div>
