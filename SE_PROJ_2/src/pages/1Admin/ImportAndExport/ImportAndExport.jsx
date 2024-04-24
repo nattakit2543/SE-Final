@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import "./ImportAndExport.css";
 import imgCsv from "../../../assets/img_csv.png";
 import imgXlsx from "../../../assets/img_xlsx.png";
@@ -7,12 +7,12 @@ import axios from "axios";
 import { ClipLoader } from "react-spinners";
 import UploadStatusPopup from '../ComponentsAdmin/UploadStatusPopup';
 
-function ImportAndExport() {
+const ImportAndExport = React.memo(() => {
     const [file, setFile] = useState(null);
     const [uploadStatus, setUploadStatus] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleDownload = async (fileLink, filename) => {
+    const handleDownload = useCallback(async (fileLink, filename) => {
         setIsLoading(true);
         try {
             const response = await axios.get(fileLink, {
@@ -44,14 +44,14 @@ function ImportAndExport() {
         } finally {
             setIsLoading(false);
         }
-    };
+    }, []);
 
-    const handleDownloadTeachingSchedule = async () => {
+    const handleDownloadTeachingSchedule = useCallback(() => {
         const fileUrl = "http://localhost:3100/export"; 
         handleDownload(fileUrl, "TeachingSchedule.xlsx");
-    };
+    }, [handleDownload]);
 
-    const validateFile = (file) => {
+    const validateFile = useCallback((file) => {
         const validTypes = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
         if (!validTypes.includes(file.type)) {
             return "Invalid file type. Only .xlsx files are allowed.";
@@ -60,9 +60,9 @@ function ImportAndExport() {
             return "File is too large. Maximum size allowed is 10MB.";
         }
         return null;
-    };
+    }, []);
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = useCallback(async (e) => {
         e.preventDefault();
         if (!file) {
             setUploadStatus({
@@ -114,7 +114,7 @@ function ImportAndExport() {
         } finally {
             setIsLoading(false);
         }
-    };
+    }, [file, validateFile]);
 
     return (
         <div className="container-ImEx">
@@ -173,6 +173,6 @@ function ImportAndExport() {
             <UploadStatusPopup status={uploadStatus} />
         </div>
     );
-}
+});
 
 export default ImportAndExport;
