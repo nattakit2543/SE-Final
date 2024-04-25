@@ -50,16 +50,18 @@ const EditTheCourse = () => {
             <tr key={id}>
               <td>{name}</td>
               <td>
-                <IoIosEye
-                  onClick={() => navigate(`edit-sub`, { state: { curriculumName: name } })}
-                  className="edit-course-icon eye-icon"
-                  title="View"
-                />
-                <IoMdTrash
-                  onClick={() => openDeleteConfirm(id)}
-                  className="edit-course-icon delete-icon"
-                  title="Delete"
-                />
+                <div className="icon-wrapper">
+                  <IoIosEye
+                    onClick={() => navigate(`edit-sub`, { state: { curriculumName: name } })}
+                    className="edit-course-icon eye-icon"
+                    title="View"
+                  />
+                  <IoMdTrash
+                    onClick={() => openDeleteConfirm(id)}
+                    className="edit-course-icon delete-icon"
+                    title="Delete"
+                  />
+                </div>
               </td>
             </tr>
           ))}
