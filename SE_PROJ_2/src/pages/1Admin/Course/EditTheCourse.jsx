@@ -3,7 +3,7 @@ import { IoIosEye, IoMdTrash, IoIosJournal } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import "./EditTheCourse.css";
 import ConfirmDeletePopup from "../ComponentsAdmin/ConfirmDeletePopup";
-import StatusPopup from "../ComponentsAdmin/StatusPopup"; 
+import StatusPopup from "../ComponentsAdmin/StatusPopup";
 
 const EditTheCourse = () => {
   const navigate = useNavigate();
@@ -46,17 +46,17 @@ const EditTheCourse = () => {
           </tr>
         </thead>
         <tbody>
-          {courses.map((course) => (
-            <tr key={course.id}>
-              <td>{course.name}</td>
+          {courses.map(({ id, name }) => (
+            <tr key={id}>
+              <td>{name}</td>
               <td>
                 <IoIosEye
-                  onClick={() => navigate(`edit-sub`, { state: { curriculumName: course.name } })}
+                  onClick={() => navigate(`edit-sub`, { state: { curriculumName: name } })}
                   className="edit-course-icon eye-icon"
                   title="View"
                 />
                 <IoMdTrash
-                  onClick={() => openDeleteConfirm(course.id)}
+                  onClick={() => openDeleteConfirm(id)}
                   className="edit-course-icon delete-icon"
                   title="Delete"
                 />
