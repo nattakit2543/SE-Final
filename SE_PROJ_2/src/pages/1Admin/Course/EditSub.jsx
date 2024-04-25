@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { IoMdCreate, IoIosTrash, IoIosAddCircle } from "react-icons/io";
-import { IoArrowBackCircle } from "react-icons/io5";
+import { IoMdCreate, IoIosTrash, IoIosAddCircle, IoIosArrowDropleftCircle} from "react-icons/io";
 import ConfirmDeletePopup from "../ComponentsAdmin/ConfirmDeletePopup";
 import StatusPopup from "../ComponentsAdmin/StatusPopup";
 import "./EditSub.css";
@@ -39,21 +38,23 @@ const EditSub = () => {
   const [currentIndex, setCurrentIndex] = useState(null);
 
   const toggleEdit = (term, index) => {
-    setEditMode({ [`${term}-${index}`]: !editMode[`${term}-${index}`] });
+    setEditMode(prev => ({ ...prev, [`${term}-${index}`]: !prev[`${term}-${index}`] }));
   };
 
   const handleEditChange = (e, term, index) => {
     const { name, value } = e.target;
-    const updatedCourses = courseDetails["2017"][term].map((course, idx) => {
-      if (idx === index) {
-        return { ...course, [name]: value };
-      }
-      return course;
-    });
+    setCourseDetails(prevDetails => {
+      const updatedCourses = prevDetails["2017"][term].map((course, idx) => {
+        if (idx === index) {
+          return { ...course, [name]: value };
+        }
+        return course;
+      });
 
-    setCourseDetails({
-      ...courseDetails,
-      2017: { ...courseDetails["2017"], [term]: updatedCourses },
+      return {
+        ...prevDetails,
+        2017: { ...prevDetails["2017"], [term]: updatedCourses },
+      };
     });
   };
 
@@ -65,10 +66,12 @@ const EditSub = () => {
       credits: "",
       basic_subject: "",
     };
-    const updatedCourses = [...courseDetails["2017"][term], newCourse];
-    setCourseDetails({
-      ...courseDetails,
-      2017: { ...courseDetails["2017"], [term]: updatedCourses },
+    setCourseDetails(prevDetails => {
+      const updatedCourses = [...prevDetails["2017"][term], newCourse];
+      return {
+        ...prevDetails,
+        2017: { ...prevDetails["2017"], [term]: updatedCourses },
+      };
     });
   };
 
@@ -86,10 +89,12 @@ const EditSub = () => {
     setStatus('processing');
     closePopup();
     setTimeout(() => {
-      const updatedCourses = courseDetails["2017"][currentTerm].filter((_, idx) => idx !== currentIndex);
-      setCourseDetails({
-        ...courseDetails,
-        2017: { ...courseDetails["2017"], [currentTerm]: updatedCourses },
+      setCourseDetails(prevDetails => {
+        const updatedCourses = prevDetails["2017"][currentTerm].filter((_, idx) => idx !== currentIndex);
+        return {
+          ...prevDetails,
+          2017: { ...prevDetails["2017"], [currentTerm]: updatedCourses },
+        };
       });
       setStatus('success');
       setTimeout(() => setStatus(null), 3000);
@@ -145,7 +150,7 @@ const EditSub = () => {
           status={status}
         />
       )}
-      <button className="back-button" onClick={() => navigate(-1)}><IoArrowBackCircle /></button>
+      <button className="back-button" onClick={() => navigate(-1)}><IoIosArrowDropleftCircle /></button>
     </div>
   );
 };

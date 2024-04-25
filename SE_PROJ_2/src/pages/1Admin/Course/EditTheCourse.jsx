@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { IoMdCreate, IoIosEye, IoMdTrash, IoIosJournal } from "react-icons/io";
+import { IoIosEye, IoMdTrash, IoIosJournal } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import "./EditTheCourse.css";
 import ConfirmDeletePopup from "../ComponentsAdmin/ConfirmDeletePopup";
@@ -16,20 +16,17 @@ const EditTheCourse = () => {
     { id: 6, name: "Academic year 2022 curriculum" },
     { id: 7, name: "Academic year 2023 curriculum" },
     { id: 8, name: "Academic year 2024 curriculum" },
-    { id: 9, name: "Academic year 2025 curriculum" },
-    { id: 10, name: "Academic year 2026 curriculum" },
   ]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [status, setStatus] = useState(null);
   const [currentCourseId, setCurrentCourseId] = useState(null);
 
   const handleDeleteCourse = () => {
-    setIsPopupOpen(false); 
-    setStatus('processing'); 
+    setIsPopupOpen(false);
+    setStatus('processing');
     setTimeout(() => {
-      const updatedCourses = courses.filter(course => course.id !== currentCourseId);
-      setCourses(updatedCourses);
-      setStatus('success'); 
+      setCourses(prevCourses => prevCourses.filter(course => course.id !== currentCourseId));
+      setStatus('success');
       setTimeout(() => setStatus(null), 3000);
     }, 2000);
   };
