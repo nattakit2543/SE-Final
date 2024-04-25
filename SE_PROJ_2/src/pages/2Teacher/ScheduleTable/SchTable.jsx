@@ -34,7 +34,13 @@ const SchTable = () => {
             setError(null);
         } catch (error) {
             console.error('Failed to fetch subjects:', error);
-            setError('Failed to fetch subjects. Please try again later.');
+            if (error.response) {
+                setError('Failed to fetch subjects. The server responded with a status code that falls out of the range of 2xx. Please try again later.');
+            } else if (error.request) {
+                setError('Failed to fetch subjects. The request was made but no response was received. Please check your network connection.');
+            } else {
+                setError('Failed to fetch subjects. There was an error in setting up the request. Please try again later.');
+            }
         } finally {
             setIsLoading(false);
         }
