@@ -48,7 +48,7 @@ const SchTable = () => {
 
     return (
         <div className="schedule-container">
-            {isLoading && <div>Loading...</div>}
+            {isLoading && <div className="loading">Loading...</div>}
             {error && <div className="error-message">{error}</div>}
             {!isLoading && !error && (
                 <div className="subject-list">

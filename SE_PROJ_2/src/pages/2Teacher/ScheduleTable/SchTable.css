@@ -7,6 +7,15 @@
   align-items: center; 
 }
 
+.loading {
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 .subject-list {
   display: flex;
   flex-direction: column;
@@ -57,4 +66,19 @@
 .error-message {
   color: red;
   margin-bottom: 20px;
+}
+
+@media screen and (max-width: 600px) {
+  .schedule-container {
+    flex-direction: column;
+  }
+
+  .subject-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .course-code, .course-name, .credits, .groups, .classroom {
+    text-align: left;
+  }
 }
