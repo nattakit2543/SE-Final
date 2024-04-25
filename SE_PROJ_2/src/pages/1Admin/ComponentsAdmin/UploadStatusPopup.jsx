@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './UploadStatusPopup.css';
 import { IoMdCheckmarkCircle, IoMdCloseCircle } from "react-icons/io";
 
-const UploadStatusPopup = ({ status }) => {
+const UploadStatusPopup = ({ status, clearStatus }) => {
+    useEffect(() => {
+        if (!status) return;
+        const timer = setTimeout(() => {
+            clearStatus();
+        }, 5000);
+        return () => clearTimeout(timer);
+    }, [status, clearStatus]);
+
     if (!status) return null;
 
     const Icon = status.type === 'success' ? IoMdCheckmarkCircle : IoMdCloseCircle;

@@ -12,12 +12,16 @@ const ImportAndExport = React.memo(() => {
     const [uploadStatus, setUploadStatus] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
+    const clearUploadStatus = () => {
+        setUploadStatus(null); 
+    };
+
     const validateFile = useCallback((file) => {
         const validTypes = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
         if (!validTypes.includes(file.type)) {
             return "Invalid file type. Only .xlsx files are allowed.";
         }
-        if (file.size > 10 * 1024 * 1024) { // 10 MB size limit
+        if (file.size > 10 * 1024 * 1024) { 
             return "File is too large. Maximum size allowed is 10MB.";
         }
         return null;
@@ -32,7 +36,7 @@ const ImportAndExport = React.memo(() => {
                 data,
                 ...config,
             });
-            return response.data;  // Return response for further processing
+            return response.data;
         } catch (error) {
             console.error(`Error ${method === 'get' ? 'downloading' : 'uploading'} file:`, error);
             let errorMessage = `Error ${method === 'get' ? 'downloading' : 'uploading'} file. Please check your connection and try again.`;
@@ -47,6 +51,7 @@ const ImportAndExport = React.memo(() => {
                 type: "error",
                 message: errorMessage,
             });
+            setTimeout(clearUploadStatus, 5000);  
         } finally {
             setIsLoading(false);
         }
@@ -68,6 +73,7 @@ const ImportAndExport = React.memo(() => {
                 type: "success",
                 message: "File downloaded successfully!"
             });
+            setTimeout(clearUploadStatus, 5000);  
         }
     }, [apiCallHandler]);
 
@@ -102,6 +108,7 @@ const ImportAndExport = React.memo(() => {
                 type: "success",
                 message: "File uploaded successfully!",
             });
+            setTimeout(clearUploadStatus, 5000); 
         }
     }, [file, validateFile, apiCallHandler]);
 
