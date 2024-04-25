@@ -1,19 +1,23 @@
 import React, { useCallback, useState } from "react";
 import imgDoc from "../../../../assets/img_doc.png";
+import UploadStatusPopup from '../../ComponentsAdmin/UploadStatusPopup'; 
 
 const FileUploader = ({ validateFile, apiCallHandler }) => {
   const [file, setFile] = useState(null);
+  const [uploadStatus, setUploadStatus] = useState(null); 
+
+  const clearUploadStatus = () => setUploadStatus(null); 
 
   const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
     if (!file) {
-      alert("Please select a file to upload.");
+      setUploadStatus({ type: 'error', message: "Please select a file to upload." });
       return;
     }
 
     const errorMessage = validateFile(file);
     if (errorMessage) {
-      alert(errorMessage);
+      setUploadStatus({ type: 'error', message: errorMessage });
       return;
     }
 
@@ -46,6 +50,7 @@ const FileUploader = ({ validateFile, apiCallHandler }) => {
           อัพโหลด
         </button>
       </form>
+      {uploadStatus && <UploadStatusPopup status={uploadStatus} clearStatus={clearUploadStatus} />}
     </div>
   );
 };
