@@ -5,6 +5,7 @@ import axios from 'axios';
 const SchTable = () => {
     const [subjects, setSubjects] = useState([]);
     const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
     const teacher = "Smith"; // Mock Data
 
     useEffect(() => {
@@ -25,6 +26,7 @@ const SchTable = () => {
     };
 
     async function getSubjects(teacherName) {
+        setIsLoading(true);
         const url = `http://localhost:3100/teachersubject/${teacherName}`;
         try {
             const response = await axios.get(url);
@@ -33,37 +35,42 @@ const SchTable = () => {
         } catch (error) {
             console.error('Failed to fetch subjects:', error);
             setError('Failed to fetch subjects. Please try again later.');
+        } finally {
+            setIsLoading(false);
         }
     }
 
     return (
         <div className="schedule-container">
+            {isLoading && <div>Loading...</div>}
             {error && <div className="error-message">{error}</div>}
-            <div className="subject-list">
-                <div className="subject-item">
-                    <div className={`time-frame day-frame`}>
-                        <div className="day">DateTime</div>
-                    </div>
-                    <div className="course-code">Code</div>
-                    <div className="course-name">Name</div>
-                    <div className="credits">Credits</div>
-                    <div className="groups">Sec</div>
-                    <div className="classroom">Room</div>
-                </div>
-                {subjects.map((subject, index) => (
-                    <div key={index} className="subject-item">
-                        <div className={`time-frame ${getDayClass(subject.Day)}`}>
-                            <div className="day">{subject.Day}</div>
-                            <div className="time">{subject.Time}</div>
+            {!isLoading && !error && (
+                <div className="subject-list">
+                    <div className="subject-item">
+                        <div className={`time-frame day-frame`}>
+                            <div className="day">DateTime</div>
                         </div>
-                        <div className="course-code">{subject.SubjectCode}</div>
-                        <div className="course-name">{subject.SubjectName}</div>
-                        <div className="credits">{subject.Credit}</div>
-                        <div className="groups">{subject.Sec}</div>
-                        <div className="classroom">{subject.Room}</div>
+                        <div className="course-code">Code</div>
+                        <div className="course-name">Name</div>
+                        <div className="credits">Credits</div>
+                        <div className="groups">Sec</div>
+                        <div className="classroom">Room</div>
                     </div>
-                ))}
-            </div>
+                    {subjects.map((subject, index) => (
+                        <div key={index} className="subject-item">
+                            <div className={`time-frame ${getDayClass(subject.Day)}`}>
+                                <div className="day">{subject.Day}</div>
+                                <div className="time">{subject.Time}</div>
+                            </div>
+                            <div className="course-code">{subject.SubjectCode}</div>
+                            <div className="course-name">{subject.SubjectName}</div>
+                            <div className="credits">{subject.Credit}</div>
+                            <div className="groups">{subject.Sec}</div>
+                            <div className="classroom">{subject.Room}</div>
+                        </div>
+                    ))}
+                </div>
+            )}
         </div>
     );
 };
