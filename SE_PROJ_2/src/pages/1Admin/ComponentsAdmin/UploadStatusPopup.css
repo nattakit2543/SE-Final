@@ -1,0 +1,37 @@
+.unique-upload-status-popup {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    width: 300px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.unique-upload-status-message {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px;
+    color: white;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.unique-upload-status-message.green {
+    background-color: #4CAF50; 
+}
+
+.unique-upload-status-message.red {
+    background-color: #F44336; 
+}
+
+.status-icon {
+    margin-right: 10px;
+    font-size: 24px; 
+}

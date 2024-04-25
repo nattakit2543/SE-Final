@@ -1,0 +1,42 @@
+.status-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.status-popup-content {
+  background: #2E3138;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  text-align: center;
+  color: white;
+  width: 300px;
+}
+
+.status-icon {
+  font-size: 48px;
+  display: block;
+  margin: 20px auto;
+}
+
+.status-icon.processing {
+  color: #FFA500;
+  font-size: 90px;
+}
+
+.status-icon.success {
+  color: #4BB543;
+  font-size: 90px;
+}
+
+.status-icon.error {
+  color: #FF4F4F;
+  font-size: 90px;
+}

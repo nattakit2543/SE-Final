@@ -1,0 +1,56 @@
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  background: #2E3138;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  color: #FFA500;
+  width: 300px;
+}
+
+.popup-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.warning-icon {
+  color: #FFA500;
+  font-size: 90px;
+  margin-bottom: 0px;
+}
+
+.popup-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.cancel-button,
+.confirm-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.confirm-button {
+  background-color: crimson;
+  color: white;
+}
+
+.cancel-button {
+  background-color: #CCCCCC;
+  color: black;
+}

@@ -148,15 +148,15 @@ myApp.get('/export', (req, res) => {
     const workbook = xlsx.utils.book_new();
     xlsx.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
 
-    const filePath = './exports/data.xlsx';
+    // Write xlsx file to buffer
+    const buffer = xlsx.write(workbook, { type: 'buffer', bookType: 'xlsx' });
 
-    // Write xlsx file to disk
-    xlsx.writeFile(workbook, filePath);
-
-    // Send the file path back to the client
-    res.json({ filePath });
+    // Send the file data back to the client
+    res.setHeader('Content-Disposition', 'attachment; filename=data.xlsx');
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.send(buffer);
   });
-}); 
+});
 
 // Section: User details and login
 myApp.get("/login/:email/:password", (request, response) => {
@@ -341,6 +341,52 @@ myApp.get("/updateteacherinfo/:TeacherName/:TeacherSurname/:TeacherPhone/:Teache
   var sql =
   "UPDATE teacherinfo SET TeacherName = ?, TeacherSurname = ?, TeacherPhone = ?, TeacherEmail = ?, Major = ? WHERE idTeacher = ?";
   conn.query(sql, [TeacherName,TeacherSurname,TeacherPhone,TeacherEmail,Major,idTeacher], (error, results) => {
+    if (error) {
+      console.log(error);
+      response.status(500).json({ error: "Internal server error" });
+    } else {
+      response.json(results);
+    }
+  });
+});
+
+//Request
+myApp.get("/request",(request,response) =>{
+  var sql =
+  "SELECT * FROM temp";
+  conn.query(sql, (error, results) => {
+    if (error) {
+      console.log(error);
+      response.status(500).json({ error: "Internal server error" });
+    } else {
+      response.json(results);
+    }
+  });
+}); 
+
+//Insertrequest
+myApp.get("/insertrequest/:IsExternal/:SubjectCode/:SubjectName/:SubjectNameEnglish/:CourseYear/:Type/:Credits/:Sec/:StuNum/:LabSec/:LabStuNum/:LabRoom/:TeacherName/:TeacherSurname/:Major/:StudentGrade/:Day/:TimeStart/:TimeEnd/:Preq", (request, response) => {
+  const { IsExternal, SubjectCode, SubjectName, SubjectNameEnglish, CourseYear, Type, Credits, Sec, StuNum, LabSec, LabStuNum, LabRoom, TeacherName, TeacherSurname, Major, StudentGrade, Day, TimeStart, TimeEnd, Preq } = request.params;
+  var sql =
+  "INSERT INTO temp (IsExternal, SubjectCode, SubjectName, SubjectNameEnglish, CourseYear, Type, Credits, Sec, StuNum, LabSec, LabStuNum, LabRoom, TeacherName, TeacherSurname, Major, StudentGrade, Day, TimeStart, TimeEnd, Preq)"+
+  "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+  conn.query(sql, [ IsExternal, SubjectCode, SubjectName, SubjectNameEnglish, CourseYear, Type, Credits, Sec, StuNum, LabSec, LabStuNum, LabRoom, TeacherName, TeacherSurname, Major, StudentGrade, Day, TimeStart, TimeEnd, Preq], (error, results) => {
+    if (error) {
+      console.log(error);
+      response.status(500).json({ error: "Internal server error" });
+    } else {
+      response.json(results);
+    }
+  });
+});
+
+
+//Deleterequest
+myApp.get("/deleterequest/:idTemp", (request, response) => {
+  const { idTemp } = request.params;
+  var sql =
+  "DELETE FROM temp WHERE idTemp = ?;"
+  conn.query(sql, [idTemp], (error, results) => {
     if (error) {
       console.log(error);
       response.status(500).json({ error: "Internal server error" });

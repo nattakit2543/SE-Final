@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { IoMdCreate, IoIosTrash } from "react-icons/io";
-import ConfirmDeletePopup from "./ConfirmDeletePopup"; 
+import { IoMdCreate, IoIosTrash, IoIosAddCircle } from "react-icons/io";
+import { IoArrowBackCircle } from "react-icons/io5";
+import ConfirmDeletePopup from "../ComponentsAdmin/ConfirmDeletePopup";
+import StatusPopup from "../ComponentsAdmin/StatusPopup";
 import "./EditSub.css";
 
 const EditSub = () => {
@@ -14,7 +16,7 @@ const EditSub = () => {
           course_name_en: "Introduction to Computer Science",
           course_name_th: "แนะนำการเรียนรู้คอมพิวเตอร์",
           credits: "3",
-          basic_subject: "true",
+          basic_subject: "Yes",
         },
       ],
       term2: [
@@ -23,7 +25,7 @@ const EditSub = () => {
           course_name_en: "Software Engineering",
           course_name_th: "วิศวกรรมซอฟต์แวร์",
           credits: "3",
-          basic_subject: "false",
+          basic_subject: "No",
         },
       ],
     },
@@ -32,6 +34,7 @@ const EditSub = () => {
   const [courseDetails, setCourseDetails] = useState(initialCourseDetails);
   const [editMode, setEditMode] = useState({});
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [status, setStatus] = useState(null);
   const [currentTerm, setCurrentTerm] = useState('');
   const [currentIndex, setCurrentIndex] = useState(null);
 
@@ -40,12 +43,10 @@ const EditSub = () => {
   };
 
   const handleEditChange = (e, term, index) => {
-    const { name, value, type, checked } = e.target;
-    let formattedValue = type === "checkbox" ? (checked ? "true" : "false") : value;
-
+    const { name, value } = e.target;
     const updatedCourses = courseDetails["2017"][term].map((course, idx) => {
       if (idx === index) {
-        return { ...course, [name]: formattedValue };
+        return { ...course, [name]: value };
       }
       return course;
     });
@@ -61,7 +62,7 @@ const EditSub = () => {
       course_code: "",
       course_name_en: "",
       course_name_th: "",
-      credits: "",       
+      credits: "",
       basic_subject: "",
     };
     const updatedCourses = [...courseDetails["2017"][term], newCourse];
@@ -82,12 +83,17 @@ const EditSub = () => {
   };
 
   const handleDeleteCourse = () => {
-    const updatedCourses = courseDetails["2017"][currentTerm].filter((_, idx) => idx !== currentIndex);
-    setCourseDetails({
-      ...courseDetails,
-      2017: { ...courseDetails["2017"], [currentTerm]: updatedCourses },
-    });
+    setStatus('processing');
     closePopup();
+    setTimeout(() => {
+      const updatedCourses = courseDetails["2017"][currentTerm].filter((_, idx) => idx !== currentIndex);
+      setCourseDetails({
+        ...courseDetails,
+        2017: { ...courseDetails["2017"], [currentTerm]: updatedCourses },
+      });
+      setStatus('success');
+      setTimeout(() => setStatus(null), 3000);
+    }, 2000);
   };
 
   return (
@@ -113,18 +119,7 @@ const EditSub = () => {
                   <td>{editMode[`${term}-${index}`] ? <input type="text" name="course_name_en" value={course.course_name_en} onChange={(e) => handleEditChange(e, term, index)} /> : course.course_name_en}</td>
                   <td>{editMode[`${term}-${index}`] ? <input type="text" name="course_name_th" value={course.course_name_th} onChange={(e) => handleEditChange(e, term, index)} /> : course.course_name_th}</td>
                   <td>{editMode[`${term}-${index}`] ? <input type="text" name="credits" value={course.credits} onChange={(e) => handleEditChange(e, term, index)} /> : course.credits}</td>
-                  <td>
-                    {editMode[`${term}-${index}`] ? (
-                      <input
-                        type="checkbox"
-                        name="basic_subject"
-                        checked={course.basic_subject === "true"}
-                        onChange={(e) => handleEditChange(e, term, index)}
-                      />
-                    ) : (
-                      course.basic_subject === "" ? "" : (course.basic_subject === "true" ? "Yes" : "No")
-                    )}
-                  </td>
+                  <td>{editMode[`${term}-${index}`] ? <input type="text" name="basic_subject" value={course.basic_subject} onChange={(e) => handleEditChange(e, term, index)} /> : course.basic_subject}</td>
                   <td className="edit-delete-buttons">
                     <button className="edit-button" onClick={() => toggleEdit(term, index)}><IoMdCreate /></button>
                     <button className="delete-button" onClick={() => openPopup(term, index)}><IoIosTrash /></button>
@@ -133,7 +128,7 @@ const EditSub = () => {
               ))}
               <tr>
                 <td colSpan="6" style={{ textAlign: "center" }}>
-                  <button className="add-course-button" onClick={() => handleAddCourse(term)}>เพิ่มแถว</button>
+                  <button className="add-course-button" onClick={() => handleAddCourse(term)}><IoIosAddCircle /></button>
                 </td>
               </tr>
             </tbody>
@@ -145,7 +140,12 @@ const EditSub = () => {
         onClose={closePopup}
         onConfirm={handleDeleteCourse}
       />
-      <button className="back-button" onClick={() => navigate(-1)}>Go Back</button>
+      {status && (
+        <StatusPopup
+          status={status}
+        />
+      )}
+      <button className="back-button" onClick={() => navigate(-1)}><IoArrowBackCircle /></button>
     </div>
   );
 };
