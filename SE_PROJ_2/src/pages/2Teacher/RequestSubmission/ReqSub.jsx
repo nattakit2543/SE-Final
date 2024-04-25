@@ -5,24 +5,42 @@ import OrderBarList from "../componentsT/OrderBarList";
 import ConfirmPopup from "../componentsT/ConfirmPopup";
 import { v4 as uuidv4 } from "uuid";
 
+function useLocalStorage(key, initialValue) {
+  const [storedValue, setStoredValue] = useState(() => {
+    try {
+      const item = window.localStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch (error) {
+      console.log(error);
+      return initialValue;
+    }
+  });
+
+  const setValue = useCallback((value) => {
+    try {
+      const valueToStore =
+        value instanceof Function ? value(storedValue) : value;
+      setStoredValue(valueToStore);
+      window.localStorage.setItem(key, JSON.stringify(valueToStore));
+    } catch (error) {
+      console.log(error);
+    }
+  }, [key, storedValue]);
+
+  return [storedValue, setValue];
+}
+
 const ReqSub = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [showConfirmPopup, setShowConfirmPopup] = useState(false);
   const [tempData, setTempData] = useState(null);
-  const [orders, setOrders] = useState(() => {
-    const savedOrders = localStorage.getItem("orders");
-    return savedOrders ? JSON.parse(savedOrders) : [];
-  });
-
-  useEffect(() => {
-    localStorage.setItem("orders", JSON.stringify(orders));
-  }, [orders]);
+  const [orders, setOrders] = useLocalStorage("orders", []);
 
   const handleOrderSubmit = useCallback((formData) => {
     setTempData(formData);
     setShowPopup(false);
     setShowConfirmPopup(true);
-  }, [setTempData, setShowPopup, setShowConfirmPopup]); 
+  }, [setTempData, setShowPopup, setShowConfirmPopup]);
 
   const confirmOrder = useCallback(() => {
     const newOrder = {
