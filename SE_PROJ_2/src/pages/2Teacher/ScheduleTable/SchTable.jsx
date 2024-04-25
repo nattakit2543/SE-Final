@@ -56,8 +56,8 @@ const SchTable = () => {
                         <div className="groups">Sec</div>
                         <div className="classroom">Room</div>
                     </div>
-                    {subjects.map((subject, index) => (
-                        <div key={index} className="subject-item">
+                    {subjects.map((subject) => (
+                        <div key={subject.SubjectCode} className="subject-item">
                             <div className={`time-frame ${getDayClass(subject.Day)}`}>
                                 <div className="day">{subject.Day}</div>
                                 <div className="time">{subject.Time}</div>
