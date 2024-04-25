@@ -35,11 +35,11 @@
   color: black;
 }
 
-.day-M, .day-T, .day-W {
+.day-M, .day-T, .day-W, .day-F, .day-frame {
   padding: 5px;
   border-radius: 5px;
 }
-.day-Frame { background-color: #ff0000; }
+.day-frame { background-color: #ffffff; }
 .day-M { background-color: #F9F3D3; }
 .day-T { background-color: #FFD5E3; }
 .day-W { background-color: #E1FEE5; }
