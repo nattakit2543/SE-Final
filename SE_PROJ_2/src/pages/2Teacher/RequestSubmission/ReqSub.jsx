@@ -22,7 +22,7 @@ const ReqSub = () => {
     setTempData(formData);
     setShowPopup(false);
     setShowConfirmPopup(true);
-  }, []); // No dependencies are needed here as the setState functions do not change
+  }, [setTempData, setShowPopup, setShowConfirmPopup]); 
 
   const confirmOrder = useCallback(() => {
     const newOrder = {
@@ -32,12 +32,12 @@ const ReqSub = () => {
     };
     setOrders((prevOrders) => [...prevOrders, newOrder]);
     setShowConfirmPopup(false);
-  }, [tempData]); // Removed orders from dependencies because it's not directly used
+  }, [tempData, setOrders, setShowConfirmPopup]);
 
   const cancelOrder = useCallback(() => {
     setShowConfirmPopup(false);
     setShowPopup(true);
-  }, []);
+  }, [setShowConfirmPopup, setShowPopup]);
 
   return (
     <div className="request-submission">
