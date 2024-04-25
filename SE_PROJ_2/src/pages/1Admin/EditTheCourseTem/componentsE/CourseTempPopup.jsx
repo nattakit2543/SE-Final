@@ -5,7 +5,6 @@ import { IoMdRemoveCircle, IoMdAddCircle } from "react-icons/io";
 const CourseTempPopup = ({ closePopup }) => {
   const [rows1, setRows1] = useState([{}]);
   const [rows2, setRows2] = useState([{}]);
-  const [group, setGroup] = useState('');
   const [activeTable, setActiveTable] = useState('lecture');
 
   const addRow1 = () => {

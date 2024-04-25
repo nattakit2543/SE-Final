@@ -17,6 +17,7 @@
   padding: 10px;
   border-radius: 8px;
   margin-top: 1%;
+
 }
 
 .column-headers {
@@ -44,6 +45,7 @@
   color: #333;
   transition: background-color 0.3s; 
 }
+
 
 
 .cell:hover {

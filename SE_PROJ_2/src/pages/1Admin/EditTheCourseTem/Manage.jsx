@@ -32,6 +32,7 @@ const Manage = () => {
   
     const addRow = () => {
       const newRow = {
+
         isExternalSubject: false,
         courseCode: '',
         courseName: '',
@@ -74,7 +75,7 @@ const Manage = () => {
         <div className="grid-container">
           {rows.map((row, index) => (
             <div key={index} className="row">
-              {Object.keys(row).map((key, idx) => (
+             {Object.keys(row).map((key, idx) => (
                 <div key={key} className={`cell column-${String.fromCharCode('A'.charCodeAt(0) + idx)}`}>
                   {key === 'isExternalSubject' || key === 'columnH' ? (
                     <input 
@@ -85,8 +86,6 @@ const Manage = () => {
                     />
                   ) : key === 'columnG' ? (
                     <IoMdCreate className="edit-icon" onClick={togglePopup} />
-                  ) : (key === 'courseCode' || key === 'courseName' || key === 'studentCount' || key === 'studentsPerGroup') ? (
-                    <div className="static-text">{row[key]}</div> 
                   ) : (
                     <input
                       type="text"
@@ -97,6 +96,8 @@ const Manage = () => {
                   )}
                 </div>
               ))}
+
+
             </div>
           ))}
         </div>
