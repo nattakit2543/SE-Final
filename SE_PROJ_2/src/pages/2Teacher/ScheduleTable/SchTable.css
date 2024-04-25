@@ -44,7 +44,7 @@
   color: black;
 }
 
-.day-M, .day-T, .day-W, .day-F, .day-frame {
+.day-M, .day-T, .day-W, .day-Th, .day-F, .day-Sat, .day-Sun, .day-frame {
   padding: 5px;
   border-radius: 5px;
 }
@@ -52,7 +52,10 @@
 .day-M { background-color: #F9F3D3; }
 .day-T { background-color: #FFD5E3; }
 .day-W { background-color: #E1FEE5; }
-.day-F { background-color: #4aa9ed; }
+.day-Th { background-color: #FDD692; } 
+.day-F { background-color: #7abff0; }
+.day-Sat { background-color: #D3A2C7; } 
+.day-Sun { background-color: #ef8484; }
 
 .course-code, .course-name, .credits, .groups, .classroom {
   flex: 1;
