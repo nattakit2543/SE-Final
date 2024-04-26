@@ -28,9 +28,10 @@ function PopUpReqSub({ isOpen, formData, onClose, onSubmit }) {
   });
 
   useEffect(() => {
-    if (formData) {
-      setLocalFormData(formData);
-    }
+    setLocalFormData({
+      ...localFormData,
+      ...formData
+    });
   }, [formData]);
 
   const validateField = (name, value) => {
@@ -46,7 +47,7 @@ function PopUpReqSub({ isOpen, formData, onClose, onSubmit }) {
       courseCategory: value => !isEmptyString,
       classYear: value => !isEmptyString
     };
-    return rules[name] ? rules[name](value) : true;
+    return rules[name] ? rules[name](value) : false;
   };
 
   const handleChange = (e) => {
@@ -64,16 +65,14 @@ function PopUpReqSub({ isOpen, formData, onClose, onSubmit }) {
 
   const handleSubmission = () => {
     const allFieldsValid = Object.entries(localFormData).every(([key, value]) => validateField(key, value));
-    if (!allFieldsValid) {
-      setFieldErrors(prev => {
-        const newErrors = { ...prev };
-        Object.keys(newErrors).forEach(key => {
-          newErrors[key] = !validateField(key, localFormData[key]);
-        });
-        return newErrors;
-      });
-    } else {
+    if (allFieldsValid) {
       onSubmit(localFormData);
+    } else {
+      const updatedErrors = Object.keys(localFormData).reduce((errors, field) => {
+        errors[field] = !validateField(field, localFormData[field]);
+        return errors;
+      }, {});
+      setFieldErrors(updatedErrors);
     }
   };
 
