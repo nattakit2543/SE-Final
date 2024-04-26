@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@sentry/react": "^7.112.2",
+    "@sentry/tracing": "^7.112.2",
     "axios": "^1.6.8",
     "formik": "^2.4.6",
     "react": "^18.2.0",
