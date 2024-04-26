@@ -1,9 +1,10 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import "./ReqSub.css";
 import PopUpRequestSubmission from "../componentsT/PopUpReqSub";
 import OrderBarList from "../componentsT/OrderBarList";
 import ConfirmPopup from "../componentsT/ConfirmPopup";
 import { v4 as uuidv4 } from "uuid";
+import handleError from "./errorUtils";
 
 function useLocalStorage(key, initialValue) {
   const [storedValue, setStoredValue] = useState(() => {
@@ -11,19 +12,18 @@ function useLocalStorage(key, initialValue) {
       const item = window.localStorage.getItem(key);
       return item ? JSON.parse(item) : initialValue;
     } catch (error) {
-      console.log(error);
+      handleError(error, { key });
       return initialValue;
     }
   });
 
   const setValue = useCallback((value) => {
     try {
-      const valueToStore =
-        value instanceof Function ? value(storedValue) : value;
+      const valueToStore = value instanceof Function ? value(storedValue) : value;
       setStoredValue(valueToStore);
       window.localStorage.setItem(key, JSON.stringify(valueToStore));
     } catch (error) {
-      console.log(error);
+      handleError(error, { key, value });
     }
   }, [key, storedValue]);
 
@@ -43,13 +43,17 @@ const ReqSub = () => {
   }, [setTempData, setShowPopup, setShowConfirmPopup]);
 
   const confirmOrder = useCallback(() => {
-    const newOrder = {
-      ...tempData,
-      id: uuidv4(),
-      status: "Pending",
-    };
-    setOrders((prevOrders) => [...prevOrders, newOrder]);
-    setShowConfirmPopup(false);
+    try {
+      const newOrder = {
+        ...tempData,
+        id: uuidv4(),
+        status: "Pending",
+      };
+      setOrders((prevOrders) => [...prevOrders, newOrder]);
+      setShowConfirmPopup(false);
+    } catch (error) {
+      handleError(error, { tempData });
+    }
   }, [tempData, setOrders, setShowConfirmPopup]);
 
   const cancelOrder = useCallback(() => {
