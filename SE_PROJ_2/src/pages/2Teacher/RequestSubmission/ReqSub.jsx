@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import axios from 'axios';
 import "./ReqSub.css";
-import PopUpRequestSubmission from "../componentsT/PopUpReqSub";
+import PopUpReqSub from "../componentsT/PopUpReqSub";
 import OrderBarList from "../componentsT/OrderBarList";
 import ConfirmPopup from "../componentsT/ConfirmPopup";
 import handleError from "./errorUtils";
@@ -40,12 +40,12 @@ const ReqSub = () => {
       const response = await axios.post('http://localhost:3100/requests', newOrder);
       setOrders(prevOrders => [...prevOrders, response.data]); 
       setShowConfirmPopup(false);
+      setTempData(null); // Clear temp data after successful submission
     } catch (error) {
       handleError(error, { ...tempData, message: 'Failed to confirm order' });
     }
   }, [tempData]);
 
-  // Delete order
   const deleteOrder = async (courseCode) => {
     try {
       await axios.delete(`http://localhost:3100/requests/${courseCode}`);
@@ -62,14 +62,20 @@ const ReqSub = () => {
 
   return (
     <div className="request-submission">
-      <button className="add-request-btn" onClick={() => setShowPopup(true)} aria-label="Add new request">
+      <button className="add-request-btn" onClick={() => {
+        setShowPopup(true);
+        setTempData(null); // Reset tempData when opening the form
+      }} aria-label="Add new request">
         เพิ่มคำร้อง
       </button>
       {showPopup && (
-        <PopUpRequestSubmission
+        <PopUpReqSub
           isOpen={showPopup}
           formData={tempData}
-          onClose={() => setShowPopup(false)}
+          onClose={() => {
+            setShowPopup(false);
+            setTempData(null); // Clear temp data when form is closed
+          }}
           onSubmit={handleOrderSubmit}
         />
       )}
@@ -77,14 +83,14 @@ const ReqSub = () => {
         <ConfirmPopup onConfirm={confirmOrder} onCancel={cancelOrder} />
       )}
       <div className="orders-container" role="list">
-      {orders.map((order, index) => (
-        <OrderBarList
-          key={`${order.courseCode}-${index}`} 
-          order={order}
-          onClose={() => deleteOrder(order.courseCode)}
-        />
-      ))}
-    </div>
+        {orders.map((order, index) => (
+          <OrderBarList
+            key={`${order.courseCode}-${index}`} 
+            order={order}
+            onClose={() => deleteOrder(order.courseCode)}
+          />
+        ))}
+      </div>
     </div>
   );
 };
