@@ -487,38 +487,3 @@ myApp.get("/insertcoursesubject/:CourseYear/:Major/:StudentGrade/:Semester/:Subj
     }
   });
 });
-
-// API endpoint สำหรับการส่งคำร้อง
-myApp.post('/api/requests', (req, res) => {
-  console.log('Received body:', req.body); 
-  const { courseCode, courseNameEN, courseNameTH, prevCourse, courseCategory, credits, numberOfStudents, numberOfGroups, classYear } = req.body;
-
-  if (!courseCode) {
-    return res.status(400).send({ message: 'courseCode is required' });
-  }
-
-  const sql = 'INSERT INTO Requests (courseCode, courseNameEN, courseNameTH, prevCourse, courseCategory, credits, numberOfStudents, numberOfGroups, classYear) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
-  conn.query(sql, [courseCode, courseNameEN, courseNameTH, prevCourse, courseCategory, credits, numberOfStudents, numberOfGroups, classYear], (err, result) => {
-    if (err) {
-      console.error('Error executing SQL query: ', err);
-      res.status(500).send({ message: 'Internal Server Error', error: err.message });
-      return;
-    }
-    res.send({ message: 'Request submitted successfully', id: result.insertId });
-  });
-});
-
-
-// API endpoint สำหรับดึงข้อมูลคำร้อง
-myApp.get('/api/requests', (req, res) => {
-  const sql = 'SELECT courseCode, courseNameEN, numberOfStudents, status FROM Requests';
-  conn.query(sql, (err, results) => {
-      console.log("Data fetched from database:", results);  // แสดงข้อมูลที่ถูกดึงมา
-      if (err) {
-          console.error('Error fetching data: ', err);
-          res.status(500).send({ message: 'Internal Server Error' });
-          return;
-      }
-      res.json(results);
-  });
-});
