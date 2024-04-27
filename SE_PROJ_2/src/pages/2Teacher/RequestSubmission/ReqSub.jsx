@@ -1,29 +1,16 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import axios from 'axios';
+// src/pages/2Teacher/RequestSubmission/ReqSub.jsx
+import React, { useState, useCallback } from 'react';
 import "./ReqSub.css";
 import PopUpReqSub from "../componentsT/PopUpReqSub";
 import OrderBarList from "../componentsT/OrderBarList";
 import ConfirmPopup from "../componentsT/ConfirmPopup";
-import handleError from "./errorUtils";
+import { useRequests } from '../../../contexts/RequestContext';
 
 const ReqSub = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [showConfirmPopup, setShowConfirmPopup] = useState(false);
   const [tempData, setTempData] = useState(null);
-  const [orders, setOrders] = useState([]);
-
-  useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const response = await axios.get('http://localhost:3100/requests');
-        console.log("Orders fetched:", response.data);
-        setOrders(response.data);
-      } catch (error) {
-        handleError(error, { message: 'Failed to fetch orders' });
-      }
-    };
-    fetchOrders();
-  }, []);
+  const { orders, addOrder, deleteOrder } = useRequests();
 
   const handleOrderSubmit = useCallback((formData) => {
     setTempData(formData);
@@ -31,29 +18,12 @@ const ReqSub = () => {
     setShowConfirmPopup(true);
   }, []);
 
-  const confirmOrder = useCallback(async () => {
-    try {
-      const newOrder = {
-        ...tempData,
-        status: "Pending"
-      };
-      const response = await axios.post('http://localhost:3100/requests', newOrder);
-      setOrders(prevOrders => [...prevOrders, response.data]); 
+  const confirmOrder = useCallback(() => {
+    addOrder({ ...tempData, status: "Pending" }).then(() => {
       setShowConfirmPopup(false);
-      setTempData(null); // Clear temp data after successful submission
-    } catch (error) {
-      handleError(error, { ...tempData, message: 'Failed to confirm order' });
-    }
-  }, [tempData]);
-
-  const deleteOrder = async (courseCode) => {
-    try {
-      await axios.delete(`http://localhost:3100/requests/${courseCode}`);
-      setOrders(currentOrders => currentOrders.filter(order => order.courseCode !== courseCode));
-    } catch (error) {
-      handleError(error, { message: 'Failed to delete order' });
-    }
-  };
+      setTempData(null);
+    });
+  }, [tempData, addOrder]);
 
   const cancelOrder = useCallback(() => {
     setShowConfirmPopup(false);
@@ -64,7 +34,7 @@ const ReqSub = () => {
     <div className="request-submission">
       <button className="add-request-btn" onClick={() => {
         setShowPopup(true);
-        setTempData(null); // Reset tempData when opening the form
+        setTempData(null);
       }} aria-label="Add new request">
         เพิ่มคำร้อง
       </button>
@@ -74,7 +44,7 @@ const ReqSub = () => {
           formData={tempData}
           onClose={() => {
             setShowPopup(false);
-            setTempData(null); // Clear temp data when form is closed
+            setTempData(null);
           }}
           onSubmit={handleOrderSubmit}
         />
