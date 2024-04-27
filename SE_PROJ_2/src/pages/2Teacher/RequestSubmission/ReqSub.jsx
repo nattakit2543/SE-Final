@@ -17,15 +17,19 @@ function useLocalStorage(key, initialValue) {
     }
   });
 
-  const setValue = useCallback((value) => {
-    try {
-      const valueToStore = value instanceof Function ? value(storedValue) : value;
-      setStoredValue(valueToStore);
-      window.localStorage.setItem(key, JSON.stringify(valueToStore));
-    } catch (error) {
-      handleError(error, { key, value });
-    }
-  }, [key, storedValue]);
+  const setValue = useCallback(
+    (value) => {
+      try {
+        const valueToStore =
+          value instanceof Function ? value(storedValue) : value;
+        setStoredValue(valueToStore);
+        window.localStorage.setItem(key, JSON.stringify(valueToStore));
+      } catch (error) {
+        handleError(error, { key, value });
+      }
+    },
+    [key, storedValue]
+  );
 
   return [storedValue, setValue];
 }
@@ -36,26 +40,29 @@ const ReqSub = () => {
   const [tempData, setTempData] = useState(null);
   const [orders, setOrders] = useState([]);
 
-  // Fetch data from the server
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:3100/api/requests');
+        const response = await fetch("http://localhost:3100/api/requests");
         const data = await response.json();
+        console.log("Data received from API:", data); 
         setOrders(data);
       } catch (error) {
-        console.error('Error fetching orders:', error);
+        console.error("Error fetching orders:", error);
       }
     };
 
     fetchData();
   }, []);
 
-  const handleOrderSubmit = useCallback((formData) => {
-    setTempData(formData);
-    setShowPopup(false);
-    setShowConfirmPopup(true);
-  }, [setTempData, setShowPopup, setShowConfirmPopup]);
+  const handleOrderSubmit = useCallback(
+    (formData) => {
+      setTempData(formData);
+      setShowPopup(false);
+      setShowConfirmPopup(true);
+    },
+    [setTempData, setShowPopup, setShowConfirmPopup]
+  );
 
   const confirmOrder = useCallback(() => {
     try {
@@ -101,9 +108,11 @@ const ReqSub = () => {
           <OrderBarList
             key={order.id}
             order={order}
-            onClose={() => setOrders(prev => prev.filter(o => o.id !== order.id))}
-        />
-      ))}
+            onClose={() =>
+              setOrders((prev) => prev.filter((o) => o.id !== order.id))
+            }
+          />
+        ))}
       </div>
     </div>
   );

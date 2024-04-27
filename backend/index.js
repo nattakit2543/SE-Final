@@ -507,6 +507,7 @@ myApp.post('/api/requests', (req, res) => {
 myApp.get('/api/requests', (req, res) => {
   const sql = 'SELECT courseCode, courseNameEN, numberOfStudents, status FROM Requests';
   conn.query(sql, (err, results) => {
+      console.log("Data fetched from database:", results);  // แสดงข้อมูลที่ถูกดึงมา
       if (err) {
           console.error('Error fetching data: ', err);
           res.status(500).send({ message: 'Internal Server Error' });
@@ -515,4 +516,3 @@ myApp.get('/api/requests', (req, res) => {
       res.json(results);
   });
 });
-
