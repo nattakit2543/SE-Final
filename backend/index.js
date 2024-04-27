@@ -487,3 +487,45 @@ myApp.get("/insertcoursesubject/:CourseYear/:Major/:StudentGrade/:Semester/:Subj
     }
   });
 });
+
+
+// Route to get all orders
+myApp.get('/requests', (req, res) => {
+  conn.query('SELECT courseCode, courseNameEN, numberOfStudents, status FROM requests', (err, results) => {
+    if (err) {
+      res.status(500).send('Error retrieving data from database');
+      return;
+    }
+    res.json(results);
+  });
+});
+
+// Route to add a new order
+myApp.post('/requests', (req, res) => {
+  const { courseCode, courseNameEN, courseNameTH, prevCourse, courseCategory, credits, numberOfStudents, numberOfGroups, classYear, status } = req.body;
+  const sql = 'INSERT INTO requests (courseCode, courseNameEN, courseNameTH, prevCourse, courseCategory, credits, numberOfStudents, numberOfGroups, classYear, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+  conn.query(sql, [courseCode, courseNameEN, courseNameTH, prevCourse, courseCategory, credits, numberOfStudents, numberOfGroups, classYear, status], (err, result) => {
+    if (err) {
+      res.status(500).send('Error saving the order to database');
+      return;
+    }
+    res.status(201).send({ id: result.insertId, ...req.body });
+  });
+});
+
+// Route to delete an order
+myApp.delete('/requests/:courseCode', (req, res) => {
+  const { courseCode } = req.params;
+  const sql = 'DELETE FROM requests WHERE courseCode = ?';
+  conn.query(sql, [courseCode], (err, result) => {
+    if (err) {
+      res.status(500).send('Error deleting the order from the database');
+      return;
+    }
+    if (result.affectedRows == 0) {
+      res.status(404).send('No order found with the given courseCode');
+      return;
+    }
+    res.status(200).send({ message: 'Order deleted successfully' });
+  });
+});
