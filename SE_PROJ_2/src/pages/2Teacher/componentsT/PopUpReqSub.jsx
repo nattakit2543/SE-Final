@@ -63,10 +63,28 @@ function PopUpReqSub({ isOpen, formData, onClose, onSubmit }) {
     }));
   };
 
-  const handleSubmission = () => {
+  const handleSubmission = async () => {
     const allFieldsValid = Object.entries(localFormData).every(([key, value]) => validateField(key, value));
     if (allFieldsValid) {
-      onSubmit(localFormData);
+      try {
+        const response = await fetch('http://localhost:3100/api/requests', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(localFormData)
+        });
+        if (response.ok) {
+          const result = await response.json();
+          console.log(result.message);
+          onSubmit();
+          onClose(); 
+        } else {
+          console.error('Failed to submit request');
+        }
+      } catch (error) {
+        console.error('Error submitting the request:', error);
+      }
     } else {
       const updatedErrors = Object.keys(localFormData).reduce((errors, field) => {
         errors[field] = !validateField(field, localFormData[field]);

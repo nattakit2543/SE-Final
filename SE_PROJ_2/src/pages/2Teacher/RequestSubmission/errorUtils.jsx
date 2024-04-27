@@ -1,4 +1,4 @@
-import * as Sentry from '@sentry/react';
+import * as Sentry from "@sentry/react";
 
 const handleError = (error, info = {}) => {
   console.error(`Error: ${error}. Info:`, info);

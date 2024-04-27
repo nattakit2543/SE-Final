@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./ReqSub.css";
 import PopUpRequestSubmission from "../componentsT/PopUpReqSub";
 import OrderBarList from "../componentsT/OrderBarList";
@@ -34,7 +34,22 @@ const ReqSub = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [showConfirmPopup, setShowConfirmPopup] = useState(false);
   const [tempData, setTempData] = useState(null);
-  const [orders, setOrders] = useLocalStorage("orders", []);
+  const [orders, setOrders] = useState([]);
+
+  // Fetch data from the server
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:3100/api/requests');
+        const data = await response.json();
+        setOrders(data);
+      } catch (error) {
+        console.error('Error fetching orders:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleOrderSubmit = useCallback((formData) => {
     setTempData(formData);
@@ -86,11 +101,9 @@ const ReqSub = () => {
           <OrderBarList
             key={order.id}
             order={order}
-            onClose={() =>
-              setOrders((prev) => prev.filter((o) => o.id !== order.id))
-            }
-          />
-        ))}
+            onClose={() => setOrders(prev => prev.filter(o => o.id !== order.id))}
+        />
+      ))}
       </div>
     </div>
   );
