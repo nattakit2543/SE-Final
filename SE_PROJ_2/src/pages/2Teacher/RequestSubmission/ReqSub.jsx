@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import "./ReqSub.css";
 import PopUpRequestSubmission from "../componentsT/PopUpReqSub";
 import OrderBarList from "../componentsT/OrderBarList";
@@ -17,19 +17,15 @@ function useLocalStorage(key, initialValue) {
     }
   });
 
-  const setValue = useCallback(
-    (value) => {
-      try {
-        const valueToStore =
-          value instanceof Function ? value(storedValue) : value;
-        setStoredValue(valueToStore);
-        window.localStorage.setItem(key, JSON.stringify(valueToStore));
-      } catch (error) {
-        handleError(error, { key, value });
-      }
-    },
-    [key, storedValue]
-  );
+  const setValue = useCallback((value) => {
+    try {
+      const valueToStore = value instanceof Function ? value(storedValue) : value;
+      setStoredValue(valueToStore);
+      window.localStorage.setItem(key, JSON.stringify(valueToStore));
+    } catch (error) {
+      handleError(error, { key, value });
+    }
+  }, [key, storedValue]);
 
   return [storedValue, setValue];
 }
@@ -38,31 +34,13 @@ const ReqSub = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [showConfirmPopup, setShowConfirmPopup] = useState(false);
   const [tempData, setTempData] = useState(null);
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useLocalStorage("orders", []);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://localhost:3100/api/requests");
-        const data = await response.json();
-        console.log("Data received from API:", data); 
-        setOrders(data);
-      } catch (error) {
-        console.error("Error fetching orders:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  const handleOrderSubmit = useCallback(
-    (formData) => {
-      setTempData(formData);
-      setShowPopup(false);
-      setShowConfirmPopup(true);
-    },
-    [setTempData, setShowPopup, setShowConfirmPopup]
-  );
+  const handleOrderSubmit = useCallback((formData) => {
+    setTempData(formData);
+    setShowPopup(false);
+    setShowConfirmPopup(true);
+  }, [setTempData, setShowPopup, setShowConfirmPopup]);
 
   const confirmOrder = useCallback(() => {
     try {
