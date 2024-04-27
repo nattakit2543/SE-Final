@@ -74,8 +74,8 @@ myApp.post('/upload', upload.single('file'), async (req, res, next) => {
 
       for (let i = 0; i < data.length; i++) {
           const value = data[i];
-          const paddedIdSubject = padWithLeadingZeros(value.SubjectCode, 10);
-          const paddedIdCourseYear = padWithLeadingZeros(value.CourseYear, 10);
+          const paddedIdSubject = padWithLeadingZeros(value.SubjectCode);
+          const paddedIdCourseYear = padWithLeadingZeros(value.CourseYear);
 
           const query = 'SELECT * FROM mastersubject WHERE SubjectCode = ? AND CourseYear = ?';
           const queryValues = [paddedIdSubject, paddedIdCourseYear];
@@ -387,6 +387,98 @@ myApp.get("/deleterequest/:idTemp", (request, response) => {
   var sql =
   "DELETE FROM temp WHERE idTemp = ?;"
   conn.query(sql, [idTemp], (error, results) => {
+    if (error) {
+      console.log(error);
+      response.status(500).json({ error: "Internal server error" });
+    } else {
+      response.json(results);
+    }
+  });
+});
+
+
+//Course
+myApp.get("/course/:CourseYear",(request,response) =>{
+  const { CourseYear } = request.params;
+  var sql =
+  "SELECT * FROM mastersubject WHERE CourseYear=?";
+  conn.query(sql,[CourseYear], (error, results) => {
+    if (error) {
+      console.log(error);
+      response.status(500).json({ error: "Internal server error" });
+    } else {
+      response.json(results);
+    }
+  });
+});
+
+//DeleteCourse
+myApp.get("/deletecourse/:CourseYear",(request,response) =>{
+  const { CourseYear } = request.params;
+  var sql =
+  "DELETE FROM mastersubject WHERE CourseYear=?";
+  conn.query(sql,[CourseYear], (error, results) => {
+    if (error) {
+      console.log(error);
+      response.status(500).json({ error: "Internal server error" });
+    } else {
+      response.json(results);
+    }
+  });
+});
+
+//Course
+myApp.get("/course",(request,response) =>{
+  
+  var sql =
+  "SELECT CourseYear FROM mastersubject ";
+  conn.query(sql, (error, results) => {
+    if (error) {
+      console.log(error);
+      response.status(500).json({ error: "Internal server error" });
+    } else {
+      response.json(results);
+    }
+  });
+});
+
+//UpdateSubjectincourse
+myApp.get("/updatecoursesubject/:SubjectCode/:SubjectName/:SubjectNameEnglish/:Credits/:Preq/:idSubject", (request, response) => {
+  const { idSubject,SubjectCode,SubjectName,SubjectNameEnglish,Credits,Preq } = request.params;
+  var sql =
+  "UPDATE mastersubject SET SubjectCode = ?, SubjectName = ?, SubjectNameEnglish = ?, Credits = ?, Preq = ? WHERE idSubject = ?";
+  conn.query(sql, [SubjectCode,SubjectName,SubjectNameEnglish,Credits,Preq,idSubject], (error, results) => {
+    if (error) {
+      console.log(error);
+      response.status(500).json({ error: "Internal server error" });
+    } else {
+      response.json(results);
+    }
+  });
+});
+
+//DeleterSubjectincourse
+myApp.get("/deletecoursesubject/:idSubject", (request, response) => {
+  const { idSubject } = request.params;
+  var sql =
+  "DELETE FROM mastersubject WHERE idSubject = ?;"
+  conn.query(sql, [idSubject], (error, results) => {
+    if (error) {
+      console.log(error);
+      response.status(500).json({ error: "Internal server error" });
+    } else {
+      response.json(results);
+    }
+  });
+});
+
+//insertSubjectincourse
+myApp.get("/insertcoursesubject/:CourseYear/:Major/:StudentGrade/:Semester/:SubjectCode/:SubjectName/:SubjectNameEnglish/:Credits/:Preq", (request, response) => {
+  const { CourseYear,Major,StudentGrade,Semester,SubjectCode,SubjectName,SubjectNameEnglish,Credits,Preq } = request.params;
+  var sql =
+  "INSERT INTO mastersubject (CourseYear,Major,StudentGrade,Semester,SubjectCode,SubjectName,SubjectNameEnglish,Credits,Preq)"+
+  "VALUE(?,?,?,?,?,?,?,?,?)";
+  conn.query(sql, [CourseYear,Major,StudentGrade,Semester,SubjectCode,SubjectName,SubjectNameEnglish,Credits,Preq], (error, results) => {
     if (error) {
       console.log(error);
       response.status(500).json({ error: "Internal server error" });

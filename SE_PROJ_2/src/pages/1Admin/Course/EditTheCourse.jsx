@@ -82,6 +82,12 @@ const EditTheCourse = () => {
       )}
     </div>
   );
+
+  async function updateteacherinfo (TeacherName,TeacherSurname,Phone,Email,Major){
+    const url = `http://localhost:3100/updateteacherinfo/${TeacherName}/${TeacherSurname}/${Phone}/${Email}/${Major}/${id}`;
+    axios.get(url).then((Response)=>{
+    })
+}
 };
 
 export default EditTheCourse;
