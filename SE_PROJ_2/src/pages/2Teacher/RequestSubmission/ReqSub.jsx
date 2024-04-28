@@ -1,4 +1,3 @@
-// src/pages/2Teacher/RequestSubmission/ReqSub.jsx
 import React, { useState, useCallback } from 'react';
 import "./ReqSub.css";
 import PopUpReqSub from "../componentsT/PopUpReqSub";
