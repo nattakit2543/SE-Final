@@ -37,8 +37,8 @@
 
 .EDC-button1 {
   position: absolute;
-  top: 125px;
-  left: 320px;
+  top: 17vh;
+  left: 41vh;
   width: 150px;
   height: 60px;
   font-size: 20px;
@@ -52,8 +52,8 @@
 
 .EDC-button2 {
   position: absolute;
-  top: 125px;
-  left: 500px;
+  top: 17vh;
+  left: 65vh;
   width: 150px;
   height: 60px;
   font-size: 20px;
@@ -66,14 +66,13 @@
 }
 
 
-
 .EDC-headerText {
   position: fixed;
   display: flex;
   align-items: center;
   justify-content: center;
-  top: 140px;
-  right: 320px;
+  top: 20vh;
+  right: 50vh;
   gap: 10px;
   font-size: 20px;
   color: black;
@@ -117,35 +116,27 @@
   margin-left: auto;
 }
 
-.EDC-addRow1 {
+.EDC-addRow1,.EDC-addRow2 {
   color: #05c582;
   font-size: 40px;
   position: fixed;
-  top: 570px;
-  left: 1180px;
-
-}
-.EDC-addRow2 {
-  color: #05c582;
-  font-size: 40px;
-  position: fixed;
-  top: 570px;
-  left: 1180px;
+  top: 75vh;
+  right: 35vh;
 
 }
 
 .EDC-rowButtons {
   display: flex;
   justify-content: flex-end;
-  padding: 10px 0;
+  padding: 10px 10;
 }
 
 .EDC-actionButtons {
   display: flex;
   position: fixed;
   justify-content: center;
-  top: 570px;
-  left: 600px;
+  top: 75vh;
+  left: 80vh;
 }
 
 .EDC-buttonA {
@@ -157,7 +148,7 @@
   border: none;
   cursor: pointer;
   padding: 10px 20px;
-  margin: 0 10px;
+  margin: 0 5px;
 }
 
 .EDC-buttonB {
@@ -169,6 +160,6 @@
   border: none;
   cursor: pointer;
   padding: 10px 20px;
-  margin: 0 10px;
+  margin: 0 80px;
 }
 

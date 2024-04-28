@@ -65,8 +65,8 @@
 
 .add-row-button {
   position: fixed;
-  top: 660px;
-  left: 750px;
+  top: 90vh; /* 50% of the viewport height */
+  left: 50vw; /* 50% of the viewport width */
   font-size: 16px;
   cursor: pointer;
   background-color: #4CAF50;
@@ -129,8 +129,8 @@
 
 .next-button {
   position: fixed;
-  right: 20px;
-  bottom: 20px;
+  top: 92vh; /* 50% of the viewport height */
+  left: 90vw; /* 50% of the viewport width */
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
