@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import HowToUseT from "../HowToUse/HowToUseT";
 import SchTable from "./ScheduleTable/SchTable";
 import ReqSub from "./RequestSubmission/ReqSub";
@@ -10,6 +10,7 @@ import "./TeacherApp.css";
 
 const TeacherApp = () => {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
+  const navigate = useNavigate();
 
   const toggleSidebar = () => {
     setIsSidebarExpanded(!isSidebarExpanded);
@@ -17,7 +18,7 @@ const TeacherApp = () => {
 
   const logout = () => {
     sessionStorage.removeItem("userToken");
-    window.location.href = "/login";
+    navigate("/login");
   };
 
   return (

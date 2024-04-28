@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import HowToUseA from '../HowToUse/HowToUseA';
 import ImportAndExport from './ImportAndExport/ImportAndExport';
 import EditTheCourseTem from './EditTheCourseTem/EditTheCourseTem';
@@ -16,6 +16,7 @@ import './AdminApp.css';
 
 const AdminApp = () => {
     const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
+    const navigate = useNavigate();
 
     const toggleSidebar = () => {
         setIsSidebarExpanded(!isSidebarExpanded);
@@ -23,7 +24,7 @@ const AdminApp = () => {
 
     const logout = () => {
         sessionStorage.removeItem("userToken");
-        window.location.href = "/login";
+        navigate("/login");
     };
 
     return (
@@ -42,7 +43,6 @@ const AdminApp = () => {
                     <Route path="editTheCourse" element={<EditTheCourse />} />
                     <Route path="editTheCourse/edit-sub" element={<Editsub />} />
                     {/*<Route path="edit-sub/:courseId" element={<Editsub />} />*/}
-
                 </Routes>
             </div>
         </div>
