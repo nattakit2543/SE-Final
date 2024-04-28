@@ -23,9 +23,13 @@ const SchTable = () => {
       resetError();
     } catch (error) {
       console.error("Failed to fetch subjects:", error);
-      setErrorMsg(
-        "Failed to fetch subjects. Please check your connection and try again."
-      );
+      if (error.response) {
+        setErrorMsg(`Error: ${error.response.data}. Status code: ${error.response.status}`);
+      } else if (error.request) {
+        setErrorMsg("Error: No response was received from the server. Please check your connection and try again.");
+      } else {
+        setErrorMsg("Error: Failed to send the request. Please try again.");
+      }
     } finally {
       setLoading(false);
     }
