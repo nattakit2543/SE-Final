@@ -1,31 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoIosEye, IoMdTrash, IoIosJournal } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import "./EditTheCourse.css";
 import ConfirmDeletePopup from "../ComponentsAdmin/ConfirmDeletePopup";
 import StatusPopup from "../ComponentsAdmin/StatusPopup";
+import axios from 'axios';
 
 const EditTheCourse = () => {
   const navigate = useNavigate();
-  const [courses, setCourses] = useState([
-    { id: 1, name: "Academic year 2017 curriculum" },
-    { id: 2, name: "Academic year 2018 curriculum" },
-    { id: 3, name: "Academic year 2019 curriculum" },
-    { id: 4, name: "Academic year 2020 curriculum" },
-    { id: 5, name: "Academic year 2021 curriculum" },
-    { id: 6, name: "Academic year 2022 curriculum" },
-    { id: 7, name: "Academic year 2023 curriculum" },
-    { id: 8, name: "Academic year 2024 curriculum" },
-  ]);
+  const [courses, setCourses] = useState();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [status, setStatus] = useState(null);
   const [currentCourseId, setCurrentCourseId] = useState(null);
+  
+  useEffect(() => {
+    getCourseWithRetry();
+  }, []);
 
   const handleDeleteCourse = () => {
     setIsPopupOpen(false);
     setStatus('processing');
     setTimeout(() => {
-      setCourses(prevCourses => prevCourses.filter(course => course.id !== currentCourseId));
+      delCourseWithRetry(currentCourseId);
       setStatus('success');
       setTimeout(() => setStatus(null), 3000);
     }, 2000);
@@ -46,25 +42,31 @@ const EditTheCourse = () => {
           </tr>
         </thead>
         <tbody>
-          {courses.map(({ id, name }) => (
-            <tr key={id}>
-              <td>{name}</td>
-              <td>
-                <div className="icon-wrapper">
-                  <IoIosEye
-                    onClick={() => navigate(`edit-sub`, { state: { curriculumName: name } })}
-                    className="edit-course-icon eye-icon"
-                    title="View"
-                  />
-                  <IoMdTrash
-                    onClick={() => openDeleteConfirm(id)}
-                    className="edit-course-icon delete-icon"
-                    title="Delete"
-                  />
-                </div>
-              </td>
+          {courses ? 
+            courses.map((item, index) => (
+              <tr key={index}>
+                <td>{item.CourseYear}</td>
+                <td>
+                  <div className="icon-wrapper">
+                    <IoIosEye
+                      onClick={() => navigate(`edit-sub`, { state: { curriculumName: item } })}
+                      className="edit-course-icon eye-icon"
+                      title="View"
+                    />
+                    <IoMdTrash
+                      onClick={() => openDeleteConfirm(item.CourseYear)}
+                      className="edit-course-icon delete-icon"
+                      title="Delete"
+                    />
+                  </div>
+                </td>
+              </tr>
+            )) 
+            : 
+            <tr>
+              <td colSpan="2">Loading...</td>
             </tr>
-          ))}
+          }
         </tbody>
       </table>
       {isPopupOpen && (
@@ -83,11 +85,32 @@ const EditTheCourse = () => {
     </div>
   );
 
-  async function updateteacherinfo (TeacherName,TeacherSurname,Phone,Email,Major){
-    const url = `http://localhost:3100/updateteacherinfo/${TeacherName}/${TeacherSurname}/${Phone}/${Email}/${Major}/${id}`;
-    axios.get(url).then((Response)=>{
-    })
-}
+  async function getCourseWithRetry(attempt = 1) {
+    const url = `http://localhost:3100/course`;
+    try {
+      const response = await axios.get(url);
+      setCourses(response.data);
+    } catch (error) {
+      console.log("Error fetching data:", error);
+      if (attempt <= 3) {
+        console.log(`Retrying... Attempt ${attempt}`);
+        setTimeout(() => getCourseWithRetry(attempt + 1), 2000); // Retry after 2 seconds
+      }
+    }
+  }
+
+  async function delCourseWithRetry(courseYear, attempt = 1) {
+    const url = `http://localhost:3100/deletecourse/` + courseYear;
+    try {
+      await axios.get(url);
+    } catch (error) {
+      console.log("Error deleting course:", error);
+      if (attempt <= 3) {
+        console.log(`Retrying... Attempt ${attempt}`);
+        setTimeout(() => delCourseWithRetry(courseYear, attempt + 1), 2000); // Retry after 2 seconds
+      }
+    }
+  }
 };
 
 export default EditTheCourse;

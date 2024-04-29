@@ -428,10 +428,8 @@ myApp.get("/deletecourse/:CourseYear",(request,response) =>{
 });
 
 //Course
-myApp.get("/course",(request,response) =>{
-  
-  var sql =
-  "SELECT CourseYear FROM mastersubject ";
+myApp.get("/course", (request, response) => {
+  var sql = "SELECT DISTINCT CourseYear FROM mastersubject";
   conn.query(sql, (error, results) => {
     if (error) {
       console.log(error);
@@ -441,6 +439,7 @@ myApp.get("/course",(request,response) =>{
     }
   });
 });
+
 
 //UpdateSubjectincourse
 myApp.get("/updatecoursesubject/:SubjectCode/:SubjectName/:SubjectNameEnglish/:Credits/:Preq/:idSubject", (request, response) => {
