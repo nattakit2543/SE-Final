@@ -528,3 +528,22 @@ myApp.delete('/requests/:courseCode', (req, res) => {
     res.status(200).send({ message: 'Order deleted successfully' });
   });
 });
+
+// Route to update the status of an order
+myApp.patch('/requests/:courseCode/status', (req, res) => {
+  const { courseCode } = req.params;
+  const { status } = req.body;  // 'Considered' or 'Not Considered'
+  const sql = 'UPDATE requests SET status = ? WHERE courseCode = ?';
+
+  conn.query(sql, [status, courseCode], (err, result) => {
+    if (err) {
+      res.status(500).send('Error updating the order in the database');
+      return;
+    }
+    if (result.affectedRows === 0) {
+      res.status(404).send('No order found with the given courseCode');
+      return;
+    }
+    res.status(200).send({ message: 'Order status updated successfully' });
+  });
+});

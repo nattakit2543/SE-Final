@@ -2,42 +2,73 @@
     display: flex;
     flex-direction: column;
     margin: 20px;
-    
-}
-
-.request-item {
+  }
+  
+  .tabs {
+    display: flex;
+  }
+  
+  .tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    background-color: #ccc;
+    margin-right: 5px;
+  }
+  
+  .tab.active {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .loading-text {
+    color: #888;
+    font-size: 18px;
+  }
+  
+  .error-text {
+    color: red;
+    font-size: 18px;
+  }
+  
+  .request-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #a19c9c;
     border-radius: 8px;
-}
-
-.request-info {
+  }
+  
+  .request-info {
     font-size: 16px;
-}
-
-.status-container {
+    color: black;
+  }
+  
+  .status-container {
     display: flex;
-}
-
-.status-button {
-    padding: 5px 10px;
-    margin-left: 10px;
-    border: none;
-    border-radius: 4px;
-    color: white;
+  }
+  
+  .status-button {
+    padding: 8px 16px;
+    font-size: 16px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 14px;
-    outline: none;
-}
-
-.status-button.considered {
+    margin: 5px;
+  }
+  
+  .status-button.considered, .status-button.not-considered {
     background-color: #4CAF50;
-}
-
-.status-button.not-considered {
+    color: white;
+  }
+  
+  .status-button.not-considered {
     background-color: #EF6B6B;
-}
+  }
+  
+  .status-button.cancel {
+    background-color: #FFA500;
+    color: white;
+  }
+  
