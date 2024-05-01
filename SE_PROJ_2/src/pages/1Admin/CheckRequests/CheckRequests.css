@@ -1,74 +1,83 @@
 .requests-container {
-    display: flex;
-    flex-direction: column;
-    margin: 20px;
-  }
-  
-  .tabs {
-    display: flex;
-  }
-  
-  .tab {
-    padding: 10px 20px;
-    cursor: pointer;
-    border: none;
-    background-color: #ccc;
-    margin-right: 5px;
-  }
-  
-  .tab.active {
-    background-color: #4CAF50;
-    color: white;
-  }
-  
-  .loading-text {
-    color: #888;
-    font-size: 18px;
-  }
-  
-  .error-text {
-    color: red;
-    font-size: 18px;
-  }
-  
-  .request-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #a19c9c;
-    border-radius: 8px;
-  }
-  
-  .request-info {
-    font-size: 16px;
-    color: black;
-  }
-  
-  .status-container {
-    display: flex;
-  }
-  
-  .status-button {
-    padding: 8px 16px;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 5px;
-  }
-  
-  .status-button.considered, .status-button.not-considered {
-    background-color: #4CAF50;
-    color: white;
-  }
-  
-  .status-button.not-considered {
-    background-color: #EF6B6B;
-  }
-  
-  .status-button.cancel {
-    background-color: #FFA500;
-    color: white;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: calc(100vh - 150px);
+  width: calc(100vw - 65px);
+  padding-top: 150px;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 10px 0;
+}
+
+.tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  background-color: #ccc;
+  margin-right: 5px;
+}
+
+.tab.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.loading-text {
+  color: #888;
+  font-size: 18px;
+}
+
+.error-text {
+  color: red;
+  font-size: 18px;
+}
+
+.request-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #a19c9c;
+  border-radius: 8px;
+  margin: 5px auto;
+  max-width: 80%;
+  width: 40%;
+}
+
+.request-info {
+  font-size: 16px;
+  color: black;
+}
+
+.status-container {
+  display: flex;
+}
+
+.status-button {
+  padding: 8px 16px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.status-button.considered,
+.status-button.not-considered {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.status-button.not-considered {
+  background-color: #EF6B6B;
+}
+
+.status-button.cancel {
+  background-color: #FFA500;
+  color: white;
+}
