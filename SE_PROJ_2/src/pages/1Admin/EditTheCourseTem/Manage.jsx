@@ -4,29 +4,7 @@ import './Manage.css';
 import CourseTempPopup from './componentsE/CourseTempPopup';  // Adjust the path as necessary
 
 const Manage = () => {
-  const [rows, setRows] = useState([
-    {
-      isExternalSubject: false,
-      courseCode: '03603212',
-      courseName: 'Abstract',
-      studentCount: 'เสรี',
-      studentsPerGroup: '3 (3-0-6)',
-      groupCount: '',
-      columnG: '',
-      columnH: false
-    },
-    {
-      isExternalSubject: false,
-      courseCode: '03603213',
-      courseName: 'Algorithms',
-      studentCount: 'บังคับ',
-      studentsPerGroup: '3 (3-0-6)',
-      groupCount: '',
-      columnG: '',
-      columnH: false
-    },
-    // เพิ่มข้อมูลเพิ่มเติมตามที่คุณต้องการ
-  ]);
+  const [rows, setRows] = useState([]);
   
     const [showPopup, setShowPopup] = useState(false);  // State to control popup visibility
   
