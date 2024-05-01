@@ -68,15 +68,15 @@ function CheckRequests() {
             {selectedTab === 'new' ? (
               <>
                 <button onClick={() => handleResponse(order.courseCode, 'Considered')} className="status-button considered">
-                  Consider
+                  ผ่าน
                 </button>
                 <button onClick={() => handleResponse(order.courseCode, 'Not Considered')} className="status-button not-considered">
-                  Reject
+                  ไม่ผ่าน
                 </button>
               </>
             ) : (
               <button onClick={() => handleResponse(order.courseCode, 'Pending')} className="status-button cancel">
-                Cancel Response
+                ยกเลิก
               </button>
             )}
           </div>
