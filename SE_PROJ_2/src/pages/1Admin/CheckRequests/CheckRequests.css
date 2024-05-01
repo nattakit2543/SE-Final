@@ -68,9 +68,9 @@ input[id="radio-responded"]:checked~.glider {
   justify-content: center;
   width: 2rem;
   height: 2rem;
-  margin-left: 0.75rem;
+  margin-left: 1rem;
   border-radius: 50%;
-  background-color: #e6eef9;
+  background-color: #56e95b;
   transition: 0.15s ease-in;
 }
 

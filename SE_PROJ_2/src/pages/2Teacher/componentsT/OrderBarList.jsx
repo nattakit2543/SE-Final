@@ -16,6 +16,15 @@ const getStatusBoxColor = (status) => {
   }
 };
 
+const translateStatus = (statusFromAPI) => {
+  const statusMap = {
+    "Pending": "รอพิจารณา",
+    "Considered": "สำเร็จ",
+    "Not Considered": "ไม่สำเร็จ"
+  };
+  return statusMap[statusFromAPI] || "Unknown";
+};
+
 const OrderBarList = ({ order, onClose }) => {
   const handleDelete = () => {
     onClose(order.courseCode);
@@ -29,8 +38,8 @@ const OrderBarList = ({ order, onClose }) => {
           {order.courseCode} - {order.courseNameEN} - {parseInt(order.numberOfStudents, 10)}
         </div>
         <div className="status-box" style={{ backgroundColor: getStatusBoxColor(order.status) }}>
-          <span className="status-text">{order.status}</span>
-        </div>
+  <span className="status-text">{translateStatus(order.status)}</span>
+</div>
       </div>
     </div>
   );
