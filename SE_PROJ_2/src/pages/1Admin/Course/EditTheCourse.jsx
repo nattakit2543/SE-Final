@@ -49,7 +49,7 @@ const EditTheCourse = () => {
                 <td>
                   <div className="icon-wrapper">
                     <IoIosEye
-                      onClick={() => navigate(`edit-sub`, { state: { curriculumName: item } })}
+                      onClick={() => navigate(`edit-sub`, { state: { curriculumName: item, courseYear: item.CourseYear } })}
                       className="edit-course-icon eye-icon"
                       title="View"
                     />

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
+
 import "./CourseTempPopup.css";
 import { IoMdRemoveCircle, IoMdAddCircle } from "react-icons/io";
 
@@ -6,62 +7,60 @@ const CourseTempPopup = ({ closePopup }) => {
   const [rows1, setRows1] = useState([{}]);
   const [rows2, setRows2] = useState([{}]);
   const [activeTable, setActiveTable] = useState('lecture');
-  const [groupCount, setGroupCount] = useState(); // Initialize groupCount
-  const [groupCountReaming, setGroupCountReaming] = useState(); // Initialize groupCount
-  
+  const [groupCount, setGroupCount] = useState(150);
+  const [groupCountRemaining, setGroupCountRemaining] = useState(groupCount);
 
-  const addRow1 = () => {
-    setRows1([...rows1, {}]);
+  const [rows, setRows] = useState([{}]);
+
+  useEffect(() => {
+    console.log(rows);
+  }, [rows]);
+  
+  // Update groupCountRemaining whenever 'rows' changes
+  useEffect(() => {
+    let totalStudentsInInput = rows.reduce((a, b) => a + (b.students || 0), 0);
+    let remaining = groupCount - totalStudentsInInput;
+    setGroupCountRemaining(remaining);
+  }, [rows]);
+
+  // Function to handle input change
+// Function to handle input change for all rows
+  const handleInputChange = (index, value) => {
+    let newRows = rows.map((row, i) => {
+      if (i === index) {
+        return { ...row, students: parseInt(value) };
+      } else {
+        return row;
+      }
+    });
+    setRows(newRows);
   };
 
+
+  const addRow1 = () => {
+    const newRow = {
+      Sec: '',
+      courseYear: '',
+      studentCount: '',
+      Major: '',
+      Time: '',
+      Teacher: '',
+    };
+    setRows1([...rows1, newRow]); // Change {} to newRow
+  };
+  
   const addRow2 = () => {
     setRows2([...rows2, {}]);
   };
-
   const deleteRow1 = (index) => {
     const newRows = rows1.filter((_, rowIndex) => rowIndex !== index);
     setRows1(newRows);
   };
-
   const deleteRow2 = (index) => {
     const newRows = rows2.filter((_, rowIndex) => rowIndex !== index);
     setRows2(newRows);
   };
 
-  const saveRow1 = (index, data) => {
-    const newRows = [...rows1];
-    newRows[index] = data;
-    setRows1(newRows);
-  };
-  
-  const saveRow2 = (index, data) => {
-    const newRows = [...rows2];
-    newRows[index] = data;
-    setRows2(newRows);
-  };
-
-
-  const saveAndClosePopup = (index, data) => {
-    saveRow1(index, data);
-    saveRow2(index, data);
-    closePopup();
-  };
-  
-  
-  
-
-  const handleStudentCountChange = (e, index, table) => {
-    if (table === 'lecture') {
-      const newRows = [...rows1];
-      newRows[index].students = Number(e.target.value);
-      setRows1(newRows);
-    } else if (table === 'labor') {
-      const newRows = [...rows2];
-      newRows[index].students = Number(e.target.value);
-      setRows2(newRows);
-    }
-    calculateRemainingStudents();
-  };
 
   return (
     <div className="EDC-popup-container">
@@ -85,7 +84,7 @@ const CourseTempPopup = ({ closePopup }) => {
                     type="number"
                     className="EDC-inputField"
                     placeholder="จำนวนนิสิต"
-                    onChange={handleStudentCountChange} // Use onChange to update immediately after typing
+                    onChange={(e) => handleInputChange(index, e.target.value)}
                   />
                   <select className="EDC-inputField">
                     <option value="">สาขา/ชั้นปี</option>
@@ -161,8 +160,6 @@ const CourseTempPopup = ({ closePopup }) => {
             </div>
           )}
         </div>
-
-
             <button 
               className={"EDC-button1"} 
               onClick={() => setActiveTable('lecture')} 
@@ -178,16 +175,11 @@ const CourseTempPopup = ({ closePopup }) => {
           <div className="EDC-headerText">
             <span>จำนวนนิสิตทั้งหมด : {groupCount} </span>
             <span> | </span>
-            <span>จำนวนนิสิตคงเหลือ : {groupCountReaming} </span>
+            <span>จำนวนนิสิตคงเหลือ : {groupCountRemaining} </span>
           </div>
-          
-        
-
-          
-
 
         <div className="EDC-actionButtons">
-          <button className="EDC-buttonA" onClick={() => saveAndClosePopup(index, data)}>ตกลง</button>
+          <button className="EDC-buttonA" onClick={closePopup}>ตกลง</button>
           <button className="EDC-buttonB" onClick={closePopup}>ยกเลิก</button>
         </div>
       </div>

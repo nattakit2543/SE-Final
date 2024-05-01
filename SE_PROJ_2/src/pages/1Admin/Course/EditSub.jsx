@@ -7,30 +7,7 @@ import "./EditSub.css";
 
 const EditSub = () => {
   const navigate = useNavigate();
-  const initialCourseDetails = {
-    2017: {
-      term1: [
-        {
-          course_code: "CS101",
-          course_name_en: "Introduction to Computer Science",
-          course_name_th: "แนะนำการเรียนรู้คอมพิวเตอร์",
-          credits: "3",
-          basic_subject: "Yes",
-        },
-      ],
-      term2: [
-        {
-          course_code: "CS106",
-          course_name_en: "Software Engineering",
-          course_name_th: "วิศวกรรมซอฟต์แวร์",
-          credits: "3",
-          basic_subject: "No",
-        },
-      ],
-    },
-  };
-
-  const [courseDetails, setCourseDetails] = useState(initialCourseDetails);
+  const [courseDetails, setCourseDetails] = useState();
   const [editMode, setEditMode] = useState({});
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [status, setStatus] = useState(null);
@@ -39,23 +16,15 @@ const EditSub = () => {
 
   const toggleEdit = (term, index) => {
     setEditMode(prev => ({ ...prev, [`${term}-${index}`]: !prev[`${term}-${index}`] }));
+    updateSubjectWithRetry();
   };
 
+  useEffect(() => {
+    getSubjectWithRetry();
+  }, []);
   const handleEditChange = (e, term, index) => {
     const { name, value } = e.target;
-    setCourseDetails(prevDetails => {
-      const updatedCourses = prevDetails["2017"][term].map((course, idx) => {
-        if (idx === index) {
-          return { ...course, [name]: value };
-        }
-        return course;
-      });
-
-      return {
-        ...prevDetails,
-        2017: { ...prevDetails["2017"], [term]: updatedCourses },
-      };
-    });
+    
   };
 
   const handleAddCourse = (term) => {
@@ -66,13 +35,7 @@ const EditSub = () => {
       credits: "",
       basic_subject: "",
     };
-    setCourseDetails(prevDetails => {
-      const updatedCourses = [...prevDetails["2017"][term], newCourse];
-      return {
-        ...prevDetails,
-        2017: { ...prevDetails["2017"], [term]: updatedCourses },
-      };
-    });
+    insertSubjectWithRetry();
   };
 
   const openPopup = (term, index) => {
@@ -89,13 +52,7 @@ const EditSub = () => {
     setStatus('processing');
     closePopup();
     setTimeout(() => {
-      setCourseDetails(prevDetails => {
-        const updatedCourses = prevDetails["2017"][currentTerm].filter((_, idx) => idx !== currentIndex);
-        return {
-          ...prevDetails,
-          2017: { ...prevDetails["2017"], [currentTerm]: updatedCourses },
-        };
-      });
+      delSubjectWithRetry(courseDetails.idSubject);
       setStatus('success');
       setTimeout(() => setStatus(null), 3000);
     }, 2000);
@@ -103,7 +60,7 @@ const EditSub = () => {
 
   return (
     <div className="course-details-container">
-      {Object.entries(courseDetails["2017"]).map(([term, courses], termIndex) => (
+      {Object.entries(courseDetails).map(([term, courses], termIndex) => (
         <div key={termIndex} className="term-section">
           <h2>Year 1, Term {termIndex + 1}</h2>
           <table className="course-details-table">
@@ -152,7 +109,60 @@ const EditSub = () => {
       )}
       <button className="back-button" onClick={() => navigate(-1)}><IoIosArrowDropleftCircle /></button>
     </div>
-  );
+  );;
+  async function getSubjectWithRetry(attempt = 1, CourseYear) {
+    const url = `http://localhost:3100/course/${CourseYear}`;
+    try {
+      const response = await axios.get(url);
+      setCourseDetails(response.data);
+    } catch (error) {
+      console.log("Error fetching data:", error);
+      if (attempt <= 3) {
+        console.log(`Retrying... Attempt ${attempt}`);
+        setTimeout(() => getSubjectWithRetry(attempt + 1), 2000); // Retry after 2 seconds
+      }
+    }
+  }
+
+  async function updateSubjectWithRetry(subjectCode, subjectName, subjectNameEnglish, credits, preq, idSubject, attempt = 1) {
+    const url = `http://localhost:3100/updatecoursesubject/${subjectCode}/${subjectName}/${subjectNameEnglish}/${credits}/${preq}/${idSubject}`;
+    try {
+      await axios.get(url);
+    } catch (error) {
+      console.log("Error updating subject:", error);
+      if (attempt <= 3) {
+        console.log(`Retrying... Attempt ${attempt}`);
+        setTimeout(() => updateSubjectWithRetry(subjectCode, subjectName, subjectNameEnglish, credits, preq, idSubject, attempt + 1), 2000); // Retry after 2 seconds
+      }
+    }
+  }
+
+  async function insertSubjectWithRetry(CourseYear, Major, StudentGrade, Semester,subjectCode, subjectName, subjectNameEnglish, credits, preq, attempt = 1) {
+    const url = `http://localhost:3100/insertcoursesubject/${CourseYear}/${Major}/${StudentGrade}/${Semester}/${subjectCode}/${subjectName}/${subjectNameEnglish}/${credits}/${preq}`;
+    try {
+      await axios.get(url);
+    } catch (error) {
+      console.log("Error updating subject:", error);
+      if (attempt <= 3) {
+        console.log(`Retrying... Attempt ${attempt}`);
+        setTimeout(() => insertSubjectWithRetry(subjectCode, subjectName, subjectNameEnglish, credits, preq, idSubject, attempt + 1), 2000); // Retry after 2 seconds
+      }
+    }
+  }
+  
+
+  async function delSubjectWithRetry(idSubject, attempt = 1) {
+    const url = `http://localhost:3100/deletecoursesubject/${idSubject}`;
+    try {
+      await axios.get(url);
+    } catch (error) {
+      console.log("Error deleting subject:", error);
+      if (attempt <= 3) {
+        console.log(`Retrying... Attempt ${attempt}`);
+        setTimeout(() => delSubjectWithRetry(idSubject, attempt + 1), 2000); // Retry after 2 seconds
+      }
+    }
+  }
 };
 
 export default EditSub;
