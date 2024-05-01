@@ -10,32 +10,73 @@
 
 .tabs {
   display: flex;
-  justify-content: center;
-  width: 100%;
-  padding: 10px 0;
+  position: relative;
+  background-color: #f2eeee;
+  box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.1), 0 6px 12px 0 rgba(0, 0, 0, 0.1);
+  padding: 0.75rem;
+  border-radius: 99px;
+  color: black;
+}
+
+.tabs * {
+  z-index: 2;
 }
 
 .tab {
-  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 54px;
+  width: 200px;
+  font-size: 1.25rem;
+  font-weight: 500;
+  border-radius: 99px;
   cursor: pointer;
-  border: none;
-  background-color: #ccc;
-  margin-right: 5px;
+  transition: color 0.15s ease-in;
 }
 
-.tab.active {
-  background-color: #4CAF50;
-  color: white;
+.glider {
+  position: absolute;
+  display: flex;
+  height: 54px;
+  width: 200px;
+  background-color: #D9D9D9;
+  z-index: 1;
+  border-radius: 99px;
+  transition: 0.25s ease-out;
 }
 
-.loading-text {
-  color: #888;
-  font-size: 18px;
+input[type="radio"] {
+  display: none;
 }
 
-.error-text {
-  color: red;
-  font-size: 18px;
+input[type="radio"]:checked+label {
+  color: #000000;
+}
+
+input[id="radio-new"]:checked~.glider {
+  transform: translateX(0);
+}
+
+input[id="radio-responded"]:checked~.glider {
+  transform: translateX(100%);
+}
+
+.notification {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  margin-left: 0.75rem;
+  border-radius: 50%;
+  background-color: #e6eef9;
+  transition: 0.15s ease-in;
+}
+
+input[type="radio"]:checked+label>.notification {
+  background-color: #EF6B6B;
+  color: #fff;
 }
 
 .request-item {
@@ -45,7 +86,7 @@
   padding: 10px;
   border: 1px solid #a19c9c;
   border-radius: 8px;
-  margin: 5px auto;
+  margin-top: 15px ;
   max-width: 80%;
   width: 40%;
 }
@@ -80,4 +121,14 @@
 .status-button.cancel {
   background-color: #FFA500;
   color: white;
+}
+
+.loading-text {
+  color: #888;
+  font-size: 18px;
+}
+
+.error-text {
+  color: red;
+  font-size: 18px;
 }

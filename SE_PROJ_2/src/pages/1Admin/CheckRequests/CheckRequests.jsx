@@ -2,37 +2,37 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './CheckRequests.css';
 
-const CheckRequests = () => {
-  const [allRequests, setAllRequests] = useState([]);
-  const [activeTab, setActiveTab] = useState('new');
+function CheckRequests() {
+  const [orders, setOrders] = useState([]);
+  const [selectedTab, setSelectedTab] = useState('new');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    fetchRequests();
+    fetchOrders();
   }, []);
 
-  const fetchRequests = async () => {
+  const fetchOrders = async () => {
     setLoading(true);
     setError('');
     try {
       const response = await axios.get('http://localhost:3100/requests');
-      setAllRequests(response.data);
+      setOrders(response.data);
       setLoading(false);
     } catch (error) {
-      console.error('Failed to fetch requests:', error);
-      setError('Failed to fetch requests');
+      console.error('Failed to fetch orders:', error);
+      setError('Failed to fetch orders');
       setLoading(false);
     }
   };
 
-  const handleStatusChange = async (courseCode, newStatus) => {
+  const handleResponse = async (courseCode, status) => {
     try {
-      const response = await axios.patch(`http://localhost:3100/requests/${courseCode}/status`, { status: newStatus });
+      const response = await axios.patch(`http://localhost:3100/requests/${courseCode}/status`, { status });
       if (response.status === 200) {
-        setAllRequests(prevRequests =>
-          prevRequests.map(req => 
-            req.courseCode === courseCode ? { ...req, status: newStatus } : req
+        setOrders(prevOrders =>
+          prevOrders.map(order =>
+            order.courseCode === courseCode ? { ...order, status } : order
           )
         );
       } else {
@@ -43,44 +43,39 @@ const CheckRequests = () => {
     }
   };
 
-  const handleTabChange = (tabName) => {
-    setActiveTab(tabName);
-  };
-
-  const filteredRequests = allRequests.filter(request => {
-    if (activeTab === 'new') return request.status === 'Pending';
-    return request.status !== 'Pending';
+  const filteredOrders = orders.filter(order => {
+    if (selectedTab === 'new') return order.status === 'Pending';
+    return order.status !== 'Pending';
   });
 
   return (
     <div className="requests-container">
       <div className="tabs">
-        <button className={`tab ${activeTab === 'new' ? 'active' : ''}`} onClick={() => handleTabChange('new')}>
-          คำร้องใหม่
-        </button>
-        <button className={`tab ${activeTab === 'replied' ? 'active' : ''}`} onClick={() => handleTabChange('replied')}>
-          คำร้องที่ตอบกลับแล้ว
-        </button>
+        <input type="radio" id="radio-new" name="tabs" checked={selectedTab === 'new'} onChange={() => setSelectedTab('new')} />
+        <label className="tab" htmlFor="radio-new">คำร้องใหม่<span className="notification">{filteredOrders.length}</span></label>
+        <input type="radio" id="radio-responded" name="tabs" checked={selectedTab === 'responded'} onChange={() => setSelectedTab('responded')} />
+        <label className="tab" htmlFor="radio-responded">คำร้องที่ตอบกลับแล้ว</label>
+        <span className="glider"></span>
       </div>
-      {loading && <p className="loading-text">Loading requests...</p>}
-      {error && <p className="error-text">{error}</p>}
-      {filteredRequests.map(request => (
-        <div key={request.courseCode} className="request-item">
+      {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
+      {filteredOrders.map(order => (
+        <div key={order.courseCode} className="request-item">
           <div className="request-info">
-            <span>{request.courseCode}</span> - <span>{request.courseNameEN}</span> - Students: <span>{request.numberOfStudents}</span>
+            <span>{order.courseCode}</span> - <span>{order.courseNameEN}</span> - Students: <span>{order.numberOfStudents}</span>
           </div>
           <div className="status-container">
-            {activeTab === 'new' ? (
+            {selectedTab === 'new' ? (
               <>
-                <button onClick={() => handleStatusChange(request.courseCode, 'Considered')} className="status-button considered">
+                <button onClick={() => handleResponse(order.courseCode, 'Considered')} className="status-button considered">
                   Consider
                 </button>
-                <button onClick={() => handleStatusChange(request.courseCode, 'Not Considered')} className="status-button not-considered">
+                <button onClick={() => handleResponse(order.courseCode, 'Not Considered')} className="status-button not-considered">
                   Reject
                 </button>
               </>
             ) : (
-              <button onClick={() => handleStatusChange(request.courseCode, 'Pending')} className="status-button cancel">
+              <button onClick={() => handleResponse(order.courseCode, 'Pending')} className="status-button cancel">
                 Cancel Response
               </button>
             )}
@@ -89,6 +84,6 @@ const CheckRequests = () => {
       ))}
     </div>
   );
-};
+}
 
 export default CheckRequests;
