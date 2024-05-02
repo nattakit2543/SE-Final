@@ -41,7 +41,7 @@ const AdminApp = () => {
                     <Route path="userInfo/editProfile" element={<EditeProfile />} />
                     <Route path="editTheCourseTem/Manage" element={<Manage />} />
                     <Route path="editTheCourse" element={<EditTheCourse />} />
-                    <Route path="editTheCourse/edit-sub" element={<Editsub />} />
+                    <Route path="editTheCourse/edit-sub/:id" element={<Editsub />} />
                     {/*<Route path="edit-sub/:courseId" element={<Editsub />} />*/}
                 </Routes>
             </div>
