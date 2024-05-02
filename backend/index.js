@@ -427,18 +427,104 @@ myApp.get("/deletecourse/:CourseYear",(request,response) =>{
   });
 });
 
+//-------------- 
+
 //Course
-myApp.get("/course", (request, response) => {
-  var sql = "SELECT DISTINCT CourseYear FROM mastersubject";
-  conn.query(sql, (error, results) => {
-    if (error) {
-      console.log(error);
-      response.status(500).json({ error: "Internal server error" });
-    } else {
-      response.json(results);
-    }
+myApp.get('/api/courses', (req, res) => {
+  const query = "SELECT DISTINCT CourseYear FROM mastersubject";
+  
+  conn.query(query, (error, results) => {
+      if (error) {
+          res.status(500).json({ error: error.message });
+          return;
+      }
+      res.json(results);
   });
 });
+
+
+myApp.delete('/api/courses/:year', (req, res) => {
+  const { year } = req.params;
+  const query = "DELETE FROM mastersubject WHERE CourseYear = ?";
+  
+  conn.query(query, [year], (error, results) => {
+      if (error) {
+          res.status(500).send({ error: error.message });
+          return;
+      }
+      if (results.affectedRows === 0) {
+          res.status(404).send({ message: 'No record found to delete' });
+      } else {
+          res.send({ message: 'Record deleted successfully' });
+      }
+  });
+});
+
+myApp.get('/api/subjects', (req, res) => {
+  const query = "SELECT * FROM mastersubject ORDER BY StudentGrade, Semester";
+
+  conn.query(query, (error, results) => {
+      if (error) {
+          res.status(500).json({ error: error.message });
+          return;
+      }
+      res.json(results);
+  });
+});
+
+//+
+// Update subject details by unique identifier other than ID
+myApp.put('/api/subjects/update', (req, res) => {
+  const { SubjectCode, SubjectName, SubjectNameEnglish, Credits, Preq } = req.body;
+
+  const query = "UPDATE mastersubject SET SubjectCode = ?, SubjectNameEnglish = ?, Credits = ?, Preq = ? WHERE SubjectName = ?";
+
+  conn.query(query, [SubjectCode, SubjectNameEnglish, Credits, Preq, SubjectName], (error, results) => {
+      if (error) {
+          res.status(500).json({ error: error.message });
+          return;
+      }
+      if (results.affectedRows === 0) {
+          res.status(404).send({ message: 'No record found with this Subject Name' });
+      } else {
+          res.send({ message: 'Record updated successfully' });
+      }
+  });
+});
+
+
+// Assuming this is added to your existing server routes
+myApp.delete('/api/subjects/delete/:subjectCode', (req, res) => {
+  const { subjectCode } = req.params;
+  const query = "DELETE FROM mastersubject WHERE SubjectCode = ?";
+  
+  conn.query(query, [subjectCode], (error, results) => {
+      if (error) {
+          res.status(500).send({ error: error.message });
+          return;
+      }
+      if (results.affectedRows === 0) {
+          res.status(404).send({ message: 'No record found with this Subject Code' });
+      } else {
+          res.send({ message: 'Record deleted successfully' });
+      }
+  });
+});
+
+//+++
+myApp.get('/api/subjects/:year', (req, res) => {
+  const { year } = req.params;
+  const query = "SELECT * FROM mastersubject WHERE CourseYear = ? ORDER BY StudentGrade, Semester";
+  
+  conn.query(query, [year], (error, results) => {
+      if (error) {
+          res.status(500).json({ error: error.message });
+          return;
+      }
+      res.json(results);
+  });
+});
+//-----------------
 
 
 //UpdateSubjectincourse
