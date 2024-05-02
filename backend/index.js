@@ -547,3 +547,19 @@ myApp.patch('/requests/:courseCode/status', (req, res) => {
     res.status(200).send({ message: 'Order status updated successfully' });
   });
 });
+
+
+//Manage
+myApp.get("/subjectmanager/:Year/:Semester",(request,response) =>{
+  const { Year,Semester } = request.params;
+  var sql =
+  "SELECT * FROM subjectmanager WHERE Year=? AND Semester=?";
+  conn.query(sql,[Year,Semester], (error, results) => {
+    if (error) {
+      console.log(error);
+      response.status(500).json({ error: "Internal server error" });
+    } else {
+      response.json(results);
+    }
+  });
+});
