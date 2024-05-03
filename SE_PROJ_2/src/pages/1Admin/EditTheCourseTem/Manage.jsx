@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { IoMdCreate } from "react-icons/io";
@@ -6,6 +6,24 @@ import './Manage.css';
 import CourseTempPopup from './componentsE/CourseTempPopup'; // Adjust the path as necessary
 
 const Manage = () => {
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:3100/subjectmanager');
+        setRows(response.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+  
+    fetchData();
+  }, []);
+  
+
+  
+
   const location = useLocation();
   const { Year, Semester } = location.state;
 
@@ -23,7 +41,6 @@ const Manage = () => {
       Credits: "",
       groupCount: "",
       columnG: "",
-      columnH: false,
       Preq: "",
     };
     setRows([...rows, newRow]);
@@ -61,7 +78,7 @@ const Manage = () => {
       <div className="column-headers">
         {[
           "วิชานอกคณะ", "รหัสวิชา", "ชื่อวิชา","ชื่อวิชาภาษาอังกฤษ",
-          "หมวด", "หน่วยกิต", "จำนวนนิสิตทั้งหมด", "ข้อมูลเพิ่มเติม", "วัน/เวลาเดียวกัน","วิชาพื้นฐาน"
+          "หมวด", "หน่วยกิต", "จำนวนนิสิตทั้งหมด", "ข้อมูลเพิ่มเติม","วิชาพื้นฐาน"
         ].map((header, index) => (
           <div key={index} className={`header-cell column-${String.fromCharCode('A'.charCodeAt(0) + index)}`}>
             {header}
@@ -69,31 +86,32 @@ const Manage = () => {
         ))}
       </div>
       <div className="grid-container">
-        {rows.map((row, index) => (
-          <div key={index} className="row">
-            {Object.keys(row).map((key, idx) => (
-              <div key={key} className={`cell column-${String.fromCharCode('A'.charCodeAt(0) + idx)}`}>
-                {key === 'IsExternal' || key === 'columnH' ? (
-                  <input
-                    type="checkbox"
-                    className="input-checkbox"
-                    checked={row[key]}
-                    onChange={(e) => updateField(index, key, e.target.checked)}
-                  />
-                ) : key === 'columnG' ? (
-                  <IoMdCreate className="edit-icon" onClick={() => togglePopup(index)} />
-                ) : (
-                  <input
-                    type="text"
-                    className="input-field-a"
-                    value={row[key] || ''}
-                    onChange={(e) => updateField(index, key, e.target.value)}
-                  />
-                )}
-              </div>
-            ))}
-          </div>
-        ))}
+      {rows.map((row, index) => (
+        <div key={index} className="row">
+          {Object.keys(row).map((key, idx) => (
+            <div key={key} className={`cell column-${String.fromCharCode('A'.charCodeAt(0) + idx)}`}>
+              {key === 'IsExternal' ? (
+                <input
+                  type="checkbox"
+                  className="input-checkbox"
+                  checked={row[key]}
+                  onChange={(e) => updateField(index, key, e.target.checked)}
+                />
+              ) : key === 'columnG' ? (
+                <IoMdCreate className="edit-icon" onClick={() => togglePopup(index)} />
+              ) : (
+                <input
+                  type="text"
+                  className="input-field-a"
+                  value={row[key] || ''}
+                  onChange={(e) => updateField(index, key, e.target.value)}
+                />
+              )}
+            </div>
+          ))}
+        </div>
+      ))}
+
       </div>
       <button className="add-row-button" onClick={addRow}>เพิ่มวิชา</button>
       <button className="next-button" onClick={() => insertField()}>เสร็จสิ้น</button>
