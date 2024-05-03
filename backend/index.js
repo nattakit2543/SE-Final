@@ -657,12 +657,27 @@ myApp.patch('/requests/:courseCode/status', (req, res) => {
 });
 
 
+// //Manage
+// myApp.get("/subjectmanager/:Year/:Semester",(request,response) =>{
+//   const { Year,Semester } = request.params;
+//   var sql =
+//   "SELECT * FROM subjectmanager WHERE Year=? AND Semester=?";
+//   conn.query(sql,[Year,Semester], (error, results) => {
+//     if (error) {
+//       console.log(error);
+//       response.status(500).json({ error: "Internal server error" });
+//     } else {
+//       response.json(results);
+//     }
+//   });
+// });
+
+
 //Manage
-myApp.get("/subjectmanager/:Year/:Semester",(request,response) =>{
-  const { Year,Semester } = request.params;
-  var sql =
-  "SELECT * FROM subjectmanager WHERE Year=? AND Semester=?";
-  conn.query(sql,[Year,Semester], (error, results) => {
+//Manage
+myApp.get("/subjectmanager",(request,response) =>{
+  var sql = "SELECT IsExternal, SubjectCode, SubjectName, SubjectNameEnglish, Type, Credits, groupCount, Preq FROM subjectmanager";
+  conn.query(sql, (error, results) => {
     if (error) {
       console.log(error);
       response.status(500).json({ error: "Internal server error" });
@@ -671,6 +686,10 @@ myApp.get("/subjectmanager/:Year/:Semester",(request,response) =>{
     }
   });
 });
+
+
+
+
 
 //ManageInsert
 myApp.get("/subjectmanagerinsert/:Year/:Semester/:IsExternal/:SubjectCode/:SubjectName/:SubjectNameEnglish/:Type/:Credits/:groupCount/:Preq", (request, response) => {

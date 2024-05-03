@@ -8,76 +8,158 @@
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
+  z-index: 1000;  
   overflow: auto;
 }
 
+
 .EDC-popup {
-  width: 1100px;
-  height: auto; /* ปรับเป็น auto เพื่อรองรับขนาดที่เปลี่ยนแปลง */
+  width: 1100px; /* กำหนดความกว้าง */
+  height: 500px;
   margin: auto;
-  background-color: #ffffff; /* สีพื้นหลังให้เป็นสีขาว */
-  padding: 20px;
-  border-radius: 20px; /* ปรับให้มนลง */
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* เพิ่มเงาเพื่อความมีมิติ */
+  background-color: #d9d9d9;
+  padding: 0 0 10px;
+  border-radius: 60px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.EDC-button1, .EDC-button2 {
+.EDC-popupHeader {
+  position: relative;
+  height: 80px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 0px 0px;
+  border-radius: 60px 60px 0 0;
+  background-color: #a9a9a9;
+}
+
+.EDC-button1 {
+  position: absolute;
+  top: 17vh;
+  left: 41vh;
   width: 150px;
-  height: 50px;
-  font-size: 16px;
+  height: 60px;
+  font-size: 20px;
   padding: 10px;
-  border-radius: 25px;
+  border-radius: 50px;
   border: none;
   color: white;
   cursor: pointer;
-  background-color: #007BFF; /* สีฟ้า */
-  margin-right: 10px; /* ให้มีระยะห่างระหว่างปุ่ม */
+  background-color: #c0c0c0;
 }
 
 .EDC-button2 {
-  background-color: #28A745; /* สีเขียว */
+  position: absolute;
+  top: 17vh;
+  left: 65vh;
+  width: 150px;
+  height: 60px;
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 50px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  background-color: #c0c0c0;
+}
+
+
+.EDC-headerText {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 20vh;
+  right: 50vh;
+  gap: 10px;
+  font-size: 20px;
+  color: black;
+}
+
+.EDC-inputContainer {
+  max-height: calc(100vh - 400px); 
+  overflow-y: auto;
+  margin-top: 80px;
 }
 
 .EDC-inputField {
+  margin: 0.5px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  background-color: #f8f9fa;
-  width: 100%; /* กำหนดขนาดให้เต็มความกว้างของ container */
-  box-sizing: border-box; /* ช่วยให้การคำนวณขนาดถูกต้อง */
+  background-color: #f5f5f5;
+  color: rgb(59, 58, 58);
+  width: auto;
+  min-width: 120px;
 }
 
 .EDC-inputRow {
   display: flex;
-  align-items: center;
+  justify-content: space-between;
   margin-bottom: 10px;
+  box-sizing: border-box;
+  padding-right: 10px;
+  flex-wrap: wrap;
 }
 
 .EDC-icon {
-  margin-left: 10px;
+  font-size: 24px;
   cursor: pointer;
-  color: #007BFF; /* สีฟ้า */
 }
 
 .EDC-deleteRow {
-  color: #dc3545; /* สีแดง */
+  color: #c03f3f;
+  font-size: 40px;
+  margin-top: 3.5px;
+  margin-left: auto;
 }
 
-.EDC-addRow1, .EDC-addRow2 {
-  color: #28A745; /* สีเขียว */
+.EDC-addRow1,.EDC-addRow2 {
+  color: #05c582;
+  font-size: 40px;
+  position: fixed;
+  top: 75vh;
+  right: 35vh;
+
+}
+
+.EDC-rowButtons {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 10;
 }
 
 .EDC-actionButtons {
   display: flex;
+  position: fixed;
   justify-content: center;
-  margin-top: 20px;
+  top: 75vh;
+  left: 80vh;
 }
 
 .EDC-buttonA {
-  background-color: #007BFF; /* สีฟ้า */
+  width: 100px;
+  height: 40px;
+  background-color: #05c582;
+  border-radius: 50px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+  margin: 0 5px;
 }
 
 .EDC-buttonB {
-  background-color: #dc3545; /* สีแดง */
+  width: 100px;
+  height: 40px;
+  background-color: #c03f3f;
+  border-radius: 50px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+  margin: 0 80px;
 }
+

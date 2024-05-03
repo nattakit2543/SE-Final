@@ -11,20 +11,44 @@ const CourseTempPopup = ({ closePopup,groupcount,Year,Semester}) => {
   const [groupCount, setGroupCount] = useState(groupcount);
   const [groupCountRemaining1, setGroupCountRemaining1] = useState(0);
   const [groupCountRemaining2, setGroupCountRemaining2] = useState(0);
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOptionMajor, setSelectedOptionMajor] = useState(null);
+  const [selectedOptionYear, setSelectedOptionYear] = useState(null);
+  const [selectedOptionTeacher, setSelectedOptionTeacher] = useState(null);
 
-  const options = [
+  
+  const optionsMajor = [
     { value: 'T12', label: 'T12' },
     { value: 'T13', label: 'T13' },
     { value: 'T14', label: 'T14' }
   ];
   
-    const handleChange = (selectedOption) => {
-      setSelectedOption(selectedOption);
-      console.log(`Option selected:`, selectedOption);
-    };
+  const optionsYear = [
+    { value: '1', label: '1' },
+    { value: '2', label: '2' },
+    { value: '3', label: '3' },
+    { value: '4', label: '4' },
+    { value: '4x', label: '4x' }
+  ];
   
-  
+  const optionsTeacher = [
+    { value: 'อ.ดวงดี', label: 'อ.ดวงดี' },
+    { value: 'อ.ดวงเด่น', label: 'อ.ดวงเด่น' }
+  ];
+
+  const handleChangeMajor = (selectedOptionMajor) => {
+    setSelectedOptionMajor(selectedOptionMajor);
+    console.log(`Option selected:`, selectedOptionMajor);
+  };
+
+  const handleChangeYear = (selectedOptionYear) => {
+    setSelectedOptionYear(selectedOptionYear);
+    console.log(`Option selected:`, selectedOptionYear);
+  };
+
+  const handleChangeTeacher = (selectedOptionTeacher) => {
+    setSelectedOptionTeacher(selectedOptionTeacher);
+    console.log(`Option selected:`, selectedOptionTeacher);
+  };
   
   // const handleInputChange = (index, value) => {
   //  rows1.map((row, i) =>{
@@ -161,34 +185,30 @@ const CourseTempPopup = ({ closePopup,groupcount,Year,Semester}) => {
                     placeholder="จำนวนนิสิต"
                     onChange={(e) => updateField(index,e.target.value)}
                   />
-                  <Select 
-                    className="EDC-inputField"
+                  <Select className="EDC-inputField"
                     isMulti
-                    closeMenuOnSelect={false}
-                    value={selectedOption}
-                    onChange={handleChange}
-                    options={options}
+                    value={selectedOptionMajor}
+                    onChange={handleChangeMajor}
+                    options={optionsMajor}
                   />
-
-                  <select className="EDC-inputField">
-                    <option value="">ชั้นปี</option>
-                    <option value="T12">1</option>
-                    <option value="T13">2</option>
-                    <option value="T14">3</option>
-                    <option value="T14">4</option>
-                    <option value="T14">4x</option>
-                  </select>
+                  <Select className="EDC-inputField"
+                    isMulti
+                    value={selectedOptionYear}
+                    onChange={handleChangeYear}
+                    options={optionsYear}
+                  />
                   <select className="EDC-inputField">
                     <option value="">เวลา</option>
                     <option value="09:00-12:00">09:00-12:00</option>
                     <option value="13:00-16:00">13:00-16:00</option>
                     <option value="16:30-19:30">16:30-19:30</option>
                   </select>
-                  <select className="EDC-inputField">
-                    <option value="">เลือกผู้สอน</option>
-                    <option value="อ.ดวงดี">อ.ดวงดี</option>
-                    <option value="อ.ดวงเด่น">อ.ดวงเด่น</option>
-                  </select>
+                  <Select 
+                    isMulti
+                    value={selectedOptionTeacher}
+                    onChange={handleChangeTeacher}
+                    options={optionsTeacher}
+                  />
                  
                   <IoMdAddCircle className="EDC-icon EDC-addRow1" onClick={addRow1} />
                   <IoMdRemoveCircle
@@ -220,13 +240,12 @@ const CourseTempPopup = ({ closePopup,groupcount,Year,Semester}) => {
                     placeholder="จำนวนนิสิต"
                     onChange={(e) => updateField2(index, e.target.value)}
                   />
-                  <Select 
-                    className="EDC-inputField"
-                    isMulti
-                    value={selectedOption}
-                    onChange={handleChange}
-                    options={options}
-                  />
+                  <select className="EDC-inputField">
+                    <option value="">สาขา</option>
+                    <option value="T12">T12</option>
+                    <option value="T13">T13</option>
+                    <option value="T14">T14</option>
+                  </select>
                   <select className="EDC-inputField">
                     <option value="">ชั้นปี</option>
                     <option value="T12">1</option>

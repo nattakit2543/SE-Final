@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { IoMdCreate } from "react-icons/io";
@@ -6,6 +6,25 @@ import './Manage.css';
 import CourseTempPopup from './componentsE/CourseTempPopup'; // Adjust the path as necessary
 
 const Manage = () => {
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+ const loadData = async () => {
+  try {
+    const url = `http://localhost:3100/subjectmanager`;
+    const response = await axios.get(url);
+    if (response.data) {
+      setRows(response.data);
+    }
+  } catch (e) {
+    console.error('Error:', e);
+    alert('Error: ' + e.message);
+  }
+};
+
+
   const location = useLocation();
   const { Year, Semester } = location.state;
 
