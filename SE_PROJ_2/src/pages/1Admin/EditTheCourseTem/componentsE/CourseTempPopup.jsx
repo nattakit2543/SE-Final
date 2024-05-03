@@ -106,15 +106,24 @@ const CourseTempPopup = ({ closePopup,groupcount,Year,Semester}) => {
                     onChange={(e) => updateField(index,e.target.value)}
                   />
                   <select className="EDC-inputField">
-                    <option value="">สาขา/ชั้นปี</option>
+                    <option value="">สาขา</option>
                     <option value="T12">T12</option>
                     <option value="T13">T13</option>
                     <option value="T14">T14</option>
                   </select>
                   <select className="EDC-inputField">
+                    <option value="">ชั้นปี</option>
+                    <option value="T12">1</option>
+                    <option value="T13">2</option>
+                    <option value="T14">3</option>
+                    <option value="T14">4</option>
+                    <option value="T14">4x</option>
+                  </select>
+                  <select className="EDC-inputField">
                     <option value="">เวลา</option>
                     <option value="09:00-12:00">09:00-12:00</option>
                     <option value="13:00-16:00">13:00-16:00</option>
+                    <option value="16:30-19:30">16:30-19:30</option>
                   </select>
                   <select className="EDC-inputField">
                     <option value="">เลือกผู้สอน</option>
@@ -157,6 +166,14 @@ const CourseTempPopup = ({ closePopup,groupcount,Year,Semester}) => {
                     <option value="T12">T12</option>
                     <option value="T13">T13</option>
                     <option value="T14">T14</option>
+                  </select>
+                  <select className="EDC-inputField">
+                    <option value="">ชั้นปี</option>
+                    <option value="T12">1</option>
+                    <option value="T13">2</option>
+                    <option value="T14">3</option>
+                    <option value="T14">4</option>
+                    <option value="T14">4x</option>
                   </select>
                   <select className="EDC-inputField">
                     <option value="">เวลา</option>
@@ -206,8 +223,8 @@ const CourseTempPopup = ({ closePopup,groupcount,Year,Semester}) => {
             </div>
 
         <div className="EDC-actionButtons">
-          <button className="EDC-buttonA" onClick={() => handleInputChange()}>Applay</button>
-          <button className="EDC-buttonA" onClick={()=> Insert()}>OK</button>
+          <button className="EDC-buttonA" onClick={() => handleInputChange()}>ยืนยัน</button>
+          <button className="EDC-buttonA" onClick={()=> Insert()}>บันทึก</button>
           <button className="EDC-buttonB" onClick={closePopup}>ยกเลิก</button>
         </div>
       </div>

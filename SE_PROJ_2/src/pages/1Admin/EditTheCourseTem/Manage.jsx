@@ -134,6 +134,26 @@ async function UpdateSubject ( IsExternal, SubjectCode, SubjectName, SubjectName
     alert('Error:'+e.message);
   }
 }
+
+async function DeleteSubject ( IsExternal, SubjectCode, SubjectName, SubjectNameEnglish, Type, Credits,groupCount, Preq, idSubjectmanager) {
+  try {
+    if(Preq==""){
+      Preq="-";
+    }
+    if(SubjectNameEnglish==""){
+      SubjectNameEnglish="-";
+    }
+    var url = `http://localhost:3100/subjectmanagerdelete/${IsExternal}/${SubjectCode}/${SubjectName}/${SubjectNameEnglish}/${Type}/${Credits}/${groupCount}/${Preq}/${idSubjectmanager}`;
+    console.log(url);
+    axios.get(url).then((Response) => {
+    })
+    alert("บันทึกข้อมูลเสร็จสิ้น");
+  }catch (e) {
+    alert('Error:'+e.message);
+  }
+}
+
+
 };
 
 export default Manage;
