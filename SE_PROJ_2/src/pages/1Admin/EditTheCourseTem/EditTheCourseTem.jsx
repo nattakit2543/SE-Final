@@ -18,8 +18,9 @@ function EditTheCourseTem() {
     }
   };
 
-  const handleNavigate = (path, semester) => {
-    navigate(path, { state: { semester } });
+  const handleNavigate = (path,Year, semester) => {
+    console.log(Year, semester);
+    navigate(path, { state: { Year , semester } });
   };
   
 
@@ -32,15 +33,15 @@ function EditTheCourseTem() {
           placeholder="ปีการศึกษา"
           onBlur={handleAddYear}
         />
-        <button className="theCourseTem theCourseTem-semester1" onClick={() => handleNavigate('manage','จัดการรายวิชาที่เปิดสอน - ภาคการศึกษาที่ 1')} disabled={isButtonDisabled}>
+        <button className="theCourseTem theCourseTem-semester1" onClick={() => handleNavigate('manage', Year,'จัดการรายวิชาที่เปิดสอน - ภาคการศึกษาที่ 1')} disabled={isButtonDisabled}>
           <div className="theCourseTem-title">ภาคการศึกษาที่ 1</div>
           <img src={imgTheCourseTem} className="theCourseTem-img" alt="Course Template" />
         </button>
-        <button className="theCourseTem theCourseTem-semester2" onClick={() => handleNavigate('manage','จัดการรายวิชาที่เปิดสอน - ภาคการศึกษาที่ 2')} disabled={isButtonDisabled}>
+        <button className="theCourseTem theCourseTem-semester2" onClick={() => handleNavigate('manage',Year,'จัดการรายวิชาที่เปิดสอน - ภาคการศึกษาที่ 2')} disabled={isButtonDisabled}>
           <div className="theCourseTem-title">ภาคการศึกษาที่ 2</div>
           <img src={imgTheCourseTem} className="theCourseTem-img" alt="Course Template" />
         </button>
-        <button className="theCourseTem theCourseTem-summer" onClick={() => handleNavigate('manage','จัดการรายวิชาที่เปิดสอน - ภาคฤดูร้อน')} disabled={isButtonDisabled}>
+        <button className="theCourseTem theCourseTem-summer" onClick={() => handleNavigate('manage',Year,'จัดการรายวิชาที่เปิดสอน - ภาคฤดูร้อน')} disabled={isButtonDisabled}>
           <div className="theCourseTem-title">ภาคฤดูร้อน</div>
           <img src={imgTheCourseTem} className="theCourseTem-img" alt="Course Template" />
         </button>
