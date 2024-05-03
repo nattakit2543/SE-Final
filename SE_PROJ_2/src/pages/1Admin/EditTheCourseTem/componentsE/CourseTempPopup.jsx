@@ -11,7 +11,18 @@ const CourseTempPopup = ({ closePopup,groupcount,Year,Semester}) => {
   const [groupCount, setGroupCount] = useState(groupcount);
   const [groupCountRemaining1, setGroupCountRemaining1] = useState(0);
   const [groupCountRemaining2, setGroupCountRemaining2] = useState(0);
+  const [selectedOption, setSelectedOption] = useState(null);
 
+  const options = [
+    { value: 'T12', label: 'T12' },
+    { value: 'T13', label: 'T13' },
+    { value: 'T14', label: 'T14' }
+  ];
+  
+    const handleChange = (selectedOption) => {
+      setSelectedOption(selectedOption);
+      console.log(`Option selected:`, selectedOption);
+    };
   
   
   
@@ -150,12 +161,15 @@ const CourseTempPopup = ({ closePopup,groupcount,Year,Semester}) => {
                     placeholder="จำนวนนิสิต"
                     onChange={(e) => updateField(index,e.target.value)}
                   />
-                  <select className="EDC-inputField">
-                    <option value="">สาขา</option>
-                    <option value="T12">T12</option>
-                    <option value="T13">T13</option>
-                    <option value="T14">T14</option>
-                  </select>
+                  <Select 
+                    className="EDC-inputField"
+                    isMulti
+                    closeMenuOnSelect={false}
+                    value={selectedOption}
+                    onChange={handleChange}
+                    options={options}
+                  />
+
                   <select className="EDC-inputField">
                     <option value="">ชั้นปี</option>
                     <option value="T12">1</option>
@@ -206,12 +220,13 @@ const CourseTempPopup = ({ closePopup,groupcount,Year,Semester}) => {
                     placeholder="จำนวนนิสิต"
                     onChange={(e) => updateField2(index, e.target.value)}
                   />
-                  <select className="EDC-inputField">
-                    <option value="">สาขา</option>
-                    <option value="T12">T12</option>
-                    <option value="T13">T13</option>
-                    <option value="T14">T14</option>
-                  </select>
+                  <Select 
+                    className="EDC-inputField"
+                    isMulti
+                    value={selectedOption}
+                    onChange={handleChange}
+                    options={options}
+                  />
                   <select className="EDC-inputField">
                     <option value="">ชั้นปี</option>
                     <option value="T12">1</option>
