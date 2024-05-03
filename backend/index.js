@@ -674,20 +674,19 @@ myApp.get("/subjectmanager/:Year/:Semester",(request,response) =>{
 
 //ManageInsert
 myApp.get("/subjectmanagerinsert/:Year/:Semester/:IsExternal/:SubjectCode/:SubjectName/:SubjectNameEnglish/:Type/:Credits/:groupCount/:Preq", (request, response) => {
-  const { Year, Semester, IsExternal, SubjectCode, SubjectName, SubjectNameEnglish, Type, Credits,groupCount, Preq } = request.params;
+  const { Year, Semester, IsExternal, SubjectCode, SubjectName, SubjectNameEnglish, Type, Credits, groupCount, Preq } = request.params;
   var sql =
-  "INSERT INTO subjectmanager ( Year, Semester, IsExternal, SubjectCode, SubjectName, SubjectNameEnglish, Type, Credits, groupCount, Preq)"+
-  "VALUES (?,?,?,?,?,?,?,?,?,?)";
-  conn.query(sql, [Year, Semester, IsExternal, SubjectCode, SubjectName, SubjectNameEnglish, Type, Credits,groupCount, Preq], (error, results) => {
-    if (error) {
-      console.log(error);
-      response.status(500).json({ error: "Internal server error" });
-    } else {
-      response.json(results);
-    }
+  "INSERT INTO subjectmanager (Year, Semester, IsExternal, SubjectCode, SubjectName, SubjectNameEnglish, Type, Credits, groupCount, Preq)"+
+  "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+  conn.query(sql, [Year, Semester, IsExternal, SubjectCode, SubjectName, SubjectNameEnglish, Type, Credits, groupCount, Preq], (error, results) => {
+      if (error) {
+          console.log(error);
+          response.status(500).json({ error: "Internal server error" });
+      } else {
+          response.json(results);
+      }
   });
 });
-
 
 //ManageEdit
 myApp.get("/subjectmanagerupdate/:IsExternal/:SubjectCode/:SubjectName/:SubjectNameEnglish/:Type/:Credits/:groupCount/:Preq/:idSubjectManager", (request, response) => {
