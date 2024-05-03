@@ -524,6 +524,28 @@ myApp.get('/api/subjects/:year', (req, res) => {
       res.json(results);
   });
 });
+
+
+myApp.post('/api/subjects/insert', (req, res) => {
+  const { SubjectCode, SubjectNameEnglish, SubjectName, Credits, Preq, Major, Type, CourseYear, StudentGrade, Semester } = req.body;
+  
+  console.log('Received data for insert:', req.body);
+  if (!CourseYear || !SubjectCode || !Credits || !Major) {
+    return res.status(400).json({ error: 'Missing required fields' });
+  }
+
+  const query = "INSERT INTO mastersubject (CourseYear, Major, StudentGrade, Semester, SubjectCode, SubjectName, SubjectNameEnglish, Credits, Preq, Type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+  
+  conn.query(query, [CourseYear, Major, StudentGrade, Semester, SubjectCode, SubjectName, SubjectNameEnglish, Credits, Preq, Type], (error, results) => {
+    if (error) {
+      console.error('Error during insertion:', error.message);
+      res.status(500).json({ error: error.message });
+      return;
+    }
+    res.json({ message: 'Record inserted successfully', data: results.insertId });
+  });
+});
+
 //-----------------
 
 

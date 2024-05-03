@@ -10,11 +10,11 @@ const ConfirmDeletePopup = ({ isOpen, onClose, onConfirm }) => {
       <div className="popup-content">
         <div className="popup-header">
           <IoIosWarning className="warning-icon"/>
-          <h3>Are you sure you want to delete this course?</h3>
+          <h3>คุณแน่ใจหรือไม่ว่าต้องการลบรายการนี้</h3>
         </div>
         <div className="popup-buttons">
-          <button onClick={onConfirm} className="confirm-button">Delete</button>
-          <button onClick={onClose} className="cancel-button">Cancel</button>
+          <button onClick={onConfirm} className="confirm-button">ลบ</button>
+          <button onClick={onClose} className="cancel-button">ยกเลิก</button>
         </div>
       </div>
     </div>

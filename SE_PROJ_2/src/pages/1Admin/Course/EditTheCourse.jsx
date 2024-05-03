@@ -1,116 +1,96 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { IoIosEye, IoMdTrash, IoIosJournal } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import "./EditTheCourse.css";
 import ConfirmDeletePopup from "../ComponentsAdmin/ConfirmDeletePopup";
 import StatusPopup from "../ComponentsAdmin/StatusPopup";
-import axios from 'axios';
 
 const EditTheCourse = () => {
-  const navigate = useNavigate();
-  const [courses, setCourses] = useState();
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [status, setStatus] = useState(null);
-  const [currentCourseId, setCurrentCourseId] = useState(null);
-  
-  useEffect(() => {
-    getCourseWithRetry();
-  }, []);
+    const navigate = useNavigate();
+    const [courses, setCourses] = useState([]);
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const [status, setStatus] = useState(null);
+    const [currentCourseId, setCurrentCourseId] = useState(null);
 
-  const handleDeleteCourse = () => {
-    setIsPopupOpen(false);
-    setStatus('processing');
-    setTimeout(() => {
-      delCourseWithRetry(currentCourseId);
-      setStatus('success');
-      setTimeout(() => setStatus(null), 3000);
-    }, 2000);
-  };
+    useEffect(() => {
+        fetch("http://localhost:3100/api/courses")
+            .then(response => response.json())
+            .then(data => setCourses(data.map(item => ({ courseyear: item.CourseYear, name: `หลักสูตรปีการศึกษา ${item.CourseYear}` }))))
+            .catch(error => console.error("Error fetching courses:", error));
+    }, []);
 
-  const openDeleteConfirm = (courseId) => {
-    setCurrentCourseId(courseId);
-    setIsPopupOpen(true);
-  };
+    const handleDeleteCourse = () => {
+        setIsPopupOpen(false);
+        setStatus('processing');
+        fetch(`http://localhost:3100/api/courses/${currentCourseId}`, {
+            method: 'DELETE'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message) {
+                setCourses(prevCourses => prevCourses.filter(course => course.courseyear !== currentCourseId));
+                setStatus('success');
+                setTimeout(() => setStatus(null), 3000);
+            }
+        })
+        .catch(error => {
+            console.error('Error deleting course:', error);
+            setStatus('error');
+            setTimeout(() => setStatus(null), 3000);
+        });
+    };
 
-  return (
-    <div className="edit-course-container">
-      <table className="edit-course-table">
-        <thead>
-          <tr>
-            <th><IoIosJournal className="edit-course-icon" /> Curriculum Name</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {courses ? 
-            courses.map((item, index) => (
-              <tr key={index}>
-                <td>{item.CourseYear}</td>
-                <td>
-                  <div className="icon-wrapper">
-                    <IoIosEye
-                      onClick={() => navigate(`edit-sub`, { state: { curriculumName: item, courseYear: item.CourseYear } })}
-                      className="edit-course-icon eye-icon"
-                      title="View"
-                    />
-                    <IoMdTrash
-                      onClick={() => openDeleteConfirm(item.CourseYear)}
-                      className="edit-course-icon delete-icon"
-                      title="Delete"
-                    />
-                  </div>
-                </td>
-              </tr>
-            )) 
-            : 
-            <tr>
-              <td colSpan="2">Loading...</td>
-            </tr>
-          }
-        </tbody>
-      </table>
-      {isPopupOpen && (
-        <ConfirmDeletePopup
-          isOpen={isPopupOpen}
-          onClose={() => setIsPopupOpen(false)}
-          onConfirm={handleDeleteCourse}
-        />
-      )}
-      {status && (
-        <StatusPopup
-          status={status}
-          onClose={() => setStatus(null)}
-        />
-      )}
-    </div>
-  );
+    const openDeleteConfirm = (courseId) => {
+        setCurrentCourseId(courseId);
+        setIsPopupOpen(true);
+    };
 
-  async function getCourseWithRetry(attempt = 1) {
-    const url = `http://localhost:3100/course`;
-    try {
-      const response = await axios.get(url);
-      setCourses(response.data);
-    } catch (error) {
-      console.log("Error fetching data:", error);
-      if (attempt <= 3) {
-        console.log(`Retrying... Attempt ${attempt}`);
-        setTimeout(() => getCourseWithRetry(attempt + 1), 2000); // Retry after 2 seconds
-      }
-    }
-  }
-
-  async function delCourseWithRetry(courseYear, attempt = 1) {
-    const url = `http://localhost:3100/deletecourse/` + courseYear;
-    try {
-      await axios.get(url);
-    } catch (error) {
-      console.log("Error deleting course:", error);
-      if (attempt <= 3) {
-        console.log(`Retrying... Attempt ${attempt}`);
-        setTimeout(() => delCourseWithRetry(courseYear, attempt + 1), 2000); // Retry after 2 seconds
-      }
-    }
-  }
+    return (
+        <div className="edit-course-container">
+            <table className="edit-course-table">
+                <thead>
+                    <tr>
+                        <th><IoIosJournal className="edit-course-icon" /> หลักสูตร</th>
+                        <th>ตัวดำเนินการ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {courses.map(({ courseyear, name }) => (
+                        <tr key={courseyear}>
+                            <td>{name}</td>
+                            <td>
+                                <div className="icon-wrapper">
+                                    <IoIosEye
+                                        onClick={() => navigate(`edit-sub/${courseyear}`, { state: { curriculumYear: courseyear } })}
+                                        className="edit-course-icon eye-icon"
+                                        title="View"
+                                    />
+                                    <IoMdTrash
+                                        onClick={() => openDeleteConfirm(courseyear)}
+                                        className="edit-course-icon delete-icon"
+                                        title="Delete"
+                                    />
+                                </div>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+            {isPopupOpen && (
+                <ConfirmDeletePopup
+                    isOpen={isPopupOpen}
+                    onClose={() => setIsPopupOpen(false)}
+                    onConfirm={handleDeleteCourse}
+                />
+            )}
+            {status && (
+                <StatusPopup
+                    status={status}
+                    onClose={() => setStatus(null)}
+                />
+            )}
+        </div>
+    );
 };
 
 export default EditTheCourse;
