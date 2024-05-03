@@ -800,3 +800,18 @@ myApp.get("/secupdate/:Sec/:StuNum/:LabRoom/:TeacherName/:TeacherSurname/:Major/
 });
 
 
+
+//-------
+// Endpoint เพื่อดึงข้อมูลจากตาราง major
+myApp.get('/api/major/classYear', (req, res) => {
+  const sqlQuery = "SELECT StudentGrade, Major FROM major ORDER BY StudentGrade, Major";
+  conn.query(sqlQuery, (error, results) => {
+    if (error) {
+      console.error("Error fetching class year data:", error);
+      return res.status(500).json({ error: "Failed to fetch class year data" });
+    }
+    const formattedResults = results.map(row => `${row.Major} (${row.StudentGrade})`);
+    res.json(formattedResults);
+  });
+});
+

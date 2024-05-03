@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './PopUpReqSub.css';
+import axios from 'axios';
 import { IoIosCloseCircle } from 'react-icons/io';
 
 function PopUpReqSub({ isOpen, formData, onClose, onSubmit }) {
@@ -14,6 +15,8 @@ function PopUpReqSub({ isOpen, formData, onClose, onSubmit }) {
     numberOfGroups: '',
     classYear: ''
   });
+
+  const [classYearOptions, setClassYearOptions] = useState([]);
 
   const [fieldErrors, setFieldErrors] = useState({
     courseCode: false,
@@ -33,6 +36,19 @@ function PopUpReqSub({ isOpen, formData, onClose, onSubmit }) {
       ...formData
     });
   }, [formData]);
+
+  useEffect(() => {
+    const fetchClassYearData = async () => {
+      try {
+        const response = await axios.get('http://localhost:3100/api/major/classYear');
+        setClassYearOptions(response.data);
+      } catch (error) {
+        console.error("Error fetching class year data:", error);
+      }
+    };
+
+    fetchClassYearData();
+  }, []);
 
   const validateField = (name, value) => {
     const isEmptyString = value.trim() === '';
@@ -104,9 +120,9 @@ function PopUpReqSub({ isOpen, formData, onClose, onSubmit }) {
         <input type="text" name="numberOfGroups" placeholder="จำนวนหมู่เรียน" value={localFormData.numberOfGroups} onChange={handleChange} className={`input-field small ${fieldErrors.numberOfGroups ? 'error error-shake' : ''}`} />
         <select name="classYear" value={localFormData.classYear} onChange={handleChange} className={`class-year-select ${fieldErrors.classYear ? 'error error-shake' : ''}`}>
           <option value="">ชั้นปีที่เปิดสอน</option>
-          <option value="T12(1)">T12(1)</option>
-          <option value="T12(2)">T12(2)</option>
-          <option value="T12(3)">T12(3)</option>
+          {classYearOptions.map(year => (
+            <option key={year} value={year}>{year}</option>
+          ))}
         </select>
       </div>
       <button className="button" onClick={handleSubmission}>ส่งคำร้อง</button>

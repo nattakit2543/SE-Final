@@ -25,7 +25,7 @@ const LoginPage = () => {
       setTeacherInfo(userData);
       insertTeacherInfo(userData);
       setRole(response.data[0].Role);
-      navigate(response.data[0].Role === 'Admin' ? '/admin' : '/teacher');
+      navigate(response.data[0].Role === 'Admin' ? '/admin' : '/teacher/howToUseT');
       
     } catch (error) {
       setError('Invalid email or password. Please try again.');
