@@ -1,0 +1,11 @@
+.center {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  height: 100vh; 
+}
+
+.center img {
+  max-width: 50%; 
+  height: auto; 
+}

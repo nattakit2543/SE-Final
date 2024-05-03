@@ -21,7 +21,7 @@ const NavSidebarA = ({ toggleSidebar, isSidebarExpanded, logout }) => {
   const curriculumName = location.state?.curriculumName;
 
   const [iconPosition, setIconPosition] = useState(250);
-  const [idTeacher, setidTeacher] = useState();
+  const [idTeacher, setidTeacher] = useState({});
 
   useEffect(() => {
     const newPosition = isSidebarExpanded ? 235 : 65;
@@ -73,7 +73,7 @@ const NavSidebarA = ({ toggleSidebar, isSidebarExpanded, logout }) => {
       <div className={`admin-sidebar ${isSidebarExpanded ? "" : "collapsed"}`}>
         <NavLink to="userInfo" className="admin-sidebar-header">
           <img src={userImage} alt="user" className="admin-user-image" />
-          <span className="admin-username">username</span>
+          <span className="admin-username">{idTeacher.TeacherName}</span>
         </NavLink>
         <NavLink
           to="howToUseA"
@@ -131,7 +131,7 @@ const NavSidebarA = ({ toggleSidebar, isSidebarExpanded, logout }) => {
         </NavLink>
         <NavLink
           to="/"
-          onClick={() => logout(idTeacher)}
+          onClick={() => logout(idTeacher.idTeacher)}
           className={({ isActive }) =>
             isActive ? "admin-menu-item active" : "admin-menu-item"
           }
@@ -151,7 +151,7 @@ const NavSidebarA = ({ toggleSidebar, isSidebarExpanded, logout }) => {
   async function userinfo() {
     const url = `http://localhost:3100/userinfo`;
     axios.get(url).then((Response) => {
-      setidTeacher(Response.data[0].idTeacher);
+      setidTeacher(Response.data[0]);
     });
   }
 };

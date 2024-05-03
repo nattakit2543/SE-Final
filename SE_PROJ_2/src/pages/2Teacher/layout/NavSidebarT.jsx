@@ -3,20 +3,18 @@ import './NavSidebarT.css';
 import userImage from '../../../assets/user.png';
 import { NavLink, useLocation } from 'react-router-dom';
 import { IoMdHelpCircle, IoMdListBox, IoMdDocument, IoMdExit, IoIosArrowDroprightCircle, IoIosArrowDropleftCircle } from "react-icons/io";
-import axios from 'axios';
 
-
-const NavSidebarT = ({ toggleSidebar, isSidebarExpanded, logout }) => { 
+const NavSidebarT = () => { 
     const location = useLocation();
+    const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
     const [iconPosition, setIconPosition] = useState(250); 
-    const [idTeacher, setidTeacher] = useState({}); 
-    
+
     useEffect(() => {
-        userinfo();
         const newPosition = isSidebarExpanded ? 235 : 65; 
         setIconPosition(newPosition);
-        
     }, [isSidebarExpanded]); 
+
+    const toggleSidebar = () => setIsSidebarExpanded(!isSidebarExpanded);
 
     const getActiveMenuName = () => {
         switch (location.pathname) {
@@ -44,69 +42,29 @@ const NavSidebarT = ({ toggleSidebar, isSidebarExpanded, logout }) => {
                 {isSidebarExpanded ? <IoIosArrowDropleftCircle size={30} /> : <IoIosArrowDroprightCircle size={30} />}
             </div>
             <div className={`sidebar ${isSidebarExpanded ? '' : 'collapsed'}`}>
-                <NavLink to="userInfo" className="sidebar-header">
+                <NavLink to="/teacher/userInfo" className="sidebar-header">
                     <img src={userImage} alt="user" className="user-image" />
-                    <p className="username">{idTeacher.TeacherName}</p>
+                    <span className="username">username</span>
                 </NavLink>
-                <NavLink to="howToUseT" className={({ isActive }) => isActive ? 'menu-item active' : 'menu-item'}>
+                <NavLink to="/teacher/howToUseT" className={({ isActive }) => isActive ? 'menu-item active' : 'menu-item'}>
                     <IoMdHelpCircle className="menu-icon" />
                     <span className="menu-title">วิธีใช้งาน</span>
                 </NavLink>
-                <NavLink to="schTable" className={({ isActive }) => isActive ? 'menu-item active' : 'menu-item'}>
+                <NavLink to="/teacher/schTable" className={({ isActive }) => isActive ? 'menu-item active' : 'menu-item'}>
                     <IoMdListBox className="menu-icon" />
                     <span className="menu-title">ตารางสอน</span>
                 </NavLink>
-                <NavLink to="reqSub" className={({ isActive }) => isActive ? 'menu-item active' : 'menu-item'}>
+                <NavLink to="/teacher/reqSub" className={({ isActive }) => isActive ? 'menu-item active' : 'menu-item'}>
                     <IoMdDocument className="menu-icon" />
                     <span className="menu-title">ยื่นคำร้อง</span>
                 </NavLink>
-                <NavLink to="/" onClick={() => logout(idTeacher.idTeacher)} className={({ isActive }) => isActive ? 'menu-item active' : 'menu-item'} >
+                <NavLink to="/" className={({ isActive }) => isActive ? 'menu-item active' : 'menu-item'}>
                     <IoMdExit className="menu-icon" />
                     <span className="menu-title">ลงชื่อออก</span>
                 </NavLink>
             </div>
         </div>
     );
-
-
-    async function logout(id) {
-        console.log(id)
-        var url = "http://localhost:3100/forlogout/" + id;
-        
-        try {
-            await axios.get(url);
-        } catch (error) {
-            console.log("error:", error);
-        }
-    }
-
-    async function userinfo() {
-        let retries = 0;
-        const maxRetries = 5; // Maximum number of retries
-        const delay = 2000; // Delay between retries in milliseconds
-    
-        while (retries < maxRetries) {
-            try {
-                const response = await axios.get("http://localhost:3100/userinfo");
-                console.log(response.data[0]);
-                if (response.data.length > 0) {
-                    setidTeacher(response.data[0]);
-                    console.log(response.data[0]);
-                    break; // Break out of the loop if data is received
-                }
-            } catch (error) {
-                console.log("Error fetching data:", error);
-            }
-    
-            await new Promise(resolve => setTimeout(resolve, delay)); // Wait for the delay
-            retries++;
-        }
-    
-        if (retries === maxRetries) {
-            console.log("Max retries reached. Failed to fetch data.");
-        }
-    }
-    
 };
 
 export default NavSidebarT;
