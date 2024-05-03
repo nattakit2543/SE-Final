@@ -1,52 +1,72 @@
 import React, { useState, useEffect } from 'react';
-
+import axios from 'axios';
 import "./CourseTempPopup.css";
 import { IoMdRemoveCircle, IoMdAddCircle } from "react-icons/io";
 
-const CourseTempPopup = ({ closePopup }) => {
+const CourseTempPopup = ({ closePopup,groupcount,Year,Semester}) => {
   const [rows1, setRows1] = useState([{}]);
   const [rows2, setRows2] = useState([{}]);
   const [activeTable, setActiveTable] = useState('lecture');
-  const [groupCount, setGroupCount] = useState(150);
-  const [groupCountRemaining, setGroupCountRemaining] = useState(groupCount);
+  const [groupCount, setGroupCount] = useState(groupcount);
+  const [groupCountRemaining1, setGroupCountRemaining1] = useState(0);
+  const [groupCountRemaining2, setGroupCountRemaining2] = useState(0);
 
   const [rows, setRows] = useState([{}]);
-
-  useEffect(() => {
-    console.log(rows);
-  }, [rows]);
   
-  // Update groupCountRemaining whenever 'rows' changes
-  useEffect(() => {
-    let totalStudentsInInput = rows.reduce((a, b) => a + (b.students || 0), 0);
-    let remaining = groupCount - totalStudentsInInput;
-    setGroupCountRemaining(remaining);
-  }, [rows]);
+  
+  // const handleInputChange = (index, value) => {
+  //  rows1.map((row, i) =>{
+  //   setGroupCountRemaining1(groupCountRemaining1 + parseInt(value) )
+  //   console.log(groupCountRemaining1);
+  //  })
+  // };
 
-  // Function to handle input change
-// Function to handle input change for all rows
-  const handleInputChange = (index, value) => {
-    let newRows = rows.map((row, i) => {
-      if (i === index) {
-        return { ...row, students: parseInt(value) };
-      } else {
-        return row;
-      }
-    });
-    setRows(newRows);
+  const handleInputChange = (index,) => {
+    var sum = 0;
+    console.log("Test ROW",rows1);
+    rows1.map((row, i) =>{
+      sum += parseInt(row.studentCount);
+    })
+    
+    if(sum < 0){
+      alert('จำนวนนักเรียนน้อยเกินไป');
+    }else if(sum > groupCount){
+      alert('จำนวนนักเรียนมากกินไป');
+    }else{
+      setGroupCountRemaining1(sum)
+    }
+    
   };
 
+  const Insert = () => {
+    // rows1.map((row, i) =>{
+    //   insertSec(Year, Semester,SubjectCode,row.Sec, row.studentCount, row.LabRoom, row.TeacherName, row.TeacherSurname, row.Major, row.CourseYear, row.StudentGrade,row.Day,row.TimeStart,row.TimeEnd,row.SecType)
+    // })  
+    insertSec (1,1,1,1,1,1,1,1,1,1,1,1,1,1,1)
+  };
+
+
+  const updateField = (index, value) => {
+    setRows1(rows1.map((row, idx) => (idx === index ? { ...row, studentCount: value } : row)));
+  };
+  
 
   const addRow1 = () => {
     const newRow = {
       Sec: '',
-      courseYear: '',
       studentCount: '',
+      LabRoom: '',
+      TeacherName: '',
+      TeacherSurname: '',
       Major: '',
-      Time: '',
-      Teacher: '',
+      courseYear: '',
+      StudentGrade: '',
+      Day:'',
+      TimeStart: '',
+      TimeEnd: '',
+      SecType: '',
     };
-    setRows1([...rows1, newRow]); // Change {} to newRow
+    setRows1([...rows1, newRow]); 
   };
   
   const addRow2 = () => {
@@ -60,7 +80,6 @@ const CourseTempPopup = ({ closePopup }) => {
     const newRows = rows2.filter((_, rowIndex) => rowIndex !== index);
     setRows2(newRows);
   };
-
 
   return (
     <div className="EDC-popup-container">
@@ -84,7 +103,7 @@ const CourseTempPopup = ({ closePopup }) => {
                     type="number"
                     className="EDC-inputField"
                     placeholder="จำนวนนิสิต"
-                    onChange={(e) => handleInputChange(index, e.target.value)}
+                    onChange={(e) => updateField(index,e.target.value)}
                   />
                   <select className="EDC-inputField">
                     <option value="">สาขา/ชั้นปี</option>
@@ -102,6 +121,7 @@ const CourseTempPopup = ({ closePopup }) => {
                     <option value="อ.ดวงดี">อ.ดวงดี</option>
                     <option value="อ.ดวงเด่น">อ.ดวงเด่น</option>
                   </select>
+                 
                   <IoMdAddCircle className="EDC-icon EDC-addRow1" onClick={addRow1} />
                   <IoMdRemoveCircle
                     className="EDC-icon EDC-deleteRow"
@@ -130,6 +150,7 @@ const CourseTempPopup = ({ closePopup }) => {
                     type="number"
                     className="EDC-inputField"
                     placeholder="จำนวนนิสิต"
+                    onChange={(e) => handleInputChange2(index, e.target.value)}
                   />
                   <select className="EDC-inputField">
                     <option value="">สาขา/ชั้นปี</option>
@@ -147,6 +168,7 @@ const CourseTempPopup = ({ closePopup }) => {
                     <option value="อ.ดวงดี">อ.ดวงดี</option>
                     <option value="อ.ดวงเด่น">อ.ดวงเด่น</option>
                   </select>
+                  
                   <IoMdRemoveCircle
                     className="EDC-icon EDC-deleteRow"
                     onClick={() => deleteRow2(index)}
@@ -172,20 +194,41 @@ const CourseTempPopup = ({ closePopup }) => {
             >
               หมู่ปฏิบัติ
             </button>
-          <div className="EDC-headerText">
-            <span>จำนวนนิสิตทั้งหมด : {groupCount} </span>
-            <span> | </span>
-            <span>จำนวนนิสิตคงเหลือ : {groupCountRemaining} </span>
-          </div>
+            <div className="EDC-headerText">
+              <span>จำนวนนิสิตทั้งหมด : {groupCount} </span>
+              <span> | </span>
+              {activeTable === 'lecture' && (
+                <span>จำนวนนิสิตคงเหลือ (หมู่บรรยาย): {groupCount - groupCountRemaining1} </span>
+              )}
+              {activeTable === 'labor' && (
+                <span>จำนวนนิสิตคงเหลือ (หมู่ปฏิบัติ): {groupCountRemaining2} </span>
+              )}
+            </div>
 
         <div className="EDC-actionButtons">
-          <button className="EDC-buttonA" onClick={closePopup}>ตกลง</button>
+          <button className="EDC-buttonA" onClick={() => handleInputChange()}>Applay</button>
+          <button className="EDC-buttonA" onClick={()=> Insert()}>OK</button>
           <button className="EDC-buttonB" onClick={closePopup}>ยกเลิก</button>
         </div>
       </div>
 
     </div>
   );
+
+  async function insertSec (Year, Semester,SubjectCode,Sec, StuNum, LabRoom, TeacherName, TeacherSurname, Major, CourseYear, StudentGrade,Day,TimeStart,TimeEnd,SecType) {
+    try {
+      
+      var url = `http://localhost:3100/secinsert/${Year}/${Semester}/${SubjectCode}/${Sec}/${StuNum}/${LabRoom}/${TeacherName}/${TeacherSurname}/${Major}/${CourseYear}/${StudentGrade}/${Day}/${TimeStart}/${TimeEnd}/${SecType}`;
+      console.log(url);
+      axios.get(url).then((Response) => {
+      })
+      alert("บันทึกข้อมูลเสร็จสิ้น");
+    }catch (e) {
+      alert('Error:'+e.message);
+    }
+  }
+
+
 };
 
 export default CourseTempPopup;

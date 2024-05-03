@@ -633,3 +633,130 @@ myApp.patch('/requests/:courseCode/status', (req, res) => {
     res.status(200).send({ message: 'Order status updated successfully' });
   });
 });
+
+
+//Manage
+myApp.get("/subjectmanager/:Year/:Semester",(request,response) =>{
+  const { Year,Semester } = request.params;
+  var sql =
+  "SELECT * FROM subjectmanager WHERE Year=? AND Semester=?";
+  conn.query(sql,[Year,Semester], (error, results) => {
+    if (error) {
+      console.log(error);
+      response.status(500).json({ error: "Internal server error" });
+    } else {
+      response.json(results);
+    }
+  });
+});
+
+//ManageInsert
+myApp.get("/subjectmanagerinsert/:Year/:Semester/:IsExternal/:SubjectCode/:SubjectName/:SubjectNameEnglish/:Type/:Credits/:groupCount/:Preq", (request, response) => {
+  const { Year, Semester, IsExternal, SubjectCode, SubjectName, SubjectNameEnglish, Type, Credits,groupCount, Preq } = request.params;
+  var sql =
+  "INSERT INTO subjectmanager ( Year, Semester, IsExternal, SubjectCode, SubjectName, SubjectNameEnglish, Type, Credits, groupCount, Preq)"+
+  "VALUES (?,?,?,?,?,?,?,?,?,?)";
+  conn.query(sql, [Year, Semester, IsExternal, SubjectCode, SubjectName, SubjectNameEnglish, Type, Credits,groupCount, Preq], (error, results) => {
+    if (error) {
+      console.log(error);
+      response.status(500).json({ error: "Internal server error" });
+    } else {
+      response.json(results);
+    }
+  });
+});
+
+
+//ManageEdit
+myApp.get("/subjectmanagerupdate/:IsExternal/:SubjectCode/:SubjectName/:SubjectNameEnglish/:Type/:Credits/:groupCount/:Preq/:idSubjectManager", (request, response) => {
+  const { IsExternal, SubjectCode, SubjectName, SubjectNameEnglish, Type, Credits,groupCount, Preq, idSubjectManager } = request.params;
+  var sql =
+  "UPDATE subjectmanager SET IsExternal = ?, SubjectCode = ?,SubjectName = ?, SubjectNameEnglish = ?,Type = ?, Credits = ?,groupCount = ?, Preq = ? WHERE idSubjectManager = ?"
+  conn.query(sql, [ IsExternal, SubjectCode, SubjectName, SubjectNameEnglish, Type, Credits,groupCount, Preq,idSubjectManager], (error, results) => {
+    if (error) {
+      console.log(error);
+      response.status(500).json({ error: "Internal server error" });
+    } else {
+      response.json(results);
+    }
+  });
+});
+
+//DeleteManager
+myApp.get("/subjectmanagerdelete/:idSubjectManager", (request, response) => {
+  const { idSubjectManager } = request.params;
+  var sql =
+  "DELETE FROM subjectmanager WHERE idSubjectManager = ?"
+  conn.query(sql, [idSubjectManager], (error, results) => {
+    if (error) {
+      console.log(error);
+      response.status(500).json({ error: "Internal server error" });
+    } else {
+      response.json(results);
+    }
+  });
+});
+
+//Sec
+myApp.get("/sec/:Year/:Semester/:SubjectCode",(request,response) =>{
+  const { Year,Semester,SubjectCode } = request.params;
+  var sql =
+  "SELECT * FROM sec WHERE Year=? AND Semester=? AND SubjectCode=?";
+  conn.query(sql,[Year,Semester,SubjectCode], (error, results) => {
+    if (error) {
+      console.log(error);
+      response.status(500).json({ error: "Internal server error" });
+    } else {
+      response.json(results);
+    }
+  });
+});
+
+//InsertSec
+myApp.get("/secinsert/:Year/:Semester/:SubjectCode/:Sec/:StuNum/:LabRoom/:TeacherName/:TeacherSurname/:Major/:CourseYear/:StudentGrade/:Day/:TimeStart/:TimeEnd/:SecType", (request, response) => {
+  const { Year, Semester,SubjectCode, Sec, StuNum, LabRoom, TeacherName, TeacherSurname, Major, CourseYear, StudentGrade,Day,TimeStart,TimeEnd,SecType } = request.params;
+  var sql =
+  "INSERT INTO sec ( Year, Semester,SubjectCode,Sec, StuNum, LabRoom, TeacherName, TeacherSurname, Major, CourseYear, StudentGrade,Day,TimeStart,TimeEnd,SecType)"+
+  "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+  conn.query(sql, [Year, Semester,SubjectCode, Sec, StuNum, LabRoom, TeacherName, TeacherSurname, Major, CourseYear, StudentGrade,Day,TimeStart,TimeEnd,SecType], (error, results) => {
+    if (error) {
+      console.log(error);
+      response.status(500).json({ error: "Internal server error" });
+    } else {
+      response.json(results);
+    }
+  });
+});
+
+//DeleteSec
+myApp.get("/secdelete/:idSec", (request, response) => {
+  const { idSec } = request.params;
+  var sql =
+  "DELETE FROM sec WHERE idSec"
+  conn.query(sql, [idSec], (error, results) => {
+    if (error) {
+      console.log(error);
+      response.status(500).json({ error: "Internal server error" });
+    } else {
+      response.json(results);
+    }
+  });
+});
+
+
+//EditSec
+myApp.get("/secupdate/:Sec/:StuNum/:LabRoom/:TeacherName/:TeacherSurname/:Major/:CourseYear/:StudentGrade/:Day/:TimeStart/:TimeEnd/:idSec", (request, response) => {
+  const {  Sec, StuNum, LabRoom, TeacherName, TeacherSurname, Major, CourseYear, StudentGrade,Day,TimeStart,TimeEnd,idSec } = request.params;
+  var sql =
+  "UPDATE sec SET Sec = ?, StuNum = ?,LabRoom = ?, TeacherName = ?,TeacherSurname = ?, Major = ?,CourseYear = ?, StudentGrade = ?,Day=?,TimeStart=?,TimeEnd=? WHERE idSec = ?"
+  conn.query(sql, [ Sec, StuNum, LabRoom, TeacherName, TeacherSurname, Major, CourseYear, StudentGrade,Day,TimeStart,TimeEnd,idSec], (error, results) => {
+    if (error) {
+      console.log(error);
+      response.status(500).json({ error: "Internal server error" });
+    } else {
+      response.json(results);
+    }
+  });
+});
+
+
