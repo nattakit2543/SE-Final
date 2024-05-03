@@ -23,7 +23,6 @@ const Manage = () => {
       Credits: "",
       groupCount: "",
       columnG: "",
-      columnH: false,
       Preq: "",
     };
     setRows([...rows, newRow]);
@@ -57,7 +56,7 @@ const Manage = () => {
       <div className="column-headers">
         {[
           "วิชานอกคณะ", "รหัสวิชา", "ชื่อวิชา", "ชื่อวิชาภาษาอังกฤษ",
-          "หมวด", "หน่วยกิต", "จำนวนนิสิตทั้งหมด", "ข้อมูลเพิ่มเติม", "วัน/เวลาเดียวกัน", "วิชาพื้นฐาน"
+          "หมวด", "หน่วยกิต", "จำนวนนิสิตทั้งหมด", "ข้อมูลเพิ่มเติม",  "วิชาพื้นฐาน"
         ].map((header, index) => (
           <div key={index} className={`header-cell column-${String.fromCharCode('A'.charCodeAt(0) + index)}`}>
             {header}
@@ -69,7 +68,7 @@ const Manage = () => {
           <div key={index} className="row">
             {Object.keys(row).map((key, idx) => (
               <div key={key} className={`cell column-${String.fromCharCode('A'.charCodeAt(0) + idx)}`}>
-                {key === 'IsExternal' || key === 'columnH' ? (
+                {key === 'IsExternal'  ? (
                   <input
                     type="checkbox"
                     className="input-checkbox"
